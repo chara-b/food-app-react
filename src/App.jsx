@@ -39,6 +39,7 @@ function App() {
         receiveDeletedFoodsList={handleDeletedFoodsList}
         buttonsActions={[
           { buttonAction: "delete", buttonIcon: "fa-solid fa-trash" },
+          { buttonAction: "edit", buttonIcon: "fa-solid fa-edit" },
         ]}
         colsCount="3"
       />

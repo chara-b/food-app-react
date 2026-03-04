@@ -28,12 +28,19 @@ function FoodList({
     ]);
   };
 
+  const handleEditedFood = (editedFood) => {
+    console.log("editedFood: ", editedFood);
+  };
+
   const handleFood = (buttonAction, foodData) => {
     if (buttonAction === "delete") {
       handleDeletedFood(foodData);
     }
     if (buttonAction === "restore") {
       handleRestoredFood(foodData);
+    }
+    if (buttonAction === "edit") {
+      handleEditedFood(foodData);
     }
   };
 
