@@ -1,32 +1,23 @@
-import { useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import FoodList from "./food-list";
+import Button from "./button";
 
 function CustomModal({
   isOpen,
-  onModalStateChange,
+  onClose,
   title,
-  content,
   icon,
   actionBtnLeft,
   actionBtnRight,
+  children,
 }) {
-  const [open, setOpen] = useState(isOpen);
-
-  const handleClick = () => {
-    setOpen(false);
-    // pernaei data apo to child ston parent auti i callback edo !
-    onModalStateChange(false);
-  };
   return (
     <>
-      <Dialog open={open} onClose={handleClick} className="relative z-10">
+      <Dialog open={isOpen} onClose={onClose} className="relative z-10">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
@@ -49,39 +40,25 @@ function CustomModal({
                     >
                       {title}
                     </DialogTitle>
-                    <div className="mt-2">
-                      {Array.isArray(content) ? (
-                        <FoodList
-                          className="w-full"
-                          data={content}
-                          icon="fa-solid fa-arrow-rotate-right"
-                          btnType="restore"
-                          colsCount="1"
-                          disabledBtn={true}
-                        />
-                      ) : (
-                        <p className="text-sm text-gray-500">{content}</p>
-                      )}
-                    </div>
+                    <div className="mt-2">{children}</div>
                   </div>
                 </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button
+                <Button
                   type="button"
-                  onClick={handleClick}
-                  className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
+                  onClick={onClose}
+                  styles="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
                 >
                   {actionBtnRight}
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
-                  data-autofocus
-                  onClick={handleClick}
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  onClick={onClose}
+                  styles="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                 >
                   {actionBtnLeft}
-                </button>
+                </Button>
               </div>
             </DialogPanel>
           </div>

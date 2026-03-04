@@ -3,11 +3,9 @@ import { useEffect, useState } from "react";
 
 function FoodList({
   data,
+  buttonsActions,
   searchText,
   receiveDeletedFoodsList,
-  icon,
-  btnType,
-  disabledBtn,
   colsCount,
 }) {
   const [availableFoods, setAvailableFoods] = useState(data || []);
@@ -30,6 +28,15 @@ function FoodList({
     ]);
   };
 
+  const handleFood = (buttonAction, foodData) => {
+    if (buttonAction === "delete") {
+      handleDeletedFood(foodData);
+    }
+    if (buttonAction === "restore") {
+      handleRestoredFood(foodData);
+    }
+  };
+
   useEffect(() => {
     // for search keyword
     if (!searchText?.trim()) {
@@ -48,7 +55,7 @@ function FoodList({
       receiveDeletedFoodsList(deletedFoods);
       console.log(deletedFoods);
     }
-  }, [searchText, deletedFoods]);
+  }, [searchText, deletedFoods, receiveDeletedFoodsList, availableFoods]);
 
   const foodsNum = filteredFoods.length;
 
@@ -61,11 +68,8 @@ function FoodList({
           <Food
             foodData={food}
             key={food.id}
-            receiveDeletedFood={handleDeletedFood}
-            receiveRestoredFood={handleRestoredFood}
-            btnIcon={icon}
-            btnType={btnType}
-            disabledBtn={btnType === "restore" ? true : false}
+            onClick={handleFood}
+            buttonsActions={buttonsActions}
           />
         );
       })}
