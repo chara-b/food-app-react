@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import Button from "../components/button";
+import { useNavigate } from "react-router-dom";
 
 const initialState = { email: "", password: "" };
 
@@ -18,11 +19,12 @@ function reducer(state, action) {
 
 function Login() {
   const [formState, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("login submitted");
     dispatch({ type: "reset" });
+    navigate("mainpage");
   }
 
   function handleEmail(e) {

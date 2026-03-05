@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Button from "./button";
-import FoodList from "./food-list";
+import ProductList from "./product-list";
 import CustomModal from "./custom-modal";
 
-function NavBarComponent({ deletedFoods, children }) {
+function NavBar({ deletedProducts, children }) {
   // const [logoutValue, setLogoutValue] = useState(false);
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [btnNameClicked, setBtnNameClicked] = useState("");
@@ -29,8 +29,8 @@ function NavBarComponent({ deletedFoods, children }) {
   const handleAddClick = () => {
     setShowCustomModal(true);
     setBtnNameClicked("add");
-    setModalTitle("Add new food");
-    setModalContent("here goes the form to add new food...");
+    setModalTitle("Add new Product");
+    setModalContent("here goes the form to add new Product...");
     setModalIcon("fa-solid fa-utensils");
     setModalActionBtnLeft("Cancel");
     setModalActionBtnRight("Add");
@@ -39,9 +39,9 @@ function NavBarComponent({ deletedFoods, children }) {
   const handleDeletedFolderClick = () => {
     setShowCustomModal(true);
     setBtnNameClicked("deleted");
-    setModalTitle("This is your deleted foods folder");
+    setModalTitle("This is your deleted Products folder");
     setModalContent(
-      "here goes the form to show you what's in your deleted foods folder...",
+      "here goes the form to show you what's in your deleted Products folder...",
     );
     setModalIcon("fa-solid fa-trash");
     setModalActionBtnLeft("Cancel");
@@ -49,8 +49,8 @@ function NavBarComponent({ deletedFoods, children }) {
   };
 
   useEffect(() => {
-    setModalList(deletedFoods);
-  }, [deletedFoods]);
+    setModalList(deletedProducts);
+  }, [deletedProducts]);
 
   return (
     <div className="flex items-center gap-4 rounded-lg bg-blue-200 p-6 shadow-md outline outline-black/5">
@@ -72,7 +72,7 @@ function NavBarComponent({ deletedFoods, children }) {
             actionBtnRight={modalActionBtnRight}
           >
             {btnNameClicked === "deleted" ? (
-              <FoodList
+              <ProductList
                 className="w-full"
                 data={modalList}
                 buttonsActions={[
@@ -104,4 +104,4 @@ function NavBarComponent({ deletedFoods, children }) {
     </div>
   );
 }
-export default NavBarComponent;
+export default NavBar;
