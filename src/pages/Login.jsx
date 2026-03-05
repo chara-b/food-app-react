@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import Button from "../components/button";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 
 const initialState = { email: "", password: "" };
 
@@ -24,7 +24,7 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch({ type: "reset" });
-    navigate("mainpage");
+    navigate("/");
   }
 
   function handleEmail(e) {
@@ -37,7 +37,7 @@ function Login() {
 
   return (
     <div className="w-full h-screen flex items-center justify-center">
-      <form class="w-full max-w-sm m-auto">
+      <Form class="w-full max-w-sm m-auto">
         <div class="md:flex md:items-center mb-6">
           <div class="md:w-1/3">
             <label
@@ -54,6 +54,7 @@ function Login() {
               type="text"
               value={formState.email}
               onChange={handleEmail}
+              required
             />
           </div>
         </div>
@@ -73,6 +74,7 @@ function Login() {
               type="password"
               value={formState.password}
               onChange={handlePassword}
+              required
             />
           </div>
         </div>
@@ -89,7 +91,7 @@ function Login() {
             </Button>
           </div>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

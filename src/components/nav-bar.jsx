@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import Button from "./button";
 import ProductList from "./product-list";
 import CustomModal from "./custom-modal";
+import { useNavigate } from "react-router-dom";
 
 function NavBar({ deletedProducts, children }) {
-  // const [logoutValue, setLogoutValue] = useState(false);
+  const navigate = useNavigate();
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [btnNameClicked, setBtnNameClicked] = useState("");
   const [modalTitle, setModalTitle] = useState("");
@@ -19,11 +20,7 @@ function NavBar({ deletedProducts, children }) {
   };
 
   const handleLougout = () => {
-    // setLogoutValue((prevLogoutValue) => {
-    //   console.log("logged out: " + true);
-    //   return true;
-    // });
-    console.log("logged out: " + true);
+    navigate("/login");
   };
 
   const handleAddClick = () => {
