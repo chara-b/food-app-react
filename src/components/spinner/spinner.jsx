@@ -1,9 +1,7 @@
-import styles from "./spinner.module.css";
+import styles from "./Spinner.module.css";
 
 export function Spinner() {
-  return (
-    <div className={`${styles.loader} h-screen overflow-auto`}>Loading...</div>
-  );
+  return <div className={`${styles.loader}`}></div>;
 }
 
 export default Spinner;

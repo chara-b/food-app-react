@@ -1,5 +1,6 @@
 // react hooks
 import { useState } from "react";
+import Login from "./pages/login.jsx";
 
 // css
 import "./App.css";
@@ -59,7 +60,8 @@ function App() {
           colsCount="3"
         />
       )}
-      {!error && isLoading && <Spinner className="w-full" />}
+
+      {!error && isLoading && <Spinner />}
       {error && <Error />}
 
       <Footer className="w-full" />
