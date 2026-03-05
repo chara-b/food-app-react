@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export function useFetch(url) {
-  const [products, setProducts] = useState([]);
+  const [fetchedData, setFetchedData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,7 +17,7 @@ export function useFetch(url) {
             throw new Error("Something went wrong while fetching data");
           }
           const data = await res.json();
-          setProducts(data);
+          setFetchedData(data);
         } catch (err) {
           setError(err.message);
         } finally {
@@ -33,5 +33,5 @@ export function useFetch(url) {
     [url],
   );
 
-  return [products, isLoading, error];
+  return [fetchedData, isLoading, error];
 }

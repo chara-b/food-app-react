@@ -1,15 +1,28 @@
+// react hooks
 import { useState } from "react";
+
+// css
 import "./App.css";
 
-import { data } from "./data.js";
+// components
 import NavBarComponent from "./components/nav-bar";
 import NavBarItem from "./components/nav-item.jsx";
 import FoodList from "./components/food-list";
 import Footer from "./components/footer";
+import Spinner from "./components/spinner/spinner.jsx";
+import Error from "./pages/Error.jsx";
+
+// custom hooks
+import { useFetch } from "./hooks/useFetch.jsx";
+
+// constants
+import { PRODUCTS_URL } from "./constants/urls.js";
 
 function App() {
   const [searchText, setSearchText] = useState("");
   const [deletedFoods, setDeletedFoods] = useState([]);
+
+  const [fetchedData, isLoading, error] = useFetch(PRODUCTS_URL);
 
   const handleChangedSearchText = (e) => {
     const searchText = e.target.value;
@@ -32,17 +45,23 @@ function App() {
           onChange={handleChangedSearchText}
         />
       </NavBarComponent>
-      <FoodList
-        className="w-full"
-        data={data}
-        searchText={searchText}
-        receiveDeletedFoodsList={handleDeletedFoodsList}
-        buttonsActions={[
-          { buttonAction: "delete", buttonIcon: "fa-solid fa-trash" },
-          { buttonAction: "edit", buttonIcon: "fa-solid fa-edit" },
-        ]}
-        colsCount="3"
-      />
+
+      {!error && !isLoading && (
+        <FoodList
+          className="w-full"
+          data={fetchedData}
+          searchText={searchText}
+          receiveDeletedFoodsList={handleDeletedFoodsList}
+          buttonsActions={[
+            { buttonAction: "delete", buttonIcon: "fa-solid fa-trash" },
+            { buttonAction: "edit", buttonIcon: "fa-solid fa-edit" },
+          ]}
+          colsCount="3"
+        />
+      )}
+      {!error && isLoading && <Spinner className="w-full" />}
+      {error && <Error />}
+
       <Footer className="w-full" />
     </div>
   );

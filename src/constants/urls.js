@@ -1,1 +1,1 @@
-export const PRODUCTS_URL = `localhost/products`;
+export const PRODUCTS_URL = `http://localhost:9000/products`;
