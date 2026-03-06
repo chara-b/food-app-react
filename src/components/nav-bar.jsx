@@ -34,15 +34,16 @@ function NavBar({ deletedProducts, children }) {
   };
 
   const handleDeletedFolderClick = () => {
-    setShowCustomModal(true);
-    setBtnNameClicked("deleted");
-    setModalTitle("This is your deleted Products folder");
-    setModalContent(
-      "here goes the form to show you what's in your deleted Products folder...",
-    );
-    setModalIcon("fa-solid fa-trash");
-    setModalActionBtnLeft("Cancel");
-    setModalActionBtnRight("Restore All");
+    // setShowCustomModal(true);
+    // setBtnNameClicked("deleted");
+    // setModalTitle("This is your deleted Products folder");
+    // setModalContent(
+    //   "here goes the form to show you what's in your deleted Products folder...",
+    // );
+    // setModalIcon("fa-solid fa-trash");
+    // setModalActionBtnLeft("Cancel");
+    // setModalActionBtnRight("Restore All");
+    navigate("bin");
   };
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 // react
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 // components
 import NavBar from "../components/nav-bar.jsx";
 import NavBarItem from "../components/nav-item.jsx";
@@ -13,10 +14,15 @@ import Error from "./Error.jsx";
 import { useFetch } from "../hooks/useFetch.jsx";
 // constants
 import { PRODUCTS_URL } from "../constants/urls.js";
+import { Outlet } from "react-router-dom";
 
 function MainPage() {
   const [searchText, setSearchText] = useState("");
   const [deletedProducts, setDeletedProducts] = useState([]);
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
 
   const [fetchedData, isLoading, error] = useFetch(PRODUCTS_URL);
 
@@ -28,6 +34,17 @@ function MainPage() {
   const handleDeletedProductsList = (deletedProductsList) => {
     setDeletedProducts(deletedProductsList);
   };
+
+  useEffect(
+    function () {
+      const user = localStorage.getItem("user");
+      if (!user) {
+        navigate("/login");
+      }
+    },
+    [navigate],
+  );
+
   return (
     <div className="flex flex-col gap-4 w-full h-screen">
       <NavBar className="w-full" deletedProducts={() => deletedProducts}>
@@ -41,21 +58,25 @@ function MainPage() {
         />
       </NavBar>
 
-      {!error && !isLoading && (
-        <ProductList
-          className="w-full"
-          data={fetchedData}
-          searchText={searchText}
-          receiveDeletedProductsList={handleDeletedProductsList}
-          buttonsActions={[
-            { buttonAction: "delete", buttonIcon: "fa-solid fa-trash" },
-            { buttonAction: "edit", buttonIcon: "fa-solid fa-edit" },
-          ]}
-          colsCount="3"
-        >
-          <Paginator count={fetchedData.length} perPage={5} />
-        </ProductList>
-      )}
+      {!error &&
+        !isLoading &&
+        (!location.pathname.includes("bin") ? (
+          <ProductList
+            className="w-full"
+            data={fetchedData}
+            searchText={searchText}
+            receiveDeletedProductsList={handleDeletedProductsList}
+            buttonsActions={[
+              { buttonAction: "delete", buttonIcon: "fa-solid fa-trash" },
+              { buttonAction: "edit", buttonIcon: "fa-solid fa-edit" },
+            ]}
+            colsCount="3"
+          >
+            <Paginator count={fetchedData.length} perPage={5} />
+          </ProductList>
+        ) : (
+          <Outlet />
+        ))}
 
       {!error && isLoading && <Spinner />}
       {error && <Error />}

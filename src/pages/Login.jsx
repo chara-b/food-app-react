@@ -24,6 +24,7 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch({ type: "reset" });
+    localStorage.setItem("user", 123);
     navigate("/");
   }
 

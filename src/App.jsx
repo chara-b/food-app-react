@@ -14,10 +14,13 @@ import PageNotFound from "./pages/PageNotFound.jsx";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
-  { path: "/", element: <MainPage /> },
-  { path: "/bin", element: <Bin /> },
+  {
+    path: "/",
+    element: <MainPage />,
+    children: [{ path: "bin", element: <Bin /> }],
+  },
   { path: "/error", element: <Error /> },
-  { path: "/pagenotfound", element: <PageNotFound /> },
+  { path: "*", element: <PageNotFound /> },
 ]);
 
 function App() {
