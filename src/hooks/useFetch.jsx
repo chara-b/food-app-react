@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+// den xrisimopoiitai pleon ! to fetch to kano meso tou react router kata to routing !
+// einai pio well optimized meso tou router giati apofeugontai ta pithana loading waterfalls !
+// tin useFetch tin exo afisei mono gia egiklopedikous logous edo
 export function useFetch(url) {
   const [fetchedData, setFetchedData] = useState([]);
   const [error, setError] = useState(null);

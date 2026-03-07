@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Paginator from "./paginator.jsx";
 import Product from "./product.jsx";
 import { useEffect, useState } from "react";
@@ -13,6 +14,8 @@ function ProductList({
   const [availableProducts, setAvailableProducts] = useState(data || []);
   const [filteredProducts, setFilteredProducts] = useState(data || []);
   const [deletedProducts, setDeletedProducts] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleDeletedProduct = (deletedProduct) => {
     console.log("deletedProduct: ", deletedProduct);
@@ -37,6 +40,7 @@ function ProductList({
 
   const handleEditedProduct = (editedProduct) => {
     console.log("editedProduct: ", editedProduct);
+    navigate(`product/${editedProduct.id}`);
   };
 
   const handleProduct = (buttonAction, productData) => {

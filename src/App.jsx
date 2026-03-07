@@ -9,9 +9,14 @@ import MainPage from "./pages/mainPage.jsx";
 import Bin from "./pages/Bin.jsx";
 import Error from "./pages/Error.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
+import ProductPage from "./pages/ProductPage.jsx";
 // custom hooks
 // loaders for fetching data at routing
-import { fetchProducts } from "./services/productsHTTPRequests.js";
+import {
+  fetchProducts,
+  fetchProduct,
+} from "./services/productsHTTPRequests.js";
+
 // constants
 
 const router = createBrowserRouter([
@@ -21,7 +26,15 @@ const router = createBrowserRouter([
     element: <MainPage />,
     loader: fetchProducts,
     errorElement: <Error />,
-    children: [{ path: "bin", element: <Bin /> }],
+    children: [
+      { path: "bin", element: <Bin /> },
+      {
+        path: "product/:productId",
+        element: <ProductPage />,
+        loader: fetchProduct,
+        errorElement: <Error />,
+      },
+    ],
   },
   { path: "/error", element: <Error /> },
   { path: "*", element: <PageNotFound /> },

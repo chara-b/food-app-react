@@ -67,7 +67,7 @@ function MainPage() {
       </NavBar>
 
       {!isLoading &&
-        (!location.pathname.includes("bin") ? (
+        (location.pathname === "/" ? (
           <ProductList
             className="w-full"
             data={fetchedData}
