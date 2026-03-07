@@ -73,9 +73,9 @@ function NavBar({ deletedProducts, children }) {
               <ProductList
                 className="w-full"
                 data={modalList}
-                buttonsActions={[
+                actionBtns={[
                   {
-                    buttonAction: "restore",
+                    actionBtn: "restore",
                     buttonIcon: "fa-solid fa-arrow-rotate-right",
                   },
                 ]}

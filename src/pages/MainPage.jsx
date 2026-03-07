@@ -73,9 +73,9 @@ function MainPage() {
             data={fetchedData}
             searchText={searchText}
             receiveDeletedProductsList={handleDeletedProductsList}
-            buttonsActions={[
-              { buttonAction: "delete", buttonIcon: "fa-solid fa-trash" },
-              { buttonAction: "edit", buttonIcon: "fa-solid fa-edit" },
+            actionBtns={[
+              { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
+              { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },
             ]}
             colsCount="3"
           >

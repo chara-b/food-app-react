@@ -24,7 +24,9 @@ declare global {
   const food: typeof import('./components/food.jsx').default
   const foodList: typeof import('./components/food-list.jsx').default
   const footer: typeof import('./components/footer.jsx').default
+  const form: typeof import('./components/form.jsx').default
   const forwardRef: typeof import('react').forwardRef
+  const input: typeof import('./components/input.jsx').default
   const lazy: typeof import('react').lazy
   const memo: typeof import('react').memo
   const navBar: typeof import('./components/nav-bar.jsx').default

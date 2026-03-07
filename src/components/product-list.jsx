@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 function ProductList({
   data,
-  buttonsActions,
+  actionBtns,
   searchText,
   receiveDeletedProductsList,
   colsCount,
@@ -43,15 +43,15 @@ function ProductList({
     navigate(`product/${editedProduct.id}`);
   };
 
-  const handleProduct = (buttonAction, productData) => {
-    if (buttonAction === "delete") {
-      handleDeletedProduct(productData);
+  const handleProduct = (actionBtn, product) => {
+    if (actionBtn === "delete") {
+      handleDeletedProduct(product);
     }
-    if (buttonAction === "restore") {
-      handleRestoredProduct(productData);
+    if (actionBtn === "restore") {
+      handleRestoredProduct(product);
     }
-    if (buttonAction === "edit") {
-      handleEditedProduct(productData);
+    if (actionBtn === "edit") {
+      handleEditedProduct(product);
     }
   };
 
@@ -90,10 +90,10 @@ function ProductList({
         {filteredProducts.map((product) => {
           return (
             <Product
-              productData={product}
+              product={product}
               key={product.id}
               onClick={handleProduct}
-              buttonsActions={buttonsActions}
+              actionBtns={actionBtns}
             />
           );
         })}

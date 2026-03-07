@@ -11,7 +11,8 @@
         "πιπεριά"
       ],
       "price": 10,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "pizza.png",
       "quantity": 10
     },
@@ -26,7 +27,8 @@
         "γκούντα"
       ],
       "price": 7,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "burger.png",
       "quantity": 10
     },
@@ -44,7 +46,8 @@
         "αυγό"
       ],
       "price": 4,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "sandwich.png",
       "quantity": 10
     },
@@ -61,7 +64,8 @@
         "καλαμπόκι"
       ],
       "price": 3,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "salad.png",
       "quantity": 10
     },
@@ -70,7 +74,8 @@
       "title": "Τοστ",
       "ingredients": ["γκούντα", "καπνιστή μπριζόλα", "φιλαδέλφεια"],
       "price": 2.5,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "toast.png",
       "quantity": 10
     },
@@ -79,7 +84,8 @@
       "title": "Κόκα κόλα",
       "ingredients": [],
       "price": 1,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "cocacola.png",
       "quantity": 10
     },
@@ -88,7 +94,8 @@
       "title": "Πορτοκαλάδα",
       "ingredients": [],
       "price": 1,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "juice.png",
       "quantity": 10
     },
@@ -97,7 +104,8 @@
       "title": "Νερό",
       "ingredients": [],
       "price": 0.5,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "water.png",
       "quantity": 10
     },
@@ -106,7 +114,8 @@
       "title": "Μπουγάτσα",
       "ingredients": [],
       "price": 2.5,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "mpougatsa.png",
       "quantity": 10
     },
@@ -115,7 +124,8 @@
       "title": "Κουλούρι Θεσσαλονίκης",
       "ingredients": [],
       "price": 0.5,
-      "currency": "€",
+      "currency": "euro",
+      "currency_symbol": "€",
       "imgName": "koulouri.png",
       "quantity": 10
     }

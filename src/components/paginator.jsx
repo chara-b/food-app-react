@@ -21,7 +21,7 @@ function Paginator({ count, perPage }) {
           onClick={handlePrevious}
           disabled={current + 1 === 1 ? true : false}
         >
-          <i class="fa-solid fa-angles-left"></i>
+          <i className="fa-solid fa-angles-left"></i>
           Previous
         </Button>
         <Button
@@ -31,7 +31,7 @@ function Paginator({ count, perPage }) {
           disabled={current + 1 + perPage - 1 === count ? true : false}
         >
           Next
-          <i class="fa-solid fa-angles-right"></i>
+          <i className="fa-solid fa-angles-right"></i>
         </Button>
       </div>
     </div>
