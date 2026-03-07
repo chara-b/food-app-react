@@ -1,5 +1,13 @@
+import { useRouteError } from "react-router-dom";
+
 function Error({ message }) {
-  return <div>An error occured with below message {message}</div>;
+  const errorFromRoute = useRouteError();
+  return (
+    <div>
+      An error occured with below message {message} and{" "}
+      {errorFromRoute.data || errorFromRoute.message}
+    </div>
+  );
 }
 
 export default Error;

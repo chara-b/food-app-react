@@ -1,6 +1,11 @@
 // react
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 // components
 import NavBar from "../components/nav-bar.jsx";
 import NavBarItem from "../components/nav-item.jsx";
@@ -11,7 +16,7 @@ import Paginator from "../components/paginator.jsx";
 // pages
 import Error from "./Error.jsx";
 // custom hooks
-import { useFetch } from "../hooks/useFetch.jsx";
+
 // constants
 import { PRODUCTS_URL } from "../constants/urls.js";
 import { Outlet } from "react-router-dom";
@@ -22,9 +27,12 @@ function MainPage() {
 
   const navigate = useNavigate();
 
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
+
   const location = useLocation();
 
-  const [fetchedData, isLoading, error] = useFetch(PRODUCTS_URL);
+  const fetchedData = useLoaderData();
 
   const handleChangedSearchText = (e) => {
     const searchText = e.target.value;
@@ -58,8 +66,7 @@ function MainPage() {
         />
       </NavBar>
 
-      {!error &&
-        !isLoading &&
+      {!isLoading &&
         (!location.pathname.includes("bin") ? (
           <ProductList
             className="w-full"
@@ -78,8 +85,7 @@ function MainPage() {
           <Outlet />
         ))}
 
-      {!error && isLoading && <Spinner />}
-      {error && <Error />}
+      {isLoading && <Spinner />}
 
       <Footer className="w-full" />
     </div>

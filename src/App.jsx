@@ -5,11 +5,13 @@ import "./App.css";
 // components
 // pages
 import Login from "./pages/login.jsx";
-import MainPage from "./pages/MainPage.jsx";
+import MainPage from "./pages/mainPage.jsx";
 import Bin from "./pages/Bin.jsx";
 import Error from "./pages/Error.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 // custom hooks
+// loaders for fetching data at routing
+import { fetchProducts } from "./services/productsHTTPRequests.js";
 // constants
 
 const router = createBrowserRouter([
@@ -17,6 +19,8 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+    loader: fetchProducts,
+    errorElement: <Error />,
     children: [{ path: "bin", element: <Bin /> }],
   },
   { path: "/error", element: <Error /> },
