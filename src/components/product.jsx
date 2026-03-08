@@ -17,6 +17,7 @@ function CardSection2({
 }) {
   const [ingredientNames, setIngredientNames] = useState(ingredients);
   const [newInputsWithLabelNames, setNewInputsWithLabelNames] = useState([]);
+  const [newInputName, setNewInputName] = useState("");
 
   function onAddNewInput() {
     setNewInputsWithLabelNames((inputsWithLabel) => [

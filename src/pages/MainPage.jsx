@@ -5,6 +5,7 @@ import {
   useLocation,
   useNavigate,
   useNavigation,
+  Outlet,
 } from "react-router-dom";
 // components
 import NavBar from "../components/nav-bar.jsx";
@@ -14,12 +15,12 @@ import Footer from "../components/footer";
 import Spinner from "../components/spinner/spinner.jsx";
 import Paginator from "../components/paginator.jsx";
 // pages
-import Error from "./Error.jsx";
+
 // custom hooks
 
 // constants
-import { PRODUCTS_URL } from "../constants/urls.js";
-import { Outlet } from "react-router-dom";
+// contexts
+import { CustomModalContextProvider } from "../contexts/CustomModalContext.jsx";
 
 function MainPage() {
   const [searchText, setSearchText] = useState("");
@@ -54,41 +55,43 @@ function MainPage() {
   );
 
   return (
-    <div className="flex flex-col gap-4 w-full h-screen">
-      <NavBar className="w-full" deletedProducts={() => deletedProducts}>
-        <NavBarItem
-          styles="w-100 px-4 py-2 border bg-white rounded-lg focus:ring-2 focus:ring-black focus:border-black"
-          placeholder="Search..."
-          type="input"
-          value={searchText}
-          icon="fa-solid fa-magnifying-glass"
-          onChange={handleChangedSearchText}
-        />
-      </NavBar>
+    <CustomModalContextProvider>
+      <div className="flex flex-col gap-4 w-full h-screen">
+        <NavBar className="w-full" deletedProducts={() => deletedProducts}>
+          <NavBarItem
+            styles="w-100 px-4 py-2 border bg-white rounded-lg focus:ring-2 focus:ring-black focus:border-black"
+            placeholder="Search..."
+            type="input"
+            value={searchText}
+            icon="fa-solid fa-magnifying-glass"
+            onChange={handleChangedSearchText}
+          />
+        </NavBar>
 
-      {!isLoading &&
-        (location.pathname === "/" ? (
-          <ProductList
-            className="w-full"
-            data={fetchedData}
-            searchText={searchText}
-            receiveDeletedProductsList={handleDeletedProductsList}
-            actionBtns={[
-              { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
-              { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },
-            ]}
-            colsCount="3"
-          >
-            <Paginator count={fetchedData.length} perPage={5} />
-          </ProductList>
-        ) : (
-          <Outlet />
-        ))}
+        {!isLoading &&
+          (location.pathname === "/" ? (
+            <ProductList
+              className="w-full"
+              data={fetchedData}
+              searchText={searchText}
+              receiveDeletedProductsList={handleDeletedProductsList}
+              actionBtns={[
+                { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
+                { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },
+              ]}
+              colsCount="3"
+            >
+              <Paginator count={fetchedData.length} perPage={5} />
+            </ProductList>
+          ) : (
+            <Outlet />
+          ))}
 
-      {isLoading && <Spinner />}
+        {isLoading && <Spinner />}
 
-      <Footer className="w-full" />
-    </div>
+        <Footer className="w-full" />
+      </div>
+    </CustomModalContextProvider>
   );
 }
 
