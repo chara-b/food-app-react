@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import Input from "../components/input";
 
 const CustomModalContext = createContext(null);
 
@@ -6,7 +7,6 @@ function CustomModalContextProvider({ children }) {
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState("");
-
   const [modalIcon, setModalIcon] = useState("");
   const [modalActionBtnLeft, setModalActionBtnLeft] = useState("");
   const [modalActionBtnRight, setModalActionBtnRight] = useState("");
@@ -23,6 +23,22 @@ function CustomModalContextProvider({ children }) {
     setModalActionBtnLeft("Cancel");
     setModalActionBtnRight("Add");
   };
+
+  const handleNewFormFieldName = () => {
+    setShowCustomModal(true);
+    setModalTitle("Add new Input");
+    setModalContent(
+      <Input
+        label="Enter new form field name"
+        id="new-field"
+        name="new-field"
+        type="text"
+      />,
+    );
+    setModalIcon("fa-solid fa-plus");
+    setModalActionBtnLeft("Cancel");
+    setModalActionBtnRight("Add");
+  };
   return (
     <CustomModalContext.Provider
       value={{
@@ -31,7 +47,8 @@ function CustomModalContextProvider({ children }) {
         modalIcon: modalIcon,
         modalActionBtnLeft: modalActionBtnLeft,
         modalActionBtnRight: modalActionBtnRight,
-        onAddNewProductCustomModal: handleAddNewProduct,
+        onAddNewProduct: handleAddNewProduct,
+        onAddNewFormField: handleNewFormFieldName,
         showCustomModal: showCustomModal,
         onCloseModal: handleCloseCustomModal,
       }}

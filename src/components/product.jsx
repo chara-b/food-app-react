@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Button from "./button";
 import Form from "./form.jsx";
+import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
+import CustomModal from "./custom-modal.jsx";
 
 function CardSection1({ imgName }) {
   return <img src={"../src/assets/" + imgName} className="w-20 mr-2" />;
@@ -17,9 +19,20 @@ function CardSection2({
 }) {
   const [ingredientNames, setIngredientNames] = useState(ingredients);
   const [newInputsWithLabelNames, setNewInputsWithLabelNames] = useState([]);
-  const [newInputName, setNewInputName] = useState("");
+
+  const {
+    modalTitle,
+    modalContent,
+    modalIcon,
+    modalActionBtnLeft,
+    modalActionBtnRight,
+    onAddNewFormField,
+    showCustomModal,
+    onCloseModal,
+  } = useCustomModalContext();
 
   function onAddNewInput() {
+    onAddNewFormField();
     setNewInputsWithLabelNames((inputsWithLabel) => [
       ...inputsWithLabel,
       {
@@ -56,6 +69,18 @@ function CardSection2({
         >
           <i className="fa-solid fa-plus"></i>Add Input
         </Button>
+        {showCustomModal && (
+          <CustomModal
+            isOpen={true}
+            onClose={onCloseModal}
+            title={modalTitle}
+            icon={modalIcon}
+            actionBtnLeft={modalActionBtnLeft}
+            actionBtnRight={modalActionBtnRight}
+          >
+            {modalContent}
+          </CustomModal>
+        )}
       </Form>
     );
   }
