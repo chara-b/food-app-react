@@ -8,6 +8,7 @@ function Form({
   price,
   currency,
   quantity,
+  onChange,
   children,
 }) {
   return (
@@ -25,13 +26,21 @@ function Form({
                 id="ingredient"
                 name="ingredient"
                 value={ingredient}
+                onChange={onChange}
                 type="text"
               />
             </li>
           ))}
         </ul>
       </div>
-      <Input label="Price" id="price" name="price" value={price} type="text">
+      <Input
+        label="Price"
+        id="price"
+        name="price"
+        value={price}
+        onChange={onChange}
+        type="text"
+      >
         <div className="grid shrink-0 grid-cols-1 focus-within:relative">
           <select
             id="currency"
@@ -53,15 +62,18 @@ function Form({
         id="quantity"
         name="quantity"
         value={quantity}
+        onChange={onChange}
         type="text"
       />
 
-      {newInputsWithLabelNames.map((inputWithLabelName) => (
+      {newInputsWithLabelNames.map((inputWithLabelName, i) => (
         <Input
+          key={i}
           label={inputWithLabelName.label}
           id={inputWithLabelName.id}
           name={inputWithLabelName.name}
           value={inputWithLabelName.value}
+          onChange={onChange}
           type="text"
         />
       ))}

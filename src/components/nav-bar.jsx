@@ -14,6 +14,7 @@ function NavBar({ children }) {
     onAddNewProduct,
     showCustomModal,
     onCloseModal,
+    onConfirmModal,
   } = useCustomModalContext();
 
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ function NavBar({ children }) {
           <CustomModal
             isOpen={true}
             onClose={onCloseModal}
+            onConfirm={onConfirmModal}
             title={modalTitle}
             icon={modalIcon}
             actionBtnLeft={modalActionBtnLeft}

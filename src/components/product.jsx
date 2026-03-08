@@ -29,6 +29,8 @@ function CardSection2({
     onAddNewFormField,
     showCustomModal,
     onCloseModal,
+    onConfirmModal,
+    newInputName,
   } = useCustomModalContext();
 
   function onAddNewInput() {
@@ -36,10 +38,10 @@ function CardSection2({
     setNewInputsWithLabelNames((inputsWithLabel) => [
       ...inputsWithLabel,
       {
-        label: "Quantity",
-        id: "quantity",
-        name: "quantity",
-        value: quantity,
+        label: newInputName,
+        id: newInputName,
+        name: newInputName,
+        value: newInputName,
         type: "text",
       },
     ]);
@@ -73,6 +75,7 @@ function CardSection2({
           <CustomModal
             isOpen={true}
             onClose={onCloseModal}
+            onConfirm={onConfirmModal}
             title={modalTitle}
             icon={modalIcon}
             actionBtnLeft={modalActionBtnLeft}

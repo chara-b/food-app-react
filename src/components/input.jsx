@@ -1,4 +1,4 @@
-function Input({ label, id, name, value, type, children }) {
+function Input({ label, id, name, value, type, onChange, children }) {
   return (
     <div>
       <label htmlFor={id} className="block text-sm/6 font-medium text-gray-900">
@@ -11,6 +11,7 @@ function Input({ label, id, name, value, type, children }) {
             name={name}
             value={value}
             type={type}
+            onChange={onChange}
             className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
           />
           {children}
