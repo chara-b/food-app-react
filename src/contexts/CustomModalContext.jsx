@@ -15,7 +15,7 @@ function CustomModalContextProvider({ children }) {
     setShowCustomModal(false);
   };
 
-  const handleOpenCustomModal = () => {
+  const handleAddNewProduct = () => {
     setShowCustomModal(true);
     setModalTitle("Add new Product");
     setModalContent("here goes the form to add new Product...");
@@ -31,7 +31,7 @@ function CustomModalContextProvider({ children }) {
         modalIcon: modalIcon,
         modalActionBtnLeft: modalActionBtnLeft,
         modalActionBtnRight: modalActionBtnRight,
-        onOpenCustomModal: handleOpenCustomModal,
+        onAddNewProductCustomModal: handleAddNewProduct,
         showCustomModal: showCustomModal,
         onCloseModal: handleCloseCustomModal,
       }}

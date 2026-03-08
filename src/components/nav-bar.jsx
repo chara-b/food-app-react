@@ -11,7 +11,7 @@ function NavBar({ children }) {
     modalIcon,
     modalActionBtnLeft,
     modalActionBtnRight,
-    onOpenCustomModal,
+    onAddNewProductCustomModal,
     showCustomModal,
     onCloseModal,
   } = useCustomModalContext();
@@ -32,7 +32,7 @@ function NavBar({ children }) {
       <div className="flex ml-auto gap-4">
         <Button
           styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
-          onClick={onOpenCustomModal}
+          onClick={onAddNewProductCustomModal}
         >
           <i className="fa-solid fa-circle-plus"></i>Add
         </Button>
