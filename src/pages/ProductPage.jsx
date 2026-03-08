@@ -25,7 +25,7 @@ function ProductPage() {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full h-screen">
+    <div className="flex flex-col gap-4 w-full h-screen overflow-auto">
       <Product
         product={fetchedProduct}
         onClick={handleProduct}

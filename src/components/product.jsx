@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "./button";
 import Form from "./form.jsx";
 
@@ -14,15 +15,47 @@ function CardSection2({
   quantity,
   editable,
 }) {
+  const [ingredientNames, setIngredientNames] = useState(ingredients);
+  const [newInputsWithLabelNames, setNewInputsWithLabelNames] = useState([]);
+
+  function onAddNewInput() {
+    setNewInputsWithLabelNames((inputsWithLabel) => [
+      ...inputsWithLabel,
+      {
+        label: "Quantity",
+        id: "quantity",
+        name: "quantity",
+        value: quantity,
+        type: "text",
+      },
+    ]);
+  }
+  function onAddNewIngredient() {
+    setIngredientNames((ingredientNames) => [...ingredientNames, ""]);
+  }
   if (editable) {
     return (
       <Form
         title={title}
-        ingredients={ingredients}
+        ingredients={ingredientNames}
+        newInputsWithLabelNames={newInputsWithLabelNames}
         price={price}
         currency={currency}
         quantity={quantity}
-      />
+      >
+        <Button
+          styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+          onClick={onAddNewIngredient}
+        >
+          <i className="fa-solid fa-plus"></i>Add Ingredient
+        </Button>
+        <Button
+          styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+          onClick={onAddNewInput}
+        >
+          <i className="fa-solid fa-plus"></i>Add Input
+        </Button>
+      </Form>
     );
   }
   return (

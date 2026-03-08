@@ -1,9 +1,18 @@
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import Input from "./input.jsx";
 
-function Form({ title, ingredients, price, currency, quantity }) {
+function Form({
+  title,
+  ingredients,
+  newInputsWithLabelNames,
+  price,
+  currency,
+  quantity,
+  children,
+}) {
   return (
     <div className="flex flex-col w-full">
+      <div className="flex gap-4 justify-end">{children}</div>
       <h1 className="mb-5 text-xl">{title}</h1>
       <div className="mb-5">
         <span className="block text-sm/6 font-medium text-gray-900">
@@ -46,6 +55,16 @@ function Form({ title, ingredients, price, currency, quantity }) {
         value={quantity}
         type="text"
       />
+
+      {newInputsWithLabelNames.map((inputWithLabelName) => (
+        <Input
+          label={inputWithLabelName.label}
+          id={inputWithLabelName.id}
+          name={inputWithLabelName.name}
+          value={inputWithLabelName.value}
+          type="text"
+        />
+      ))}
     </div>
   );
 }
