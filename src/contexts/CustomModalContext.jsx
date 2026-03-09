@@ -3,7 +3,6 @@ import Input from "../components/input";
 
 const CustomModalContext = createContext(null);
 // use reducer sti forma tou edit product gia na tin elegxei kai sta context ola!
-// to add new input button na kanei ti douleia tou
 // to save sto routing na douleuei
 // o paginator
 // to context tis listas me ta proionta sto filtering klp na ftiaxtei
@@ -19,7 +18,10 @@ function CustomModalContextProvider({ children }) {
   const [modalActionBtnLeft, setModalActionBtnLeft] = useState("");
   const [modalActionBtnRight, setModalActionBtnRight] = useState("");
 
-  const [modalResultData, setModalResultData] = useState();
+  const [modalResultData, setModalResultData] = useState({
+    label: "",
+    value: "",
+  });
 
   const handleCloseCustomModal = () => {
     setShowCustomModal(false);
@@ -38,19 +40,35 @@ function CustomModalContextProvider({ children }) {
     setModalActionBtnRight("Add");
   };
 
+  const handleChange = (field, value) => {
+    setModalResultData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   const handleNewInput = () => {
     setShowCustomModal(true);
     setModalTitle("Add new Input");
-    const input = (
-      <Input
-        label="Enter new form field name"
-        id="new-field"
-        name="new-field"
-        type="text"
-        onChange={(e) => setModalResultData(e.target.value)}
-      />
+    const inputs = (
+      <>
+        <Input
+          label="Enter new form field label"
+          id={modalResultData}
+          name={modalResultData}
+          type="text"
+          onChange={(e) => handleChange("label", e.target.value)}
+        />
+        <Input
+          label="Enter new form field value"
+          id={modalResultData}
+          name={modalResultData}
+          type="text"
+          onChange={(e) => handleChange("value", e.target.value)}
+        />
+      </>
     );
-    setModalContent(input);
+    setModalContent(inputs);
     setModalIcon("fa-solid fa-plus");
     setModalActionBtnLeft("Cancel");
     setModalActionBtnRight("Add");

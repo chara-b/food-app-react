@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: "/error", element: <Error /> },
+  // { path: "/error", element: <Error /> },
   { path: "*", element: <PageNotFound /> },
 ]);
 
