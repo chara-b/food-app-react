@@ -32,6 +32,7 @@ function CardSection2({ product, editable }) {
     modalActionBtnLeft,
     modalActionBtnRight,
     modalResultData,
+    disabledBtn,
     onAddNewInputField,
     onCloseModal,
     onConfirmModal,
@@ -84,6 +85,7 @@ function CardSection2({ product, editable }) {
             icon={modalIcon}
             actionBtnLeft={modalActionBtnLeft}
             actionBtnRight={modalActionBtnRight}
+            disabledBtn={disabledBtn}
           >
             {modalContent}
           </CustomModal>

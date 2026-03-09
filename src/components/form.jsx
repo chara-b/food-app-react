@@ -6,7 +6,6 @@ function Form({
   inputsTitle,
   inputsNoLabels,
   inputsWithLabels,
-  product,
   onChange,
   children,
 }) {

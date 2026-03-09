@@ -2,6 +2,8 @@ import { createContext, useContext, useState } from "react";
 import Input from "../components/input";
 
 const CustomModalContext = createContext(null);
+// to button sto new input modal na energopoieitai mono otan exoun siblirothei kai ta dio inputs!
+
 // use reducer sti forma tou edit product gia na tin elegxei kai sta context ola!
 // to save sto routing na douleuei
 // o paginator
@@ -17,6 +19,7 @@ function CustomModalContextProvider({ children }) {
   const [modalIcon, setModalIcon] = useState("");
   const [modalActionBtnLeft, setModalActionBtnLeft] = useState("");
   const [modalActionBtnRight, setModalActionBtnRight] = useState("");
+  const [disabledBtn, setDisabledBtn] = useState(false);
 
   const [modalResultData, setModalResultData] = useState({
     label: "",
@@ -33,6 +36,7 @@ function CustomModalContextProvider({ children }) {
 
   const handleAddNewProduct = () => {
     setShowCustomModal(true);
+    setDisabledBtn(true);
     setModalTitle("Add new Product");
     setModalContent("here goes the form to add new Product...");
     setModalIcon("fa-solid fa-utensils");
@@ -40,15 +44,17 @@ function CustomModalContextProvider({ children }) {
     setModalActionBtnRight("Add");
   };
 
-  const handleChange = (field, value) => {
+  const handleChange = (field1, value1) => {
+    setDisabledBtn(false);
     setModalResultData((prev) => ({
       ...prev,
-      [field]: value,
+      [field1]: value1,
     }));
   };
 
   const handleNewInput = () => {
     setShowCustomModal(true);
+    setDisabledBtn(true);
     setModalTitle("Add new Input");
     const inputs = (
       <>
@@ -84,6 +90,7 @@ function CustomModalContextProvider({ children }) {
         modalActionBtnLeft: modalActionBtnLeft,
         modalActionBtnRight: modalActionBtnRight,
         modalResultData: modalResultData,
+        disabledBtn: disabledBtn,
         onAddNewProduct: handleAddNewProduct,
         onAddNewInputField: handleNewInput,
         onCloseModal: handleCloseCustomModal,

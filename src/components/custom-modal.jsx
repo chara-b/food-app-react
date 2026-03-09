@@ -14,6 +14,7 @@ function CustomModal({
   icon,
   actionBtnLeft,
   actionBtnRight,
+  disabledBtn,
   children,
 }) {
   return (
@@ -49,6 +50,7 @@ function CustomModal({
                 <Button
                   type="button"
                   onClick={onConfirm}
+                  disabled={disabledBtn}
                   styles="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
                 >
                   {actionBtnRight}
