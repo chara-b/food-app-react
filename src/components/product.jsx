@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Button from "./button";
 import Form from "./form.jsx";
 import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
@@ -18,8 +18,12 @@ function CardSection2({
   editable,
 }) {
   const [ingredientNames, setIngredientNames] = useState(ingredients);
-  const [newInputsWithLabelNames, setNewInputsWithLabelNames] = useState([]);
-  const [modalResultedData, setModalResultedData] = useState();
+  const newInputsWithLabelNames = useRef([]);
+  const [newInputNames, setNewInputNames] = useState([]);
+
+  useEffect(() => {
+    setNewInputNames(newInputsWithLabelNames.current);
+  }, []);
 
   const {
     showCustomModal,
@@ -40,25 +44,21 @@ function CardSection2({
 
   function handleCloseModal() {
     onConfirmModal();
-    setModalResultedData(modalResultData);
     console.log("MODAL DATA", modalResultData);
-    setNewInputsWithLabelNames((prev) => [
-      ...prev,
-      {
-        label: modalResultedData,
-        id: modalResultedData,
-        name: modalResultedData,
-        value: modalResultedData,
-        type: "text",
-      },
-    ]);
+    newInputsWithLabelNames.current.push({
+      label: modalResultData,
+      id: modalResultData,
+      name: modalResultData,
+      value: modalResultData,
+      type: "text",
+    });
   }
   if (editable) {
     return (
       <Form
         title={title}
         ingredients={ingredientNames}
-        newInputsWithLabelNames={newInputsWithLabelNames}
+        newInputsWithLabelNames={newInputNames}
         price={price}
         currency={currency}
         quantity={quantity}
