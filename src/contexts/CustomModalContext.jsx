@@ -19,13 +19,15 @@ function CustomModalContextProvider({ children }) {
   const [modalActionBtnLeft, setModalActionBtnLeft] = useState("");
   const [modalActionBtnRight, setModalActionBtnRight] = useState("");
 
-  const [inputValue, setInputValue] = useState("");
+  const [modalResultData, setModalResultData] = useState();
 
   const handleCloseCustomModal = () => {
     setShowCustomModal(false);
   };
 
-  const handleConfirmCustomModal = () => {};
+  const handleConfirmCustomModal = () => {
+    setShowCustomModal(false);
+  };
 
   const handleAddNewProduct = () => {
     setShowCustomModal(true);
@@ -36,37 +38,38 @@ function CustomModalContextProvider({ children }) {
     setModalActionBtnRight("Add");
   };
 
-  const handleNewFormFieldName = () => {
+  const handleNewInput = () => {
     setShowCustomModal(true);
     setModalTitle("Add new Input");
-    setModalContent(
+    const input = (
       <Input
         label="Enter new form field name"
         id="new-field"
         name="new-field"
         type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />,
+        onChange={(e) => setModalResultData(e.target.value)}
+      />
     );
+    setModalContent(input);
     setModalIcon("fa-solid fa-plus");
     setModalActionBtnLeft("Cancel");
     setModalActionBtnRight("Add");
   };
+
   return (
     <CustomModalContext.Provider
       value={{
+        showCustomModal: showCustomModal,
         modalTitle: modalTitle,
         modalContent: modalContent,
         modalIcon: modalIcon,
         modalActionBtnLeft: modalActionBtnLeft,
         modalActionBtnRight: modalActionBtnRight,
+        modalResultData: modalResultData,
         onAddNewProduct: handleAddNewProduct,
-        onAddNewFormField: handleNewFormFieldName,
-        showCustomModal: showCustomModal,
+        onAddNewInputField: handleNewInput,
         onCloseModal: handleCloseCustomModal,
         onConfirmModal: handleConfirmCustomModal,
-        newInputName: inputValue,
       }}
     >
       {children}

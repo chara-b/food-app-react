@@ -19,35 +19,39 @@ function CardSection2({
 }) {
   const [ingredientNames, setIngredientNames] = useState(ingredients);
   const [newInputsWithLabelNames, setNewInputsWithLabelNames] = useState([]);
+  const [modalResultedData, setModalResultedData] = useState();
 
   const {
+    showCustomModal,
     modalTitle,
     modalContent,
     modalIcon,
     modalActionBtnLeft,
     modalActionBtnRight,
-    onAddNewFormField,
-    showCustomModal,
+    modalResultData,
+    onAddNewInputField,
     onCloseModal,
     onConfirmModal,
-    newInputName,
   } = useCustomModalContext();
 
-  function onAddNewInput() {
-    onAddNewFormField();
-    setNewInputsWithLabelNames((inputsWithLabel) => [
-      ...inputsWithLabel,
+  function handleAddNewIngredient() {
+    setIngredientNames((ingredientNames) => [...ingredientNames, ""]);
+  }
+
+  function handleCloseModal() {
+    onConfirmModal();
+    setModalResultedData(modalResultData);
+    console.log("MODAL DATA", modalResultData);
+    setNewInputsWithLabelNames((prev) => [
+      ...prev,
       {
-        label: newInputName,
-        id: newInputName,
-        name: newInputName,
-        value: newInputName,
+        label: modalResultedData,
+        id: modalResultedData,
+        name: modalResultedData,
+        value: modalResultedData,
         type: "text",
       },
     ]);
-  }
-  function onAddNewIngredient() {
-    setIngredientNames((ingredientNames) => [...ingredientNames, ""]);
   }
   if (editable) {
     return (
@@ -61,13 +65,13 @@ function CardSection2({
       >
         <Button
           styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
-          onClick={onAddNewIngredient}
+          onClick={handleAddNewIngredient}
         >
           <i className="fa-solid fa-plus"></i>Add Ingredient
         </Button>
         <Button
           styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
-          onClick={onAddNewInput}
+          onClick={onAddNewInputField}
         >
           <i className="fa-solid fa-plus"></i>Add Input
         </Button>
@@ -75,7 +79,7 @@ function CardSection2({
           <CustomModal
             isOpen={true}
             onClose={onCloseModal}
-            onConfirm={onConfirmModal}
+            onConfirm={handleCloseModal}
             title={modalTitle}
             icon={modalIcon}
             actionBtnLeft={modalActionBtnLeft}
