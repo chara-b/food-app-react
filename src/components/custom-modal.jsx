@@ -5,6 +5,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import Button from "./button";
+import { memo, useCallback, useEffect } from "react";
 
 function CustomModal({
   isOpen,
@@ -17,9 +18,31 @@ function CustomModal({
   disabledBtn,
   children,
 }) {
+  // Memoized handlers για να μην re-render-άρει λόγω props changes
+  const handleClose = useCallback(() => {
+    onClose?.();
+  }, [onClose]);
+
+  const handleConfirm = useCallback(() => {
+    onConfirm?.();
+  }, [onConfirm]);
+
+  // Side effect για body scroll gia na min mporei o xristis na kounisei to background scrollbar
+  // kai na min xanetai to focus apo to modal !
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
   return (
     <>
-      <Dialog open={isOpen} onClose={onClose} className="relative z-10">
+      <Dialog open={isOpen} onClose={handleClose} className="relative z-10">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
@@ -47,21 +70,25 @@ function CustomModal({
                 </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <Button
-                  type="button"
-                  onClick={onConfirm}
-                  disabled={disabledBtn}
-                  styles="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
-                >
-                  {actionBtnRight}
-                </Button>
-                <Button
-                  type="button"
-                  onClick={onClose}
-                  styles="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                >
-                  {actionBtnLeft}
-                </Button>
+                {actionBtnRight && (
+                  <Button
+                    type="button"
+                    onClick={handleConfirm}
+                    disabled={disabledBtn}
+                    styles="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
+                  >
+                    {actionBtnRight}
+                  </Button>
+                )}
+                {actionBtnLeft && (
+                  <Button
+                    type="button"
+                    onClick={handleClose}
+                    styles="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  >
+                    {actionBtnLeft}
+                  </Button>
+                )}
               </div>
             </DialogPanel>
           </div>
@@ -71,4 +98,19 @@ function CustomModal({
   );
 }
 
-export default CustomModal;
+// MEMOIZED VERSION με custom comparison
+const MemoizedCustomModal = memo(CustomModal, (prevProps, nextProps) => {
+  // Re-render ΜΟΝΟ αν αλλάξουν τα critical props ta children props den memoizedarontai !
+  return (
+    prevProps.isOpen === nextProps.isOpen &&
+    prevProps.title === nextProps.title &&
+    prevProps.icon === nextProps.icon &&
+    prevProps.actionBtnLeft === nextProps.actionBtnLeft &&
+    prevProps.actionBtnRight === nextProps.actionBtnRight &&
+    prevProps.disabledBtn === nextProps.disabledBtn &&
+    prevProps.onClose === nextProps.onClose &&
+    prevProps.onConfirm === nextProps.onConfirm
+  );
+});
+
+export default MemoizedCustomModal;

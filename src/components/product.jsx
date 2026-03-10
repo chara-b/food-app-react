@@ -4,12 +4,13 @@ import Form from "./form.jsx";
 import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
 import CustomModal from "./custom-modal.jsx";
 import { defaultProductFormInputs } from "../constants/formFieldsNames.js";
+import MemoizedCustomModal from "./custom-modal.jsx";
 
 function CardSection1({ imgName }) {
   return <img src={"../src/assets/" + imgName} className="w-20 mr-2" />;
 }
 
-function CardSection2({ product, editable }) {
+function CardSection2({ product, editable, onClick, actionBtns }) {
   // for ingredient inputs with no labels
   const [ingredientNames, setIngredientNames] = useState(product.ingredients);
 
@@ -26,13 +27,12 @@ function CardSection2({ product, editable }) {
 
   const {
     showCustomModal,
+    modalTriggerButtonName,
     modalTitle,
     modalContent,
     modalIcon,
-    modalActionBtnLeft,
-    modalActionBtnRight,
-    modalResultData,
-    disabledBtn,
+    addNewInputModalResultData,
+    addNewInputDisabledBtn,
     onAddNewInputField,
     onCloseModal,
     onConfirmModal,
@@ -44,12 +44,12 @@ function CardSection2({ product, editable }) {
 
   function handleCloseModal() {
     onConfirmModal();
-    console.log("MODAL DATA", modalResultData);
+    console.log("MODAL DATA", addNewInputModalResultData);
     setLabeledInputsData((prev) => [
       ...prev,
       {
-        label: modalResultData.label,
-        value: modalResultData.value,
+        label: addNewInputModalResultData.label,
+        value: addNewInputModalResultData.value,
         type: "text",
       },
     ]);
@@ -62,33 +62,34 @@ function CardSection2({ product, editable }) {
         inputsTitle="Ingredients"
         inputsNoLabels={ingredientNames}
         inputsWithLabels={labeledInputsData}
-        product={product}
+        onClick={onClick}
+        actionBtns={actionBtns}
       >
         <Button
           styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
           onClick={handleAddNewIngredient}
+          type="button"
         >
           <i className="fa-solid fa-plus"></i>Add Ingredient
         </Button>
         <Button
           styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
           onClick={onAddNewInputField}
+          type="button"
         >
           <i className="fa-solid fa-plus"></i>Add Input
         </Button>
-        {showCustomModal && (
-          <CustomModal
+        {showCustomModal && modalTriggerButtonName === "addInput" && (
+          <MemoizedCustomModal
             isOpen={true}
             onClose={onCloseModal}
             onConfirm={handleCloseModal}
             title={modalTitle}
             icon={modalIcon}
-            actionBtnLeft={modalActionBtnLeft}
-            actionBtnRight={modalActionBtnRight}
-            disabledBtn={disabledBtn}
+            disabledBtn={addNewInputDisabledBtn}
           >
             {modalContent}
-          </CustomModal>
+          </MemoizedCustomModal>
         )}
       </Form>
     );
@@ -116,23 +117,30 @@ function CardSection2({ product, editable }) {
   );
 }
 
-function Product({ product, onClick, actionBtns, editable, disabledBtn }) {
+function Product({ product, onClick, editable, actionBtns }) {
   return (
     <li className="flex items-center gap-4 rounded-lg bg-blue-100 p-6 shadow-md outline outline-black/5">
       <CardSection1 imgName={product.imgName} />
-      <CardSection2 editable={editable} product={product} />
-      {actionBtns?.map(({ actionBtn, buttonIcon }, i) => {
-        return (
-          <Button
-            styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
-            key={i}
-            onClick={() => onClick(actionBtn, product)}
-            disabled={disabledBtn}
-          >
-            <i className={buttonIcon}></i>
-          </Button>
-        );
-      })}
+      <CardSection2
+        editable={editable}
+        product={product}
+        onClick={onClick}
+        actionBtns={actionBtns}
+      />
+      {actionBtns.length &&
+        !editable &&
+        actionBtns?.map(({ actionBtn, buttonIcon }, i) => {
+          return (
+            <Button
+              styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+              key={i}
+              onClick={() => onClick(actionBtn, product)}
+              type="button"
+            >
+              <i className={buttonIcon}></i>
+            </Button>
+          );
+        })}
     </li>
   );
 }

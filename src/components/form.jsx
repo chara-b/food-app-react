@@ -1,19 +1,24 @@
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import Input from "./input.jsx";
+import Button from "./button.jsx";
 
 function Form({
   title,
   inputsTitle,
   inputsNoLabels,
   inputsWithLabels,
+  onClick,
+  actionBtns,
+  formState,
   onChange,
+  actionFunction,
   children,
 }) {
   return (
-    <div className="flex flex-col w-full">
+    <form className="flex flex-col w-full" action={actionFunction}>
       <div className="flex gap-4 justify-end">{children}</div>
       <h1 className="mb-5 text-xl">{title}</h1>
-      {inputsNoLabels.length && (
+      {inputsNoLabels?.length && (
         <div className="mb-5">
           <span className="block text-sm/6 font-medium text-gray-900">
             {inputsTitle}
@@ -22,8 +27,8 @@ function Form({
             {inputsNoLabels.map((inputNoLabel, i) => (
               <li key={i}>
                 <Input
-                  id={`${inputsTitle?.toLowerCase()}-${inputNoLabel?.toLowerCase()}`}
-                  name={`${inputsTitle?.toLowerCase()}-${inputNoLabel?.toLowerCase()}`}
+                  id={`${inputsTitle?.toLowerCase().split(" ").join("-")}-${inputNoLabel?.toLowerCase().split(" ").join("-")}`}
+                  name={`${inputsTitle?.toLowerCase().split(" ").join("-")}-${inputNoLabel?.toLowerCase().split(" ").join("-")}`}
                   value={inputNoLabel}
                   onChange={onChange}
                   type="text"
@@ -33,44 +38,65 @@ function Form({
           </ul>
         </div>
       )}
-      {/* <Input
-        label="Price"
-        id="price"
-        name="price"
-        value={product.value}
-        onChange={onChange}
-        type="text"
-      >
-        <div className="grid shrink-0 grid-cols-1 focus-within:relative">
-          <select
-            id="currency"
-            name="currency"
-            aria-label="Currency"
-            className="col-start-1 row-start-1 w-full appearance-none rounded-md py-1.5 pr-7 pl-3 text-base text-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-          >
-            <option>USD</option>
-            <option selected={product.currency === "euro"}>EUR</option>
-          </select>
-          <ChevronDownIcon
-            aria-hidden="true"
-            className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-          />
-        </div>
-      </Input> */}
 
-      {inputsWithLabels.length &&
+      {inputsWithLabels?.length &&
         inputsWithLabels.map((inputData, i) => (
           <Input
             key={i}
             label={inputData.label}
-            id={inputData.label?.toLowerCase()}
-            name={inputData.label?.toLowerCase()}
+            id={inputData.id?.toLowerCase().split(" ").join("-")}
+            name={inputData.name?.toLowerCase().split(" ").join("-")}
             value={inputData.value}
             onChange={onChange}
             type={inputData.type}
-          />
+            className={formState?.errors ? "border border-red-500" : ""}
+          >
+            {formState?.errors && (
+              <ul className="text-red-500 text-sm">
+                {formState.errors.map((error, i) => (
+                  <li key={i}>{error}</li>
+                ))}
+              </ul>
+            )}
+          </Input>
         ))}
-    </div>
+
+      <div className="flex mt-5 justify-end gap-5">
+        {actionBtns?.length &&
+          actionBtns?.map(({ actionBtn, buttonIcon }, i) => {
+            return (
+              <Button
+                styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+                key={i}
+                onClick={onClick}
+                type="button"
+              >
+                {actionBtn}
+                <i className={buttonIcon}></i>
+              </Button>
+            );
+          })}
+        {!actionBtns?.length && (
+          <>
+            <Button
+              type="button"
+              onClick={onClick}
+              styles="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              onClick={onClick}
+              styles="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
+              disabled={formState?.errors}
+            >
+              Add
+            </Button>
+          </>
+        )}
+      </div>
+    </form>
   );
 }
 

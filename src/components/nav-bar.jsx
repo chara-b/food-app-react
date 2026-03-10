@@ -3,16 +3,18 @@ import ProductList from "./product-list";
 import CustomModal from "./custom-modal";
 import { useNavigate } from "react-router-dom";
 import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
+import MemoizedCustomModal from "./custom-modal";
 
 function NavBar({ children }) {
   const {
+    showCustomModal,
+    modalTriggerButtonName,
     modalTitle,
     modalContent,
     modalIcon,
     modalActionBtnLeft,
     modalActionBtnRight,
     onAddNewProduct,
-    showCustomModal,
     onCloseModal,
     onConfirmModal,
   } = useCustomModalContext();
@@ -37,8 +39,8 @@ function NavBar({ children }) {
         >
           <i className="fa-solid fa-circle-plus"></i>Add
         </Button>
-        {showCustomModal && (
-          <CustomModal
+        {showCustomModal && modalTriggerButtonName === "addProduct" && (
+          <MemoizedCustomModal
             isOpen={true}
             onClose={onCloseModal}
             onConfirm={onConfirmModal}
@@ -48,7 +50,7 @@ function NavBar({ children }) {
             actionBtnRight={modalActionBtnRight}
           >
             {modalContent}
-          </CustomModal>
+          </MemoizedCustomModal>
         )}
         <Button
           styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
