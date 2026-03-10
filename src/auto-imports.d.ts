@@ -18,6 +18,8 @@ declare global {
   const button: typeof import('./components/button.jsx').default
   const cache: typeof import('react').cache
   const cacheSignal: typeof import('react').cacheSignal
+  const cardSection1: typeof import('./components/card-section1.jsx').default
+  const cardSection2: typeof import('./components/card-section2.jsx').default
   const createContext: typeof import('react').createContext
   const createRef: typeof import('react').createRef
   const customModal: typeof import('./components/custom-modal.jsx').default

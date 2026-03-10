@@ -12,8 +12,6 @@ function NavBar({ children }) {
     modalTitle,
     modalContent,
     modalIcon,
-    modalActionBtnLeft,
-    modalActionBtnRight,
     onAddNewProduct,
     onCloseModal,
     onConfirmModal,
@@ -46,8 +44,6 @@ function NavBar({ children }) {
             onConfirm={onConfirmModal}
             title={modalTitle}
             icon={modalIcon}
-            actionBtnLeft={modalActionBtnLeft}
-            actionBtnRight={modalActionBtnRight}
           >
             {modalContent}
           </MemoizedCustomModal>

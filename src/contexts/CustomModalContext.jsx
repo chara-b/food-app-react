@@ -8,6 +8,7 @@ import {
 } from "react";
 import Form from "../components/form";
 import { useFormContext } from "./FormContext";
+import CardSection2 from "../components/card-section2";
 
 const CustomModalContext = createContext(null);
 // to button sto new input modal na energopoieitai mono otan exoun siblirothei kai ta dio inputs!
@@ -71,56 +72,37 @@ function CustomModalContextProvider({ children }) {
     addNewInputFormAction,
   } = useFormContext();
 
-  const handleCloseCustomModal = () => {
+  const handleCloseCustomModal = useCallback(() => {
     dispatch({ type: "showCustomModal", payload: false });
-  };
+  }, [dispatch]);
 
   const handleConfirmCustomModal = () => {
     dispatch({ type: "showCustomModal", payload: false });
   };
 
-  const handleAddNewProduct = () => {
+  const getCardSection2 = useCallback(
+    () => (
+      <CardSection2
+        editable={true}
+        onClick={handleCloseCustomModal}
+        actionBtns={[
+          { actionBtn: "save", buttonIcon: "fa-solid fa-floppy-disk" },
+          { actionBtn: "cancel", buttonIcon: "fa-solid fa-x" },
+        ]}
+      />
+    ),
+    [handleCloseCustomModal],
+  );
+
+  const handleAddNewProduct = useCallback(() => {
     dispatch({ type: "showCustomModal", payload: true });
     dispatch({ type: "modalTriggerButtonName", payload: "addProduct" });
     dispatch({ type: "modalTitle", payload: "Add new Product" });
-    dispatch({
-      type: "modalContent",
-      payload: "here goes the form to add new Product...",
-    });
+    dispatch({ type: "modalContent", payload: getCardSection2() });
     dispatch({ type: "modalIcon", payload: "fa-solid fa-utensils" });
-
     dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
     dispatch({ type: "modalActionBtnRight", payload: "Add" });
-  };
-
-  // const handleNewInput_OLD = () => {
-  //   setShowCustomModal(true);
-  //   setModalTitle("Add new Input");
-  //   const newInputsForm = (
-  //     <Form
-  //       inputsWithLabels={[
-  //         {
-  //           label: "Enter new form field label",
-  //           id: addNewInputFormState.enteredValues.label,
-  //           name: addNewInputFormState.enteredValues.label,
-  //           type: "text",
-  //         },
-  //         {
-  //           label: "Enter new form field value",
-  //           id: addNewInputFormState.enteredValues.value,
-  //           name: addNewInputFormState.enteredValues.value,
-  //           type: "text",
-  //         },
-  //       ]}
-  //       actionFunction={addNewInputFormAction}
-  //       formState={addNewInputFormState}
-  //     ></Form>
-  //   );
-  //   setModalContent(newInputsForm);
-  //   setModalIcon("fa-solid fa-plus");
-  //   setModalActionBtnLeft("Cancel");
-  //   setModalActionBtnRight("Add");
-  // };
+  }, [dispatch, getCardSection2]);
 
   const NewInputFormContent = memo(({ formState, actionFunction }) => (
     <Form
@@ -185,6 +167,8 @@ function CustomModalContextProvider({ children }) {
       addNewInputFormAction,
       addNewInputFormPending,
       addNewInputFormState,
+      handleAddNewProduct,
+      handleCloseCustomModal,
       handleNewInput,
       modalActionBtnLeft,
       modalActionBtnRight,
