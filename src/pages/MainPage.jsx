@@ -22,6 +22,7 @@ import Paginator from "../components/paginator.jsx";
 // contexts
 import { CustomModalContextProvider } from "../contexts/CustomModalContext.jsx";
 import { FormContextProvider } from "../contexts/FormContext.jsx";
+import { ProductsContextProvider } from "../contexts/ProductsContext.jsx";
 
 function MainPage() {
   const [searchText, setSearchText] = useState("");
@@ -53,40 +54,41 @@ function MainPage() {
   return (
     <FormContextProvider>
       <CustomModalContextProvider>
-        <div className="flex flex-col gap-4 w-full h-screen">
-          <NavBar className="w-full">
-            <NavBarItem
-              styles="w-100 px-4 py-2 border bg-white rounded-lg focus:ring-2 focus:ring-black focus:border-black"
-              placeholder="Search..."
-              type="input"
-              value={searchText}
-              icon="fa-solid fa-magnifying-glass"
-              onChange={handleChangedSearchText}
-            />
-          </NavBar>
+        <ProductsContextProvider initialData={fetchedData}>
+          <div className="flex flex-col gap-4 w-full h-screen">
+            <NavBar className="w-full">
+              <NavBarItem
+                styles="w-100 px-4 py-2 border bg-white rounded-lg focus:ring-2 focus:ring-black focus:border-black"
+                placeholder="Search..."
+                type="input"
+                value={searchText}
+                icon="fa-solid fa-magnifying-glass"
+                onChange={handleChangedSearchText}
+              />
+            </NavBar>
 
-          {!isLoading &&
-            (location.pathname === "/" ? (
-              <ProductList
-                className="w-full"
-                data={fetchedData}
-                searchText={searchText}
-                actionBtns={[
-                  { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
-                  { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },
-                ]}
-                colsCount="3"
-              >
-                <Paginator count={fetchedData.length} perPage={5} />
-              </ProductList>
-            ) : (
-              <Outlet />
-            ))}
+            {!isLoading &&
+              (location.pathname === "/" ? (
+                <ProductList
+                  className="w-full"
+                  searchText={searchText}
+                  actionBtns={[
+                    { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
+                    { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },
+                  ]}
+                  colsCount="3"
+                >
+                  <Paginator count={fetchedData.length} perPage={5} />
+                </ProductList>
+              ) : (
+                <Outlet />
+              ))}
 
-          {isLoading && <Spinner />}
+            {isLoading && <Spinner />}
 
-          <Footer className="w-full" />
-        </div>
+            <Footer className="w-full" />
+          </div>
+        </ProductsContextProvider>
       </CustomModalContextProvider>
     </FormContextProvider>
   );

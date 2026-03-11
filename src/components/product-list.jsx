@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import Paginator from "./paginator.jsx";
 import Product from "./product.jsx";
-import { useEffect, useState } from "react";
+import { useProductsContext } from "../contexts/ProductsContext.jsx";
+import { useEffect } from "react";
 
-function ProductList({ data, actionBtns, searchText, colsCount, children }) {
-  const [availableProducts, setAvailableProducts] = useState(data || []);
-  const [filteredProducts, setFilteredProducts] = useState(data || []);
+function ProductList({ actionBtns, searchText, colsCount, children }) {
+  const {
+    filteredProducts,
+    availableProducts,
+    disabledProducts,
+    getDisabledProducts,
+    getAvailableProducts,
+    handleFilteredProducts,
+  } = useProductsContext();
 
   const navigate = useNavigate();
 
@@ -14,13 +20,14 @@ function ProductList({ data, actionBtns, searchText, colsCount, children }) {
     navigate(`product/${editedProduct.id}`);
   };
 
-  const handleProduct = (actionBtn, product, updateProductFn) => {
+  const handleProduct = async (actionBtn, product, updateProductFn) => {
     if (actionBtn === "delete") {
       updateProductFn({
         id: product.id,
         propToUpdate: "disabled",
         newValue: true,
       });
+      getAvailableProducts();
     }
     if (actionBtn === "restore") {
       updateProductFn({
@@ -28,27 +35,31 @@ function ProductList({ data, actionBtns, searchText, colsCount, children }) {
         propToUpdate: "disabled",
         newValue: false,
       });
+      getDisabledProducts();
     }
     if (actionBtn === "edit") {
       handleEditedProduct(product);
     }
   };
 
-  useEffect(() => {
-    // for search keyword
-    if (!searchText?.trim()) {
-      setFilteredProducts(availableProducts);
-    }
-    if (searchText?.trim()) {
-      const lowCaseSearchText = searchText.toLowerCase();
-      const results = availableProducts.filter((product) =>
-        product.title.toLowerCase().includes(lowCaseSearchText),
-      );
-      setFilteredProducts(results);
-    }
-  }, [searchText, availableProducts]);
+  useEffect(
+    function () {
+      if (!searchText?.trim()) {
+        handleFilteredProducts(availableProducts);
+      }
 
-  const productsNum = filteredProducts.length;
+      if (searchText?.trim()) {
+        const lowCaseSearchText = searchText.toLowerCase();
+        const filteredResults = availableProducts.filter((product) =>
+          product.title.toLowerCase().includes(lowCaseSearchText),
+        );
+        handleFilteredProducts(filteredResults);
+      }
+    },
+    [availableProducts, handleFilteredProducts, searchText],
+  );
+
+  let productsNum = filteredProducts.length;
 
   return productsNum ? (
     <>

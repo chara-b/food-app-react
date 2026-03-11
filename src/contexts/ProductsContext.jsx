@@ -1,6 +1,5 @@
 import {
   createContext,
-  memo,
   useCallback,
   useContext,
   useMemo,
@@ -15,47 +14,71 @@ const ProductContext = createContext(null);
 
 function reducer(state, action) {
   switch (action.type) {
-    case "filteredList":
-      return { ...state, filteredList: action.payload };
-    case "availableList":
-      return { ...state, availableList: action.payload };
-    case "deletedProduct":
-      return { ...state, deletedProduct: action.payload };
+    case "filteredProducts":
+      return { ...state, filteredProducts: action.payload };
+    case "availableProducts":
+      return { ...state, availableProducts: action.payload };
+    case "disabledProducts":
+      return { ...state, disabledProducts: action.payload };
     default:
       throw new Error("Unknown action!");
   }
 }
-function ProductContextProvider({ children }) {
-  const initialState = {
-    filteredList: false,
-    availableList: "",
-  };
+function ProductsContextProvider({ initialData, children }) {
+  const initialState = useMemo(
+    () => ({
+      filteredProducts: [],
+      availableProducts: initialData || [],
+      disabledProducts: [],
+    }),
+    [initialData],
+  );
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { filteredList, availableList } = state;
+  const { filteredProducts, availableProducts, disabledProducts } = state;
 
-  async function getDisabledProducts() {
-    const result = fetchDisabledProducts();
-    console.log("disabled products fetched: ", result);
-  }
+  const getDisabledProducts = useCallback(async () => {
+    try {
+      const result = await fetchDisabledProducts();
+      console.log("disabled products fetched: ", result);
+      dispatch({ type: "disabledProducts", payload: result });
+    } catch (error) {
+      console.error("Failed to fetch disabled products:", error);
+    }
+  }, []);
 
-  async function getAvailableProducts() {
-    const result = fetchAvailableProducts();
-    console.log("available products fetched: ", result);
-  }
+  const getAvailableProducts = useCallback(async () => {
+    try {
+      const result = await fetchAvailableProducts();
+      console.log("available products fetched: ", result);
+      dispatch({ type: "availableProducts", payload: result });
+    } catch (error) {
+      console.error("Failed to fetch available products:", error);
+    }
+  }, []);
 
-  function handleFilteredProducts() {}
+  const handleFilteredProducts = useCallback((filteredProducts) => {
+    dispatch({ type: "filteredProducts", payload: filteredProducts });
+  }, []);
 
   const value = useMemo(
     () => ({
-      filteredList: filteredList,
-      availableList: availableList,
+      filteredProducts: filteredProducts,
+      availableProducts: availableProducts,
+      disabledProducts: disabledProducts,
       getDisabledProducts: getDisabledProducts,
       getAvailableProducts: getAvailableProducts,
       handleFilteredProducts: handleFilteredProducts,
     }),
-    [filteredList, availableList],
+    [
+      filteredProducts,
+      availableProducts,
+      disabledProducts,
+      getDisabledProducts,
+      getAvailableProducts,
+      handleFilteredProducts,
+    ],
   );
 
   return (
@@ -64,7 +87,7 @@ function ProductContextProvider({ children }) {
 }
 
 /* eslint-disable react-refresh/only-export-components */
-function useProductContext() {
+function useProductsContext() {
   const context = useContext(ProductContext);
   if (context === undefined) {
     throw new Error("ProductContext was used outside of its Provider");
@@ -72,4 +95,4 @@ function useProductContext() {
   return context;
 }
 
-export { ProductContextProvider, useProductContext };
+export { ProductsContextProvider, useProductsContext };
