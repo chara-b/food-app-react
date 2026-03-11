@@ -4,7 +4,7 @@ function Error({ message }) {
   const errorFromRoute = useRouteError();
   return (
     <div>
-      An error occured with below message {message}:{" "}
+      🔥🔥🔥An error occured with below message {message}: ⚠⚠⚠{" "}
       {errorFromRoute.data || errorFromRoute.message}
     </div>
   );

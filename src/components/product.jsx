@@ -1,9 +1,10 @@
+import React from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
 import Button from "./button";
 import CardSection1 from "./card-section1.jsx";
 import CardSection2 from "./card-section2.jsx";
 
-function Product({ product, onClick, editable, actionBtns }) {
+const Product = React.memo(({ product, onClick, editable, actionBtns }) => {
   const { updateProductDetails } = useFormContext();
   return (
     <li className="flex items-center gap-4 rounded-lg bg-blue-100 p-6 shadow-md outline outline-black/5">
@@ -31,5 +32,5 @@ function Product({ product, onClick, editable, actionBtns }) {
         })}
     </li>
   );
-}
+});
 export default Product;

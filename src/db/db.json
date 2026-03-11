@@ -15,7 +15,7 @@
       "currency_symbol": "€",
       "imgName": "pizza.png",
       "quantity": 10,
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "2",
@@ -76,11 +76,7 @@
     {
       "id": "5",
       "title": "Τοστ",
-      "ingredients": [
-        "γκούντα",
-        "καπνιστή μπριζόλα",
-        "φιλαδέλφεια"
-      ],
+      "ingredients": ["γκούντα", "καπνιστή μπριζόλα", "φιλαδέλφεια"],
       "price": 2.5,
       "currency": "euro",
       "currency_symbol": "€",
@@ -142,6 +138,29 @@
       "imgName": "koulouri.png",
       "quantity": 10,
       "disabled": false
+    }
+  ],
+  "users": [
+    {
+      "username": "user1",
+      "password": "123",
+      "email": "user1@gmail.com",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    {
+      "username": "user2",
+      "password": "1234",
+      "email": "user2@gmail.com",
+      "firstName": "Maria",
+      "lastName": "Smith"
+    },
+    {
+      "username": "user3",
+      "password": "1235",
+      "email": "user3@gmail.com",
+      "firstName": "Peter",
+      "lastName": "Doe"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

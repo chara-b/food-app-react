@@ -1,28 +1,42 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Product from "../components/product.jsx";
+import { useCallback } from "react";
 
 function ProductPage() {
   const fetchedProduct = useLoaderData();
   const navigate = useNavigate();
 
-  const handleSaveProduct = (product) => {
-    console.log("savedProduct: ", product);
-    navigate(`/`);
-  };
+  const actionBtns = useMemo(
+    () => [
+      { actionBtn: "save", buttonIcon: "fa-solid fa-floppy-disk" },
+      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x" },
+    ],
+    [],
+  );
 
-  const handleCancelProduct = (product) => {
-    console.log("cancelProduct: ", product);
-    navigate(`/`);
-  };
+  const handleSaveProduct = useCallback(
+    (product) => {
+      console.log("savedProduct: ", product);
+      navigate("/");
+    },
+    [navigate],
+  );
 
-  const handleProduct = (actionBtn, product) => {
-    if (actionBtn === "save") {
-      handleSaveProduct(product);
-    }
-    if (actionBtn === "cancel") {
-      handleCancelProduct(product);
-    }
-  };
+  const handleCancelProduct = useCallback(
+    (product) => {
+      console.log("cancelProduct: ", product);
+      navigate("/");
+    },
+    [navigate],
+  );
+
+  const handleProduct = useCallback(
+    (actionBtn, product) => {
+      if (actionBtn === "save") handleSaveProduct(product);
+      if (actionBtn === "cancel") handleCancelProduct(product);
+    },
+    [handleSaveProduct, handleCancelProduct],
+  );
 
   return (
     <div className="flex flex-col gap-4 w-full h-screen overflow-auto">
@@ -30,10 +44,7 @@ function ProductPage() {
         product={fetchedProduct}
         onClick={handleProduct}
         editable={true}
-        actionBtns={[
-          { actionBtn: "save", buttonIcon: "fa-solid fa-floppy-disk" },
-          { actionBtn: "cancel", buttonIcon: "fa-solid fa-x" },
-        ]}
+        actionBtns={actionBtns}
       />
     </div>
   );

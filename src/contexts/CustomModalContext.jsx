@@ -75,6 +75,14 @@ function CustomModalContextProvider({ children }) {
     addNewInputFormAction,
   } = useFormContext();
 
+  const actionBtns = useMemo(
+    () => [
+      { actionBtn: "save", buttonIcon: "fa-solid fa-floppy-disk" },
+      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x" },
+    ],
+    [],
+  );
+
   const handleCloseCustomModal = useCallback(() => {
     dispatch({ type: "showCustomModal", payload: false });
   }, [dispatch]);
@@ -88,10 +96,7 @@ function CustomModalContextProvider({ children }) {
       <CardSection2
         editable={true}
         onClick={handleCloseCustomModal}
-        actionBtns={[
-          { actionBtn: "save", buttonIcon: "fa-solid fa-floppy-disk" },
-          { actionBtn: "cancel", buttonIcon: "fa-solid fa-x" },
-        ]}
+        actionBtns={actionBtns}
       />
     ),
     [handleCloseCustomModal],

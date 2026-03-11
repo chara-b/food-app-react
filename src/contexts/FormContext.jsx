@@ -42,13 +42,21 @@ function FormContextProvider({ children }) {
     });
 
   async function submitNewProduct(newProduct) {
-    const result = createNewProduct(newProduct);
-    console.log("newProduct submitted: ", result);
+    try {
+      const result = await createNewProduct(newProduct);
+      console.log("newProduct submitted: ", result);
+    } catch (error) {
+      console.error("Failed to submit new product:", error);
+    }
   }
 
   async function updateProductDetails(productDetails) {
-    const result = updateProduct(productDetails);
-    console.log("product details updated: ", result);
+    try {
+      const result = await updateProduct(productDetails);
+      console.log("product details updated: ", result);
+    } catch (error) {
+      console.error("Failed to update product details:", error);
+    }
   }
 
   const value = useMemo(

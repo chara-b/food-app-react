@@ -12,7 +12,7 @@ function Paginator({ count, perPage }) {
   }
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center bg-white">
       <p>{`Showing page ${current + 1}-${current + perPage} of ${count}`}</p>
       <div className="flex gap-4">
         <Button

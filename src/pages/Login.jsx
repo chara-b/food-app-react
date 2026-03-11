@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 import Button from "../components/button";
 import { Form, useNavigate } from "react-router-dom";
 
@@ -21,20 +21,23 @@ function Login() {
   const [formState, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch({ type: "reset" });
-    localStorage.setItem("user", 123);
-    navigate("/");
-  }
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch({ type: "reset" });
+      localStorage.setItem("user", 123);
+      navigate("/");
+    },
+    [navigate],
+  );
 
-  function handleEmail(e) {
+  const handleEmail = useCallback((e) => {
     dispatch({ type: "email", payload: e.target.value });
-  }
+  }, []);
 
-  function handlePassword(e) {
+  const handlePassword = useCallback((e) => {
     dispatch({ type: "password", payload: e.target.value });
-  }
+  }, []);
 
   return (
     <div className="w-full h-screen flex items-center justify-center">

@@ -1,5 +1,5 @@
 // react
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   useLoaderData,
   useLocation,
@@ -36,10 +36,18 @@ function MainPage() {
 
   const fetchedData = useLoaderData();
 
-  const handleChangedSearchText = (e) => {
+  const actionBtns = useMemo(
+    () => [
+      { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
+      { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },
+    ],
+    [],
+  );
+
+  const handleChangedSearchText = useCallback((e) => {
     const searchText = e.target.value;
     setSearchText(searchText);
-  };
+  }, []);
 
   useEffect(
     function () {
@@ -55,7 +63,7 @@ function MainPage() {
     <FormContextProvider>
       <CustomModalContextProvider>
         <ProductsContextProvider initialData={fetchedData}>
-          <div className="flex flex-col gap-4 w-full h-screen">
+          <div className="flex flex-col w-full h-screen">
             <NavBar className="w-full">
               <NavBarItem
                 styles="w-100 px-4 py-2 border bg-white rounded-lg focus:ring-2 focus:ring-black focus:border-black"
@@ -72,10 +80,7 @@ function MainPage() {
                 <ProductList
                   className="w-full"
                   searchText={searchText}
-                  actionBtns={[
-                    { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
-                    { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },
-                  ]}
+                  actionBtns={actionBtns}
                   colsCount="3"
                 >
                   <Paginator count={fetchedData.length} perPage={5} />
