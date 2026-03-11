@@ -1,6 +1,6 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Product from "../components/product.jsx";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 function ProductPage() {
   const fetchedProduct = useLoaderData();

@@ -99,7 +99,7 @@ function CustomModalContextProvider({ children }) {
         actionBtns={actionBtns}
       />
     ),
-    [handleCloseCustomModal],
+    [actionBtns, handleCloseCustomModal],
   );
 
   const handleAddNewProduct = useCallback(() => {
