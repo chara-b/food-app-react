@@ -25,7 +25,6 @@ import { FormContextProvider } from "../contexts/FormContext.jsx";
 
 function MainPage() {
   const [searchText, setSearchText] = useState("");
-  const [deletedProducts, setDeletedProducts] = useState([]);
 
   const navigate = useNavigate();
 
@@ -39,10 +38,6 @@ function MainPage() {
   const handleChangedSearchText = (e) => {
     const searchText = e.target.value;
     setSearchText(searchText);
-  };
-
-  const handleDeletedProductsList = (deletedProductsList) => {
-    setDeletedProducts(deletedProductsList);
   };
 
   useEffect(
@@ -59,7 +54,7 @@ function MainPage() {
     <FormContextProvider>
       <CustomModalContextProvider>
         <div className="flex flex-col gap-4 w-full h-screen">
-          <NavBar className="w-full" deletedProducts={() => deletedProducts}>
+          <NavBar className="w-full">
             <NavBarItem
               styles="w-100 px-4 py-2 border bg-white rounded-lg focus:ring-2 focus:ring-black focus:border-black"
               placeholder="Search..."
@@ -76,7 +71,6 @@ function MainPage() {
                 className="w-full"
                 data={fetchedData}
                 searchText={searchText}
-                receiveDeletedProductsList={handleDeletedProductsList}
                 actionBtns={[
                   { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
                   { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },

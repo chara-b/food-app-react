@@ -1,6 +1,7 @@
-function Button({ type, styles, onClick, disabled, children }) {
+function Button({ type, name, styles, onClick, disabled, children }) {
   return (
     <button
+      name={name}
       type={type}
       className={!disabled ? styles : `${styles} opacity-50 cursor-not-allowed`}
       onClick={onClick}

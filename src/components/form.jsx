@@ -17,23 +17,25 @@ function Form({
   return (
     <form className="flex flex-col w-full" action={actionFunction}>
       <div className="flex gap-4 justify-end">{children}</div>
-      <Input
-        label={titleInputWithLabel.label}
-        id={titleInputWithLabel.id?.toLowerCase().split(" ").join("-")}
-        name={titleInputWithLabel.name?.toLowerCase().split(" ").join("-")}
-        value={titleInputWithLabel.value}
-        onChange={onChange}
-        type={titleInputWithLabel.type}
-        className={formState?.errors ? "border border-red-500" : ""}
-      >
-        {formState?.errors && (
-          <ul className="text-red-500 text-sm">
-            {formState.errors.map((error, i) => (
-              <li key={i}>{error}</li>
-            ))}
-          </ul>
-        )}
-      </Input>
+      {titleInputWithLabel && (
+        <Input
+          label={titleInputWithLabel.label}
+          id={titleInputWithLabel.id?.toLowerCase().split(" ").join("-")}
+          name={titleInputWithLabel.name?.toLowerCase().split(" ").join("-")}
+          value={titleInputWithLabel.value}
+          onChange={onChange}
+          type={titleInputWithLabel.type}
+          className={formState?.errors ? "border border-red-500" : ""}
+        >
+          {formState?.errors && (
+            <ul className="text-red-500 text-sm">
+              {formState.errors.map((error, i) => (
+                <li key={i}>{error}</li>
+              ))}
+            </ul>
+          )}
+        </Input>
+      )}
       {inputsNoLabels?.length && (
         <div className="mb-5">
           <span className="block text-sm/6 font-medium text-gray-900">
@@ -54,7 +56,6 @@ function Form({
           </ul>
         </div>
       )}
-
       {inputsWithLabels?.length &&
         inputsWithLabels.map((inputData, i) => (
           <Input
@@ -62,7 +63,7 @@ function Form({
             label={inputData.label}
             id={inputData.id?.toLowerCase().split(" ").join("-")}
             name={inputData.name?.toLowerCase().split(" ").join("-")}
-            value={inputData.value}
+            value={formState?.enteredValues.enteredValue}
             onChange={onChange}
             type={inputData.type}
             className={formState?.errors ? "border border-red-500" : ""}
@@ -76,7 +77,6 @@ function Form({
             )}
           </Input>
         ))}
-
       <div className="flex mt-5 justify-end gap-5">
         {actionBtns?.length &&
           actionBtns?.map(({ actionBtn, buttonIcon }, i) => {

@@ -3,52 +3,31 @@ import Paginator from "./paginator.jsx";
 import Product from "./product.jsx";
 import { useEffect, useState } from "react";
 
-function ProductList({
-  data,
-  actionBtns,
-  searchText,
-  receiveDeletedProductsList,
-  colsCount,
-  children,
-}) {
+function ProductList({ data, actionBtns, searchText, colsCount, children }) {
   const [availableProducts, setAvailableProducts] = useState(data || []);
   const [filteredProducts, setFilteredProducts] = useState(data || []);
-  const [deletedProducts, setDeletedProducts] = useState([]);
 
   const navigate = useNavigate();
-
-  const handleDeletedProduct = (deletedProduct) => {
-    console.log("deletedProduct: ", deletedProduct);
-    const results = filteredProducts.filter(
-      (product) => product.id !== deletedProduct.id,
-    );
-    setFilteredProducts(results);
-    setAvailableProducts(results);
-    setDeletedProducts((prevDeletedProducts) => [
-      ...prevDeletedProducts,
-      deletedProduct,
-    ]);
-  };
-
-  const handleRestoredProduct = (restoredProduct) => {
-    console.log("restoredProduct: ", restoredProduct);
-    setFilteredProducts((prevFilteredProducts) => [
-      ...prevFilteredProducts,
-      restoredProduct,
-    ]);
-  };
 
   const handleEditedProduct = (editedProduct) => {
     console.log("editedProduct: ", editedProduct);
     navigate(`product/${editedProduct.id}`);
   };
 
-  const handleProduct = (actionBtn, product) => {
+  const handleProduct = (actionBtn, product, updateProductFn) => {
     if (actionBtn === "delete") {
-      handleDeletedProduct(product);
+      updateProductFn({
+        id: product.id,
+        propToUpdate: "disabled",
+        newValue: true,
+      });
     }
     if (actionBtn === "restore") {
-      handleRestoredProduct(product);
+      updateProductFn({
+        id: product.id,
+        propToUpdate: "disabled",
+        newValue: false,
+      });
     }
     if (actionBtn === "edit") {
       handleEditedProduct(product);
@@ -67,18 +46,7 @@ function ProductList({
       );
       setFilteredProducts(results);
     }
-
-    // for sending back to the App the real deletedFoods list
-    if (typeof receiveDeletedProductsList === "function") {
-      receiveDeletedProductsList(deletedProducts);
-      console.log(deletedProducts);
-    }
-  }, [
-    searchText,
-    deletedProducts,
-    receiveDeletedProductsList,
-    availableProducts,
-  ]);
+  }, [searchText, availableProducts]);
 
   const productsNum = filteredProducts.length;
 

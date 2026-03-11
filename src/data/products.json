@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Πίτσα",
       "ingredients": [
         "ντομάτα",
@@ -14,10 +14,11 @@
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "pizza.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": true
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Μπέργκερ",
       "ingredients": [
         "ντομάτα",
@@ -30,10 +31,11 @@
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "burger.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": true
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Σάντουιτς",
       "ingredients": [
         "ντομάτα",
@@ -49,10 +51,11 @@
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "sandwich.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": true
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Σαλάτα",
       "ingredients": [
         "μαρούλι",
@@ -67,67 +70,79 @@
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "salad.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": false
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Τοστ",
-      "ingredients": ["γκούντα", "καπνιστή μπριζόλα", "φιλαδέλφεια"],
+      "ingredients": [
+        "γκούντα",
+        "καπνιστή μπριζόλα",
+        "φιλαδέλφεια"
+      ],
       "price": 2.5,
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "toast.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": false
     },
     {
-      "id": 6,
+      "id": "6",
       "title": "Κόκα κόλα",
       "ingredients": [],
       "price": 1,
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "cocacola.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": false
     },
     {
-      "id": 7,
+      "id": "7",
       "title": "Πορτοκαλάδα",
       "ingredients": [],
       "price": 1,
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "juice.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": false
     },
     {
-      "id": 8,
+      "id": "8",
       "title": "Νερό",
       "ingredients": [],
       "price": 0.5,
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "water.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": false
     },
     {
-      "id": 9,
+      "id": "9",
       "title": "Μπουγάτσα",
       "ingredients": [],
       "price": 2.5,
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "mpougatsa.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": false
     },
     {
-      "id": 10,
+      "id": "10",
       "title": "Κουλούρι Θεσσαλονίκης",
       "ingredients": [],
       "price": 0.5,
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "koulouri.png",
-      "quantity": 10
+      "quantity": 10,
+      "disabled": false
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -15,6 +15,7 @@ import ProductPage from "./pages/ProductPage.jsx";
 import {
   fetchProducts,
   fetchProduct,
+  fetchDisabledProducts,
 } from "./services/productsHTTPRequests.js";
 
 // constants
@@ -27,7 +28,12 @@ const router = createBrowserRouter([
     loader: fetchProducts,
     errorElement: <Error />,
     children: [
-      { path: "bin", element: <Bin /> },
+      {
+        path: "bin",
+        element: <Bin />,
+        loader: fetchDisabledProducts,
+        errorElement: <Error />,
+      },
       {
         path: "product/:productId",
         element: <ProductPage />,

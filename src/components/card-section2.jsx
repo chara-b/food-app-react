@@ -13,16 +13,21 @@ function CardSection2({ product, editable, onClick, actionBtns }) {
 
   // for other inputs with labels
   const [labeledInputsData, setLabeledInputsData] = useState(function () {
-    return defaultProductFormInputs.map(({ label, type }) => {
+    return defaultProductFormInputs.map(({ label, type }, i) => {
       return {
         label: label,
+        id: (product?.id && `field-${product?.id}`) || `field-${i}`,
+        name: (product?.id && `field-${product?.id}`) || `field-${i}`,
         value: product?.[label] || "",
         type: type,
       };
     });
   });
+  // for the title one and only input
   const [productTitleInput] = useState({
     label: "Food Title",
+    id: "product-title",
+    name: "product-title",
     value: product?.title || "",
     type: "text",
   });

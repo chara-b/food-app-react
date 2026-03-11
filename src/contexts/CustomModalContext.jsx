@@ -22,6 +22,9 @@ const CustomModalContext = createContext(null);
 // optimization
 // typescript
 // i forma sto add new product na ginetai opos leei o maximilian
+// to routing pou me to piso belaki tou browser an patousa opoiodipote button
+// apothikeue ta kli kai meta ithele na patiso tosa piso belakia ston browser osa
+// ta klik pou eixa kanei sto koumpi!
 
 function reducer(state, action) {
   switch (action.type) {
@@ -104,24 +107,31 @@ function CustomModalContextProvider({ children }) {
     dispatch({ type: "modalActionBtnRight", payload: "Add" });
   }, [dispatch, getCardSection2]);
 
-  const NewInputFormContent = memo(({ formState, actionFunction }) => (
+  const handleChange = (value) => {
+    console.log(value);
+  };
+
+  const NewInputForm = memo(({ formState, actionFunction }) => (
     <Form
       inputsWithLabels={[
         {
           label: "Enter new form field label",
-          id: formState.enteredValues.label,
-          name: formState.enteredValues.label,
+          id: "new-field-label",
+          name: "new-field-label",
+          value: "",
           type: "text",
         },
         {
           label: "Enter new form field value",
-          id: formState.enteredValues.value,
-          name: formState.enteredValues.value,
+          id: "new-field-value",
+          name: "new-field-value",
+          value: "",
           type: "text",
         },
       ]}
       actionFunction={actionFunction}
       formState={formState}
+      onChange={(e) => handleChange(e.target.value)}
     />
   ));
 
@@ -132,7 +142,7 @@ function CustomModalContextProvider({ children }) {
     dispatch({
       type: "modalContent",
       payload: (
-        <NewInputFormContent
+        <NewInputForm
           formState={addNewInputFormState}
           actionFunction={addNewInputFormAction}
         />

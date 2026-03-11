@@ -5,6 +5,10 @@ import {
   hasOnlyLetters,
   hasOnlyNumbers,
 } from "../utils/validation.js";
+import {
+  createNewProduct,
+  updateProduct,
+} from "../services/productsHTTPRequests.js";
 
 const FormContext = createContext(null);
 
@@ -37,11 +41,23 @@ function FormContextProvider({ children }) {
       enteredValues: { enteredLabel: "", enteredValue: "" },
     });
 
+  async function submitNewProduct(newProduct) {
+    const result = createNewProduct(newProduct);
+    console.log("newProduct submitted: ", result);
+  }
+
+  async function updateProductDetails(productDetails) {
+    const result = updateProduct(productDetails);
+    console.log("product details updated: ", result);
+  }
+
   const value = useMemo(
     () => ({
       addNewInputFormState,
       addNewInputFormPending,
       addNewInputFormAction,
+      submitNewProduct,
+      updateProductDetails,
     }),
     [addNewInputFormAction, addNewInputFormPending, addNewInputFormState],
   );
