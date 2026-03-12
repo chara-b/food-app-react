@@ -21,7 +21,6 @@ import Paginator from "../components/paginator.jsx";
 // constants
 // contexts
 import { CustomModalContextProvider } from "../contexts/CustomModalContext.jsx";
-import { FormContextProvider } from "../contexts/FormContext.jsx";
 import { ProductsContextProvider } from "../contexts/ProductsContext.jsx";
 
 function MainPage() {
@@ -38,8 +37,8 @@ function MainPage() {
 
   const actionBtns = useMemo(
     () => [
-      { actionBtn: "delete", buttonIcon: "fa-solid fa-trash" },
-      { actionBtn: "edit", buttonIcon: "fa-solid fa-edit" },
+      { actionBtn: "delete", buttonIcon: "fa-solid fa-trash", type: "button" },
+      { actionBtn: "edit", buttonIcon: "fa-solid fa-edit", type: "button" },
     ],
     [],
   );
@@ -60,42 +59,40 @@ function MainPage() {
   );
 
   return (
-    <FormContextProvider>
-      <CustomModalContextProvider>
-        <ProductsContextProvider initialData={fetchedData}>
-          <div className="flex flex-col w-full h-screen">
-            <NavBar className="w-full">
-              <NavBarItem
-                styles="w-100 px-4 py-2 border bg-white rounded-lg focus:ring-2 focus:ring-black focus:border-black"
-                placeholder="Search..."
-                type="input"
-                value={searchText}
-                icon="fa-solid fa-magnifying-glass"
-                onChange={handleChangedSearchText}
-              />
-            </NavBar>
+    <CustomModalContextProvider>
+      <ProductsContextProvider initialData={fetchedData}>
+        <div className="flex flex-col w-full h-screen">
+          <NavBar className="w-full">
+            <NavBarItem
+              styles="w-100 px-4 py-2 border bg-white rounded-lg focus:ring-2 focus:ring-black focus:border-black"
+              placeholder="Search..."
+              type="input"
+              value={searchText}
+              icon="fa-solid fa-magnifying-glass"
+              onChange={handleChangedSearchText}
+            />
+          </NavBar>
 
-            {!isLoading &&
-              (location.pathname === "/" ? (
-                <ProductList
-                  className="w-full"
-                  searchText={searchText}
-                  actionBtns={actionBtns}
-                  colsCount="3"
-                >
-                  <Paginator count={fetchedData.length} perPage={5} />
-                </ProductList>
-              ) : (
-                <Outlet />
-              ))}
+          {!isLoading &&
+            (location.pathname === "/" ? (
+              <ProductList
+                className="w-full"
+                searchText={searchText}
+                actionBtns={actionBtns}
+                colsCount="3"
+              >
+                <Paginator count={fetchedData.length} perPage={5} />
+              </ProductList>
+            ) : (
+              <Outlet />
+            ))}
 
-            {isLoading && <Spinner />}
+          {isLoading && <Spinner />}
 
-            <Footer className="w-full" />
-          </div>
-        </ProductsContextProvider>
-      </CustomModalContextProvider>
-    </FormContextProvider>
+          <Footer className="w-full" />
+        </div>
+      </ProductsContextProvider>
+    </CustomModalContextProvider>
   );
 }
 

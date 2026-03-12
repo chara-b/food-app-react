@@ -1,45 +1,49 @@
-import { createContext, useActionState, useContext, useMemo } from "react";
+/* eslint-disable no-unused-vars */
 import {
-  isEmpty,
-  hasLettersAndNumbersOnly,
-  hasOnlyLetters,
-  hasOnlyNumbers,
-} from "../utils/validation.js";
+  createContext,
+  useActionState,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import {
   createNewProduct,
   updateProduct,
 } from "../services/productsHTTPRequests.js";
+import { useForm } from "../hooks/useForm.jsx";
+import { useAuthContext } from "./FakeAuthContext.jsx";
 
 const FormContext = createContext(null);
 
-const addNewInputActionFunction = (prevFormState, formData) => {
-  const enteredLabel = formData.get("label");
-  const enteredValue = formData.get("value");
-
-  let errors = [];
-
-  if (isEmpty(enteredLabel) || isEmpty(enteredValue)) {
-    errors.push("fill up all fields!");
-  }
-  if (!hasLettersAndNumbersOnly(enteredLabel)) {
-    errors.push("label must contain only letters with numbers!");
-  }
-  if (!hasOnlyLetters(enteredValue) || !hasOnlyNumbers(enteredValue)) {
-    errors.push("value must be either a number or a string!");
-  }
-  if (errors.length > 0) {
-    return { errors: errors };
-  }
-
-  return { errors: null, enteredValues: { enteredLabel, enteredValue } };
-};
-
 function FormContextProvider({ children }) {
-  const [addNewInputFormState, addNewInputFormAction, addNewInputFormPending] =
-    useActionState(addNewInputActionFunction, {
-      errors: null,
-      enteredValues: { enteredLabel: "", enteredValue: "" },
-    });
+  const { formState, onChange, formErrors, validateForm, isFormValid } =
+    useForm();
+
+  const { user, isAuthenticated, login, logout } = useAuthContext();
+
+  const submitLogin = useCallback(
+    async (formData) => {
+      console.log(formData);
+
+      const { formErrors, isFormValid } = validateForm({
+        email: { value: formData.email, rules: { required: true } },
+        password: { value: formData.password, rules: { required: true } },
+      });
+
+      if (!isFormValid) {
+        return { success: false, formErrors };
+      }
+
+      try {
+        await login(formData.email, formData.password);
+        return { success: true };
+      } catch (error) {
+        return { error };
+      }
+    },
+    [login, validateForm],
+  );
 
   async function submitNewProduct(newProduct) {
     try {
@@ -59,15 +63,32 @@ function FormContextProvider({ children }) {
     }
   }
 
+  function submitNewInputFields() {}
+
   const value = useMemo(
     () => ({
-      addNewInputFormState,
-      addNewInputFormPending,
-      addNewInputFormAction,
+      formState,
+      formErrors,
+      isFormValid,
+      onChange,
+      user,
+      isAuthenticated,
+      logout,
+      submitLogin,
       submitNewProduct,
       updateProductDetails,
+      submitNewInputFields,
     }),
-    [addNewInputFormAction, addNewInputFormPending, addNewInputFormState],
+    [
+      formErrors,
+      formState,
+      isAuthenticated,
+      isFormValid,
+      logout,
+      onChange,
+      submitLogin,
+      user,
+    ],
   );
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
 }

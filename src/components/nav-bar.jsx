@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import Button from "./button";
 import ProductList from "./product-list";
 import CustomModal from "./custom-modal";
 import { useNavigate } from "react-router-dom";
 import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
 import MemoizedCustomModal from "./custom-modal";
+import { useFormContext } from "../contexts/FormContext.jsx";
 
 function NavBar({ children }) {
   const {
@@ -12,14 +14,35 @@ function NavBar({ children }) {
     modalTitle,
     modalContent,
     modalIcon,
+    modalActionBtnLeft,
+    modalActionBtnRight,
+    addNewInputModalResultData,
+    addNewInputDisabledBtn,
+    addNewInputFormState,
     onAddNewProduct,
+    onAddNewInputField,
     onCloseModal,
     onConfirmModal,
   } = useCustomModalContext();
 
+  const {
+    formState,
+    formErrors,
+    isFormValid,
+    onChange,
+    user,
+    isAuthenticated,
+    logout,
+    submitLogin,
+    submitNewProduct,
+    updateProductDetails,
+    submitNewInputFields,
+  } = useFormContext();
+
   const navigate = useNavigate();
 
   const handleLougout = () => {
+    logout();
     navigate("/login");
   };
 

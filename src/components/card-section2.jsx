@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { defaultProductFormInputs } from "../constants/formFieldsNames";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
@@ -6,7 +7,7 @@ import Form from "./form";
 import Button from "./button";
 
 const CardSection2 = React.memo(
-  ({ product, editable, onClick, actionBtns }) => {
+  ({ product, editable, onClick, actionBtns, formAction }) => {
     // for ingredient inputs with no labels
     const [ingredientNames, setIngredientNames] = useState(
       product?.ingredients || [""],
@@ -39,8 +40,12 @@ const CardSection2 = React.memo(
       modalTitle,
       modalContent,
       modalIcon,
+      modalActionBtnLeft,
+      modalActionBtnRight,
       addNewInputModalResultData,
       addNewInputDisabledBtn,
+      addNewInputFormState,
+      onAddNewProduct,
       onAddNewInputField,
       onCloseModal,
       onConfirmModal,
@@ -73,6 +78,7 @@ const CardSection2 = React.memo(
           titleInputWithLabel={productTitleInput}
           onClick={onClick}
           actionBtns={actionBtns}
+          action={formAction}
         >
           <Button
             styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"

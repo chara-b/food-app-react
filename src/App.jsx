@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 // components
 // pages
-import Login from "./pages/login.jsx";
+import Login from "./pages/Login.jsx";
 import MainPage from "./pages/mainPage.jsx";
 import Bin from "./pages/Bin.jsx";
 import Error from "./pages/Error.jsx";
@@ -17,6 +17,8 @@ import {
   fetchProduct,
   fetchDisabledProducts,
 } from "./services/productsHTTPRequests.js";
+import { FormContextProvider } from "./contexts/FormContext.jsx";
+import { AuthContextProvider } from "./contexts/FakeAuthContext.jsx";
 
 // constants
 
@@ -47,7 +49,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthContextProvider>
+      <FormContextProvider>
+        <RouterProvider router={router} />
+      </FormContextProvider>
+    </AuthContextProvider>
+  );
 }
 
 export default App;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
 import Button from "./button";
@@ -5,7 +6,19 @@ import CardSection1 from "./card-section1.jsx";
 import CardSection2 from "./card-section2.jsx";
 
 const Product = React.memo(({ product, onClick, editable, actionBtns }) => {
-  const { updateProductDetails } = useFormContext();
+  const {
+    formState,
+    formErrors,
+    isFormValid,
+    onChange,
+    user,
+    isAuthenticated,
+    logout,
+    submitLogin,
+    submitNewProduct,
+    updateProductDetails,
+    submitNewInputFields,
+  } = useFormContext();
   return (
     <li className="flex items-center gap-4 rounded-lg bg-blue-100 p-6 shadow-md outline outline-black/5">
       <CardSection1 imgName={product.imgName} />

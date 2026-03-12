@@ -16,3 +16,8 @@ export function hasOnlyLetters(value) {
 export function hasOnlyNumbers(value) {
   return typeof value === "string" && /^[0-9]+$/.test(value);
 }
+
+export function isValidEmail(value) {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(value);
+}

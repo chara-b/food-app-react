@@ -17,6 +17,7 @@ function Bin({ searchText }) {
       {
         actionBtn: "restore",
         buttonIcon: "fa-solid fa-arrow-rotate-left",
+        type: "button",
       },
     ],
     [],

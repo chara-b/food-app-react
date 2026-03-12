@@ -8,8 +8,12 @@ function ProductPage() {
 
   const actionBtns = useMemo(
     () => [
-      { actionBtn: "save", buttonIcon: "fa-solid fa-floppy-disk" },
-      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x" },
+      {
+        actionBtn: "save",
+        buttonIcon: "fa-solid fa-floppy-disk",
+        type: "submit",
+      },
+      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x", type: "button" },
     ],
     [],
   );

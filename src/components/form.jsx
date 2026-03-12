@@ -13,11 +13,10 @@ const Form = React.memo(
     actionBtns,
     formState,
     onChange,
-    actionFunction,
     children,
   }) => {
     return (
-      <form className="flex flex-col w-full" action={actionFunction}>
+      <form className="flex flex-col w-full">
         <div className="flex gap-4 justify-end">{children}</div>
         {titleInputWithLabel && (
           <Input
@@ -65,7 +64,7 @@ const Form = React.memo(
               label={inputData.label}
               id={inputData.id?.toLowerCase().split(" ").join("-")}
               name={inputData.name?.toLowerCase().split(" ").join("-")}
-              value={formState?.enteredValues.enteredValue}
+              value={formState?.enteredValue}
               onChange={onChange}
               type={inputData.type}
               className={formState?.errors ? "border border-red-500" : ""}
@@ -81,20 +80,21 @@ const Form = React.memo(
           ))}
         <div className="flex mt-5 justify-end gap-5">
           {actionBtns?.length &&
-            actionBtns?.map(({ actionBtn, buttonIcon }, i) => {
+            actionBtns?.map(({ actionBtn, buttonIcon, type }, i) => {
               return (
                 <Button
                   styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
                   key={i}
                   onClick={onClick}
-                  type="button"
+                  type={type}
                 >
                   {actionBtn}
+
                   <i className={buttonIcon}></i>
                 </Button>
               );
             })}
-          {!actionBtns?.length && (
+          {/* {!actionBtns?.length && (
             <>
               <Button
                 type="button"
@@ -105,14 +105,13 @@ const Form = React.memo(
               </Button>
               <Button
                 type="submit"
-                onClick={onClick}
                 styles="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
                 disabled={formState?.errors}
               >
                 Add
               </Button>
             </>
-          )}
+          )} */}
         </div>
       </form>
     );

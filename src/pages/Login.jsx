@@ -1,95 +1,92 @@
-import { useCallback, useReducer } from "react";
+/* eslint-disable no-unused-vars */
 import Button from "../components/button";
 import { Form, useNavigate } from "react-router-dom";
-
-const initialState = { email: "", password: "" };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "email":
-      return { ...state, email: action.payload };
-    case "password":
-      return { ...state, password: action.payload };
-    case "reset":
-      return { email: "", password: "" };
-    default:
-      throw new Error("unknown action");
-  }
-}
+import { useFormContext } from "../contexts/FormContext";
+import { useEffect } from "react";
 
 function Login() {
-  const [formState, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+  const {
+    formState,
+    formErrors,
+    isFormValid,
+    onChange,
+    user,
+    isAuthenticated,
+    logout,
+    submitLogin,
+    submitNewProduct,
+    updateProductDetails,
+    submitNewInputFields,
+  } = useFormContext();
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch({ type: "reset" });
-      localStorage.setItem("user", 123);
-      navigate("/");
+  useEffect(
+    function () {
+      if (isAuthenticated) {
+        navigate("/");
+      }
     },
-    [navigate],
+    [isAuthenticated, navigate],
   );
-
-  const handleEmail = useCallback((e) => {
-    dispatch({ type: "email", payload: e.target.value });
-  }, []);
-
-  const handlePassword = useCallback((e) => {
-    dispatch({ type: "password", payload: e.target.value });
-  }, []);
-
   return (
     <div className="w-full h-screen flex items-center justify-center">
-      <Form class="w-full max-w-sm m-auto">
-        <div class="md:flex md:items-center mb-6">
-          <div class="md:w-1/3">
+      <Form className="w-full max-w-sm m-auto" onSubmit={submitLogin}>
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
             <label
-              class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-              for="inline-email"
+              className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+              htmlFor="email"
             >
               Email
             </label>
           </div>
-          <div class="md:w-2/3">
+          <div className="md:w-2/3">
             <input
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              id="inline-email"
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+              id="email"
+              name="email"
               type="text"
-              value={formState.email}
-              onChange={handleEmail}
-              required
+              value={formState?.email}
+              // onChange={(e) => onChange("email", e.target.value)}
+              // onBlur={(e) =>
+              //   validateField("email", e.target.value, { required: true })
+              // }
             />
+            {formErrors.email && <span>{formErrors.email}</span>}
           </div>
         </div>
-        <div class="md:flex md:items-center mb-6">
-          <div class="md:w-1/3">
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
             <label
-              class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-              for="inline-password"
+              className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+              htmlFor="password"
             >
               Password
             </label>
           </div>
-          <div class="md:w-2/3">
+          <div className="md:w-2/3">
             <input
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              id="inline-password"
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+              id="password"
+              name="password"
               type="password"
-              value={formState.password}
-              onChange={handlePassword}
-              required
+              value={formState?.password}
+              // onChange={(e) => onChange("password", e.target.value)}
+              // onBlur={(e) =>
+              //   validateField("email", e.target.value, { required: true })
+              // }
             />
+            {formErrors.email && <span>{formErrors.email}</span>}
           </div>
         </div>
 
-        <div class="md:flex md:items-center">
-          <div class="md:w-1/3"></div>
-          <div class="md:w-2/3">
+        <div className="md:flex md:items-center">
+          <div className="md:w-1/3"></div>
+          <div className="md:w-2/3">
             <Button
               type="submit"
+              disabled={!isFormValid}
               styles="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-              onClick={handleSubmit}
             >
               Login
             </Button>

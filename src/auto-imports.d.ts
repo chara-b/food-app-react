@@ -39,13 +39,18 @@ declare global {
   const startTransition: typeof import('react').startTransition
   const use: typeof import('react').use
   const useActionState: typeof import('react').useActionState
+  const useAddNewInputFormValidation: typeof import('./hooks/useAddNewInputFormValidation.jsx').useAddNewInputFormValidation
   const useCallback: typeof import('react').useCallback
   const useContext: typeof import('react').useContext
   const useDebugValue: typeof import('react').useDebugValue
   const useDeferredValue: typeof import('react').useDeferredValue
   const useEffect: typeof import('react').useEffect
   const useEffectEvent: typeof import('react').useEffectEvent
+  const useEmailValidation: typeof import('./hooks/useAddNewInputFormValidation.jsx').useEmailValidation
   const useFetch: typeof import('./hooks/useFetch.jsx').useFetch
+  const useFieldValidation: typeof import('./hooks/useFormValidation.jsx').useFieldValidation
+  const useForm: typeof import('./hooks/useForm.jsx').useForm
+  const useFormValidation: typeof import('./hooks/useFormValidation.jsx').useFormValidation
   const useHref: typeof import('react-router-dom').useHref
   const useId: typeof import('react').useId
   const useImperativeHandle: typeof import('react').useImperativeHandle
@@ -54,6 +59,8 @@ declare global {
   const useLayoutEffect: typeof import('react').useLayoutEffect
   const useLinkClickHandler: typeof import('react-router-dom').useLinkClickHandler
   const useLocation: typeof import('react-router-dom').useLocation
+  const useLoginFormValidation: typeof import('./hooks/useEditProductFormValidation.jsx').useLoginFormValidation
+  const useLoginValidation: typeof import('./hooks/useLoginFormValidation.jsx').useLoginValidation
   const useMemo: typeof import('react').useMemo
   const useNavigate: typeof import('react-router-dom').useNavigate
   const useNavigationType: typeof import('react-router-dom').useNavigationType

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import Product from "./product.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";

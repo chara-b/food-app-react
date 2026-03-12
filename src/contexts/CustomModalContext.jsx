@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   createContext,
   memo,
@@ -25,6 +26,7 @@ const CustomModalContext = createContext(null);
 // to routing pou me to piso belaki tou browser an patousa opoiodipote button
 // apothikeue ta kli kai meta ithele na patiso tosa piso belakia ston browser osa
 // ta klik pou eixa kanei sto koumpi!
+// se env arxeio ta constants mou na psakso na do pos ginetai !
 
 function reducer(state, action) {
   switch (action.type) {
@@ -70,15 +72,27 @@ function CustomModalContextProvider({ children }) {
   } = state;
 
   const {
-    addNewInputFormState,
-    addNewInputFormPending,
-    addNewInputFormAction,
+    formState,
+    formErrors,
+    isFormValid,
+    onChange,
+    user,
+    isAuthenticated,
+    logout,
+    submitLogin,
+    submitNewProduct,
+    updateProductDetails,
+    submitNewInputFields,
   } = useFormContext();
 
   const actionBtns = useMemo(
     () => [
-      { actionBtn: "save", buttonIcon: "fa-solid fa-floppy-disk" },
-      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x" },
+      {
+        actionBtn: "save",
+        buttonIcon: "fa-solid fa-floppy-disk",
+        type: "submit",
+      },
+      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x", type: "button" },
     ],
     [],
   );
@@ -116,7 +130,7 @@ function CustomModalContextProvider({ children }) {
     console.log(value);
   };
 
-  const NewInputForm = memo(({ formState, actionFunction }) => (
+  const NewInputForm = memo(({ formState, formAction }) => (
     <Form
       inputsWithLabels={[
         {
@@ -134,7 +148,7 @@ function CustomModalContextProvider({ children }) {
           type: "text",
         },
       ]}
-      actionFunction={actionFunction}
+      action={formAction}
       formState={formState}
       onChange={(e) => handleChange(e.target.value)}
     />
@@ -146,18 +160,13 @@ function CustomModalContextProvider({ children }) {
     dispatch({ type: "modalTitle", payload: "Add new Input" });
     dispatch({
       type: "modalContent",
-      payload: (
-        <NewInputForm
-          formState={addNewInputFormState}
-          actionFunction={addNewInputFormAction}
-        />
-      ),
+      payload: <NewInputForm formState={formState} />,
     });
 
     dispatch({ type: "modalIcon", payload: "fa-solid fa-plus" });
     dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
     dispatch({ type: "modalActionBtnRight", payload: "Add" });
-  }, [addNewInputFormState, addNewInputFormAction]);
+  }, [formState]);
 
   const value = useMemo(
     () => ({
@@ -168,20 +177,16 @@ function CustomModalContextProvider({ children }) {
       modalIcon: modalIcon,
       modalActionBtnLeft: modalActionBtnLeft,
       modalActionBtnRight: modalActionBtnRight,
-      addNewInputModalResultData: addNewInputFormState.enteredValues,
-      addNewInputDisabledBtn: addNewInputFormState.errors,
-      addNewInputFormState: addNewInputFormState,
-      addNewInputFormAction: addNewInputFormAction,
-      addNewInputPending: addNewInputFormPending,
+      addNewInputModalResultData: formState,
+      addNewInputDisabledBtn: formState?.errors,
+      addNewInputFormState: formState,
       onAddNewProduct: handleAddNewProduct,
       onAddNewInputField: handleNewInput,
       onCloseModal: handleCloseCustomModal,
       onConfirmModal: handleConfirmCustomModal,
     }),
     [
-      addNewInputFormAction,
-      addNewInputFormPending,
-      addNewInputFormState,
+      formState,
       handleAddNewProduct,
       handleCloseCustomModal,
       handleNewInput,

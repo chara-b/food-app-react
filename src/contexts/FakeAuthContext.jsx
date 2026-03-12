@@ -20,7 +20,7 @@ function reducer(state, action) {
   }
 }
 function AuthContextProvider({ children }) {
-  const cachedUser = localStorage.get("user");
+  const cachedUser = localStorage.getItem("user");
   const initialState = useMemo(
     () => ({
       user: cachedUser,
@@ -39,6 +39,7 @@ function AuthContextProvider({ children }) {
       console.log("fetched user: ", usr);
       if (email === usr.email && password === usr.password) {
         dispatch({ type: "login", payload: usr });
+        localStorage.setItem("user", { email, password });
       }
     } catch (error) {
       console.error("Failed to fetch user:", error);
@@ -47,6 +48,7 @@ function AuthContextProvider({ children }) {
 
   const logout = useCallback(() => {
     dispatch({ type: "logout" });
+    localStorage.removeItem("user");
   }, []);
 
   const value = useMemo(
