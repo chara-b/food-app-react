@@ -9,6 +9,7 @@ const Form = React.memo(
     inputsTitle,
     inputsNoLabels,
     inputsWithLabels,
+    onSubmit,
     onClick,
     actionBtns,
     formState,
@@ -16,7 +17,7 @@ const Form = React.memo(
     children,
   }) => {
     return (
-      <form className="flex flex-col w-full">
+      <form className="flex flex-col w-full" onSubmit={onSubmit}>
         <div className="flex gap-4 justify-end">{children}</div>
         {titleInputWithLabel && (
           <Input

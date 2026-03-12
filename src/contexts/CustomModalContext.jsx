@@ -27,6 +27,7 @@ const CustomModalContext = createContext(null);
 // apothikeue ta kli kai meta ithele na patiso tosa piso belakia ston browser osa
 // ta klik pou eixa kanei sto koumpi!
 // se env arxeio ta constants mou na psakso na do pos ginetai !
+// protected route
 
 function reducer(state, action) {
   switch (action.type) {

@@ -1,6 +1,6 @@
 import { USERS_URL } from "../constants/urls";
 
-export async function fetchUser({ email }) {
+export async function fetchUser(email) {
   try {
     const res = await fetch(`${USERS_URL}?email=${email}`);
 

@@ -37,12 +37,12 @@ function AuthContextProvider({ children }) {
     try {
       const usr = await fetchUser(email);
       console.log("fetched user: ", usr);
-      if (email === usr.email && password === usr.password) {
+      if (email === usr?.[0]?.email && password === usr?.[0]?.password) {
         dispatch({ type: "login", payload: usr });
-        localStorage.setItem("user", { email, password });
+        localStorage.setItem("user", usr[0]);
       }
     } catch (error) {
-      console.error("Failed to fetch user:", error);
+      throw new Error(error);
     }
   }, []);
 

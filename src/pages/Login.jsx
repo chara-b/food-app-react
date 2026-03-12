@@ -29,7 +29,7 @@ function Login() {
     [isAuthenticated, navigate],
   );
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-screen flex items-center justify-center flex-col">
       <Form className="w-full max-w-sm m-auto" onSubmit={submitLogin}>
         <div className="md:flex md:items-center mb-6">
           <div className="md:w-1/3">
@@ -46,13 +46,15 @@ function Login() {
               id="email"
               name="email"
               type="text"
-              value={formState?.email}
-              // onChange={(e) => onChange("email", e.target.value)}
+              // value={formState?.email}
+              onChange={(e) => onChange("email", e.target.value)}
               // onBlur={(e) =>
               //   validateField("email", e.target.value, { required: true })
               // }
             />
-            {formErrors.email && <span>{formErrors.email}</span>}
+            {formErrors.email && (
+              <span className="text-red-600">{formErrors.email}</span>
+            )}
           </div>
         </div>
         <div className="md:flex md:items-center mb-6">
@@ -70,26 +72,33 @@ function Login() {
               id="password"
               name="password"
               type="password"
-              value={formState?.password}
-              // onChange={(e) => onChange("password", e.target.value)}
+              // value={formState?.password}
+              onChange={(e) => onChange("password", e.target.value)}
               // onBlur={(e) =>
               //   validateField("email", e.target.value, { required: true })
               // }
             />
-            {formErrors.email && <span>{formErrors.email}</span>}
+            {formErrors.password && (
+              <span className="text-red-600">{formErrors.password}</span>
+            )}
           </div>
         </div>
 
         <div className="md:flex md:items-center">
           <div className="md:w-1/3"></div>
-          <div className="md:w-2/3">
+          <div className="md:w-1/3">
             <Button
               type="submit"
-              disabled={!isFormValid}
+              disabled={formErrors.email || formErrors.password}
               styles="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
             >
               Login
             </Button>
+          </div>
+          <div className="md:w-1/3">
+            {formErrors.form && (
+              <span className="text-red-600">{formErrors.form}</span>
+            )}
           </div>
         </div>
       </Form>

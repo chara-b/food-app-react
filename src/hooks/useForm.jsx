@@ -8,16 +8,19 @@ export const useForm = () => {
   const [formState, setFormState] = useState({});
 
   // validation hook
-  const { formErrors, validateForm, isFormValid } = useFormValidation();
+  const { formErrors, setFormErrors, validateForm, isFormValid } =
+    useFormValidation();
 
   const updateField = (field, value) => {
     setFormState((prev) => ({ ...prev, [field]: value }));
+    setFormErrors({});
   };
 
   return {
     formState,
     onChange: updateField,
     formErrors,
+    setFormErrors,
     validateForm,
     isFormValid,
   };

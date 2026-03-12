@@ -32,26 +32,31 @@ export function useFormValidation() {
 
   const validateField = useCallback(
     (fieldName, value, rules = {}) => {
-      const newErrors = { ...fieldErrors };
+      setFieldErrors({});
+      const errors = { ...fieldErrors };
 
       if (rules?.required && !value?.trim()) {
-        newErrors[fieldName] = `${fieldName} must be filled`;
+        errors[fieldName] = `${fieldName} must be filled`;
       } else if (fieldName === "email" && !validateEmail(value)) {
-        newErrors[fieldName] = "invalid email";
+        errors[fieldName] = "invalid email";
       } else if (fieldName === "label" && !validateLabel(value)) {
-        newErrors[fieldName] = "label must contain only letters and numbers";
+        errors[fieldName] = "label must contain only letters and numbers";
       } else if (fieldName === "value" && !validateValue(value)) {
-        newErrors[fieldName] = "value must contain either letters or numbers";
+        errors[fieldName] = "value must contain either letters or numbers";
       } else if (fieldName === "price" && !validatePrice(value)) {
-        newErrors[fieldName] = "price must contain only numbers";
+        errors[fieldName] = "price must contain only numbers";
       } else if (fieldName === "quantity" && !validateQuantity(value)) {
-        newErrors[fieldName] = "quantity must contain only numbers";
+        errors[fieldName] = "quantity must contain only numbers";
       } else {
-        delete newErrors[fieldName];
+        delete errors[fieldName];
       }
 
-      setFieldErrors(newErrors);
-      return { fieldErrors, isFieldValid: Object.keys(newErrors).length === 0 };
+      setFieldErrors((prev) => ({ ...prev, ...errors }));
+
+      const newErrors = { ...fieldErrors, ...errors };
+      const isFieldValid = Object.keys(newErrors).length === 0;
+
+      return { fieldErrors: newErrors, isFieldValid };
     },
     [
       fieldErrors,
@@ -65,7 +70,7 @@ export function useFormValidation() {
 
   const validateForm = useCallback(
     (fields) => {
-      const newErrors = {};
+      const errors = {};
 
       Object.entries(fields).forEach(([fieldName, { value, rules }]) => {
         const { isFieldValid, fieldErrors } = validateField(
@@ -74,18 +79,23 @@ export function useFormValidation() {
           rules,
         );
         if (!isFieldValid) {
-          newErrors[fieldName] = fieldErrors[fieldName];
+          errors[fieldName] = fieldErrors[fieldName];
         }
       });
 
-      setFormErrors(newErrors);
-      return { formErrors, isFormValid: Object.keys(newErrors).length === 0 };
+      setFormErrors((prev) => ({ ...prev, ...errors }));
+
+      const newErrors = { ...formErrors, ...errors };
+      const isFormValid = Object.keys(newErrors).length === 0;
+
+      return { formErrors: newErrors, isFormValid };
     },
     [formErrors, validateField],
   );
 
   return {
     formErrors,
+    setFormErrors,
     validateForm,
     isFormValid: Object.keys(formErrors).length === 0,
   };

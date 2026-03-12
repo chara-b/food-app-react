@@ -17,32 +17,51 @@ import { useAuthContext } from "./FakeAuthContext.jsx";
 const FormContext = createContext(null);
 
 function FormContextProvider({ children }) {
-  const { formState, onChange, formErrors, validateForm, isFormValid } =
-    useForm();
+  const {
+    formState,
+    onChange,
+    formErrors,
+    setFormErrors,
+    validateForm,
+    isFormValid,
+  } = useForm();
 
   const { user, isAuthenticated, login, logout } = useAuthContext();
 
   const submitLogin = useCallback(
-    async (formData) => {
-      console.log(formData);
+    async (e) => {
+      e.preventDefault();
 
       const { formErrors, isFormValid } = validateForm({
-        email: { value: formData.email, rules: { required: true } },
-        password: { value: formData.password, rules: { required: true } },
+        email: { value: formState.email, rules: { required: true } },
+        password: { value: formState.password, rules: { required: true } },
       });
 
       if (!isFormValid) {
-        return { success: false, formErrors };
+        setFormErrors(formErrors);
+        return;
       }
 
       try {
-        await login(formData.email, formData.password);
+        await login(formState.email, formState.password);
+        if (!isAuthenticated) {
+          setFormErrors({
+            form: "user not authenticated !",
+          });
+        }
         return { success: true };
       } catch (error) {
         return { error };
       }
     },
-    [login, validateForm],
+    [
+      formState.email,
+      formState.password,
+      isAuthenticated,
+      login,
+      setFormErrors,
+      validateForm,
+    ],
   );
 
   async function submitNewProduct(newProduct) {
