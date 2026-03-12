@@ -41,19 +41,12 @@ function FormContextProvider({ children }) {
         setFormErrors(formErrors);
         return;
       }
+      if (isFormValid) {
+        setFormErrors({});
+      }
 
       try {
         const loginSuccess = await login(formState.email, formState.password);
-        // if (!isAuthenticated) {
-        //   setFormErrors({
-        //     form: "user not authenticated !",
-        //   });
-        // }
-        // if (isAuthenticated) {
-        //   setFormErrors({});
-        // }
-        // return { success: true };
-
         if (loginSuccess) {
           setFormErrors({});
           return { success: true };
@@ -67,14 +60,7 @@ function FormContextProvider({ children }) {
         return { error };
       }
     },
-    [
-      formState.email,
-      formState.password,
-      isAuthenticated,
-      login,
-      setFormErrors,
-      validateForm,
-    ],
+    [formState.email, formState.password, login, setFormErrors, validateForm],
   );
 
   async function submitNewProduct(newProduct) {

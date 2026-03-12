@@ -32,7 +32,6 @@ export function useFormValidation() {
 
   const validateField = useCallback(
     (fieldName, value, rules = {}) => {
-      setFieldErrors({});
       const errors = { ...fieldErrors };
 
       if (rules?.required && !value?.trim()) {
@@ -80,6 +79,7 @@ export function useFormValidation() {
         );
         if (!isFieldValid) {
           errors[fieldName] = fieldErrors[fieldName];
+          setFieldErrors({});
         }
       });
 
