@@ -43,13 +43,26 @@ function FormContextProvider({ children }) {
       }
 
       try {
-        await login(formState.email, formState.password);
-        if (!isAuthenticated) {
+        const loginSuccess = await login(formState.email, formState.password);
+        // if (!isAuthenticated) {
+        //   setFormErrors({
+        //     form: "user not authenticated !",
+        //   });
+        // }
+        // if (isAuthenticated) {
+        //   setFormErrors({});
+        // }
+        // return { success: true };
+
+        if (loginSuccess) {
+          setFormErrors({});
+          return { success: true };
+        } else {
           setFormErrors({
             form: "user not authenticated !",
           });
+          return { success: false };
         }
-        return { success: true };
       } catch (error) {
         return { error };
       }

@@ -39,8 +39,10 @@ function AuthContextProvider({ children }) {
       console.log("fetched user: ", usr);
       if (email === usr?.[0]?.email && password === usr?.[0]?.password) {
         dispatch({ type: "login", payload: usr });
-        localStorage.setItem("user", usr[0]);
+        localStorage.setItem("user", JSON.stringify(usr[0]));
+        return true;
       }
+      return false;
     } catch (error) {
       throw new Error(error);
     }
