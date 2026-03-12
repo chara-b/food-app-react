@@ -10,6 +10,7 @@ import Bin from "./pages/Bin.jsx";
 import Error from "./pages/Error.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
+import ProtectedRoute from "./components/protected-route.jsx";
 // custom hooks
 // loaders for fetching data at routing
 import {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   {
     path: "/",
-    element: <MainPage />,
+    element: (
+      <ProtectedRoute>
+        <MainPage />
+      </ProtectedRoute>
+    ),
     loader: fetchProducts,
     errorElement: <Error />,
     children: [

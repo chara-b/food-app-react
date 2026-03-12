@@ -22,12 +22,10 @@ const CustomModalContext = createContext(null);
 // o bin kai to logout
 // optimization
 // typescript
-// i forma sto add new product na ginetai opos leei o maximilian
 // to routing pou me to piso belaki tou browser an patousa opoiodipote button
 // apothikeue ta kli kai meta ithele na patiso tosa piso belakia ston browser osa
 // ta klik pou eixa kanei sto koumpi!
 // se env arxeio ta constants mou na psakso na do pos ginetai !
-// protected route
 
 function reducer(state, action) {
   switch (action.type) {

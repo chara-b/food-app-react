@@ -36,6 +36,7 @@ declare global {
   const paginator: typeof import('./components/paginator.jsx').default
   const product: typeof import('./components/product.jsx').default
   const productList: typeof import('./components/product-list.jsx').default
+  const protectedRoute: typeof import('./components/protected-route.jsx').default
   const startTransition: typeof import('react').startTransition
   const use: typeof import('react').use
   const useActionState: typeof import('react').useActionState

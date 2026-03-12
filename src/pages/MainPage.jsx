@@ -1,9 +1,8 @@
 // react
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   useLoaderData,
   useLocation,
-  useNavigate,
   useNavigation,
   Outlet,
 } from "react-router-dom";
@@ -26,8 +25,6 @@ import { ProductsContextProvider } from "../contexts/ProductsContext.jsx";
 function MainPage() {
   const [searchText, setSearchText] = useState("");
 
-  const navigate = useNavigate();
-
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
 
@@ -47,16 +44,6 @@ function MainPage() {
     const searchText = e.target.value;
     setSearchText(searchText);
   }, []);
-
-  useEffect(
-    function () {
-      const user = localStorage.getItem("user");
-      if (!user) {
-        navigate("/login");
-      }
-    },
-    [navigate],
-  );
 
   return (
     <CustomModalContextProvider>
