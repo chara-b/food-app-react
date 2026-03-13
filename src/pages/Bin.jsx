@@ -30,15 +30,6 @@ function Bin() {
     <div className="flex flex-col gap-4 w-full h-screen">
       {" "}
       {!isLoading && location.pathname.includes("bin") && (
-        // <ProductList
-        //   className="w-full"
-        //   searchText={searchText}
-        //   actionBtns={actionBtns}
-        //   location={location}
-        //   colsCount="3"
-        // >
-        //   <Paginator count={disabledProducts.length} perPage={5} />
-        // </ProductList>
         <ProductListBin
           disabledProducts={disabledProducts}
           className="w-full"

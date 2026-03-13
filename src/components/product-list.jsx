@@ -40,18 +40,10 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
   useEffect(
     function () {
       handleFilteredProducts(availableProducts);
-      // the app runs 2 pages with products list! one the main page and one for the bin !
-      // so all if conditions here are necessary to distinguish between these 2 pages and their lists !
+
       if (searchText && !searchText?.trim()) {
         handleFilteredProducts(availableProducts);
       }
-
-      // if (!searchText?.trim() && location.pathname.includes("bin")) {
-      //   // filtered products get the all kind of fltered products even the disabled ones are meant to be
-      //   // considered as filtered ! so we have 2 products state ! one for the available and one for the
-      //   // all kind of filtered products either by searching via search bar or via the bin page !
-      //   handleFilteredProducts(filteredProducts);
-      // }
 
       if (searchText && searchText?.trim()) {
         const lowCaseSearchText = searchText.toLowerCase();
@@ -60,14 +52,6 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
         );
         handleFilteredProducts(filteredResults);
       }
-
-      // if (searchText?.trim() && location.pathname.includes("bin")) {
-      //   const lowCaseSearchText = searchText.toLowerCase();
-      //   const filteredResults = filteredProducts.filter((product) =>
-      //     product.title.toLowerCase().includes(lowCaseSearchText),
-      //   );
-      //   handleFilteredProducts(filteredResults);
-      // }
     },
     [availableProducts, filteredProducts, handleFilteredProducts, searchText],
   );

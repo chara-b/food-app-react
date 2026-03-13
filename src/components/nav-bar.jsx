@@ -48,7 +48,7 @@ function NavBar({ children }) {
   };
 
   const handleBinClick = () => {
-    navigate(`bin`, {
+    navigate("bin", {
       replace: true,
     });
   };
