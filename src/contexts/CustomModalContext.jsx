@@ -10,6 +10,7 @@ import {
 import Form from "../components/form";
 import { useFormContext } from "./FormContext";
 import CardSection2 from "../components/card-section2";
+import NewInputForm from "../components/new-input-form";
 
 const CustomModalContext = createContext(null);
 // to button sto new input modal na energopoieitai mono otan exoun siblirothei kai ta dio inputs!
@@ -68,20 +69,6 @@ function CustomModalContextProvider({ children }) {
     modalActionBtnRight,
   } = state;
 
-  const {
-    formState,
-    formErrors,
-    isFormValid,
-    onChange,
-    user,
-    isAuthenticated,
-    logout,
-    submitLogin,
-    submitNewProduct,
-    updateProductDetails,
-    submitNewInputFields,
-  } = useFormContext();
-
   const actionBtns = useMemo(
     () => [
       {
@@ -123,47 +110,19 @@ function CustomModalContextProvider({ children }) {
     dispatch({ type: "modalActionBtnRight", payload: "Add" });
   }, [dispatch, getCardSection2]);
 
-  const handleChange = (value) => {
-    console.log(value);
-  };
-
-  const NewInputForm = memo(({ formState, formAction }) => (
-    <Form
-      inputsWithLabels={[
-        {
-          label: "Enter new form field label",
-          id: "new-field-label",
-          name: "new-field-label",
-          value: "",
-          type: "text",
-        },
-        {
-          label: "Enter new form field value",
-          id: "new-field-value",
-          name: "new-field-value",
-          value: "",
-          type: "text",
-        },
-      ]}
-      action={formAction}
-      formState={formState}
-      onChange={(e) => handleChange(e.target.value)}
-    />
-  ));
-
   const handleNewInput = useCallback(() => {
     dispatch({ type: "showCustomModal", payload: true });
     dispatch({ type: "modalTriggerButtonName", payload: "addInput" });
     dispatch({ type: "modalTitle", payload: "Add new Input" });
     dispatch({
       type: "modalContent",
-      payload: <NewInputForm formState={formState} />,
+      payload: NewInputForm,
     });
 
     dispatch({ type: "modalIcon", payload: "fa-solid fa-plus" });
     dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
     dispatch({ type: "modalActionBtnRight", payload: "Add" });
-  }, [formState]);
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -174,16 +133,15 @@ function CustomModalContextProvider({ children }) {
       modalIcon: modalIcon,
       modalActionBtnLeft: modalActionBtnLeft,
       modalActionBtnRight: modalActionBtnRight,
-      addNewInputModalResultData: formState,
-      addNewInputDisabledBtn: formState?.errors,
-      addNewInputFormState: formState,
+      // addNewInputModalResultData: formState,
+      // addNewInputDisabledBtn: formState?.errors,
+      // addNewInputFormState: formState,
       onAddNewProduct: handleAddNewProduct,
       onAddNewInputField: handleNewInput,
       onCloseModal: handleCloseCustomModal,
       onConfirmModal: handleConfirmCustomModal,
     }),
     [
-      formState,
       handleAddNewProduct,
       handleCloseCustomModal,
       handleNewInput,

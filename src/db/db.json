@@ -71,7 +71,7 @@
       "currency_symbol": "€",
       "imgName": "salad.png",
       "quantity": 10,
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "5",
@@ -86,7 +86,7 @@
       "currency_symbol": "€",
       "imgName": "toast.png",
       "quantity": 10,
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "6",
@@ -97,7 +97,7 @@
       "currency_symbol": "€",
       "imgName": "cocacola.png",
       "quantity": 10,
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "7",
@@ -130,7 +130,7 @@
       "currency_symbol": "€",
       "imgName": "mpougatsa.png",
       "quantity": 10,
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "10",
