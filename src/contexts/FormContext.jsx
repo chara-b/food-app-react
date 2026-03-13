@@ -21,12 +21,17 @@ function FormContextProvider({ children }) {
   const { user, isAuthenticated, login, logout } = useAuthContext();
 
   const submitLogin = useCallback(
-    async (e) => {
+    async (e, formRef) => {
       e.preventDefault();
 
+      const email = formRef.current?.querySelector('input[name="email"]').value;
+      const password = formRef.current?.querySelector(
+        'input[name="password"]',
+      ).value;
+
       const { formErrors, isFormValid } = validateForm({
-        email: { value: formState.email, rules: { required: true } },
-        password: { value: formState.password, rules: { required: true } },
+        email: { value: email, rules: { required: true } },
+        password: { value: password, rules: { required: true } },
       });
 
       if (!isFormValid) {
@@ -38,7 +43,7 @@ function FormContextProvider({ children }) {
       }
 
       try {
-        const loginSuccess = await login(formState.email, formState.password);
+        const loginSuccess = await login(email, password);
         if (loginSuccess) {
           setFormErrors({});
           return { success: true };
@@ -52,28 +57,30 @@ function FormContextProvider({ children }) {
         return { error };
       }
     },
-    [formState.email, formState.password, login, setFormErrors, validateForm],
+    [login, setFormErrors, validateForm],
   );
 
-  async function submitNewProduct(newProduct) {
+  const submitNewProduct = useCallback(async (newProduct) => {
     try {
-      const result = await createNewProduct(newProduct);
-      console.log("newProduct submitted: ", result);
+      await createNewProduct(newProduct);
+      console.log("newProduct submitted");
     } catch (error) {
       console.error("Failed to submit new product:", error);
+      throw error;
     }
-  }
+  }, []);
 
-  async function updateProductDetails(productDetails) {
+  const updateProductDetails = useCallback(async (productDetails) => {
     try {
-      const result = await updateProduct(productDetails);
-      console.log("product details updated: ", result);
+      await updateProduct(productDetails);
+      console.log("product details updated");
     } catch (error) {
       console.error("Failed to update product details:", error);
+      throw error;
     }
-  }
+  }, []);
 
-  function submitNewInputFields() {}
+  const submitNewInputFields = useCallback(() => {}, []);
 
   const value = useMemo(
     () => ({
@@ -97,6 +104,9 @@ function FormContextProvider({ children }) {
       logout,
       onChange,
       submitLogin,
+      submitNewInputFields,
+      submitNewProduct,
+      updateProductDetails,
       user,
     ],
   );

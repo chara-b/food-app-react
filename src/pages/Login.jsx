@@ -2,7 +2,7 @@
 import Button from "../components/button";
 import { Form, useNavigate } from "react-router-dom";
 import { useFormContext } from "../contexts/FormContext";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function Login() {
   const navigate = useNavigate();
@@ -28,9 +28,15 @@ function Login() {
     },
     [isAuthenticated, navigate, user?.email],
   );
+
+  const formRef = useRef();
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col">
-      <Form className="w-full max-w-sm m-auto" onSubmit={submitLogin}>
+      <Form
+        className="w-full max-w-sm m-auto"
+        onSubmit={(e) => submitLogin(e, formRef)}
+        ref={formRef}
+      >
         <div className="md:flex md:items-center mb-6">
           <div className="md:w-1/3">
             <label
