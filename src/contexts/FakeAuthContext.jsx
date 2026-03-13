@@ -20,7 +20,7 @@ function reducer(state, action) {
   }
 }
 function AuthContextProvider({ children }) {
-  const cachedUser = localStorage.getItem("user");
+  const cachedUser = JSON.parse(localStorage.getItem("user"));
   const initialState = useMemo(
     () => ({
       user: cachedUser,

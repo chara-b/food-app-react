@@ -9,8 +9,12 @@ function ProtectedRoute({ children }) {
 
   useEffect(
     function () {
+      const cachedUser = JSON.parse(localStorage.getItem("user"));
       if (!isAuthenticated) {
-        navigate("/login");
+        navigate("/");
+      }
+      if (cachedUser) {
+        navigate(`/mainpage/${cachedUser.email}`);
       }
     },
     [isAuthenticated, navigate],
