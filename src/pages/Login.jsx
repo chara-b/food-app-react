@@ -23,7 +23,7 @@ function Login() {
   useEffect(
     function () {
       if (isAuthenticated) {
-        navigate(`mainpage/${user.email}`);
+        navigate(`mainpage/${user.email.split("@")[0]}`);
       }
     },
     [isAuthenticated, navigate, user?.email],

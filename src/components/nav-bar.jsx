@@ -40,7 +40,7 @@ function NavBar({ children }) {
   } = useFormContext();
 
   const navigate = useNavigate();
-  const { userEmail } = useParams();
+  const { username } = useParams();
 
   const handleLougout = () => {
     logout();
@@ -48,7 +48,9 @@ function NavBar({ children }) {
   };
 
   const handleBinClick = () => {
-    navigate(`bin`);
+    navigate(`bin`, {
+      replace: true,
+    });
   };
 
   return (
@@ -56,7 +58,7 @@ function NavBar({ children }) {
       {children}
       {
         <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-500 text-white shadow-sm">
-          Hello {userEmail.split("@")[0].toUpperCase()}!
+          Hello {username.toUpperCase()}!
         </span>
       }
       <div className="flex ml-auto gap-4">

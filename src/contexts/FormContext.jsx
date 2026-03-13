@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { createContext, useCallback, useContext, useMemo } from "react";
 import {
   createNewProduct,

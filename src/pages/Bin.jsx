@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useLoaderData, useLocation, useNavigation } from "react-router-dom";
 import Paginator from "../components/paginator";
-import ProductList from "../components/product-list";
+import ProductListBin from "../components/product-list-bin";
 import Spinner from "../components/spinner/spinner";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useProductsContext } from "../contexts/ProductsContext";
 
-function Bin({ searchText }) {
+function Bin() {
   const disabledProducts = useLoaderData();
+  console.log("binData", disabledProducts);
 
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
@@ -26,16 +29,24 @@ function Bin({ searchText }) {
   return (
     <div className="flex flex-col gap-4 w-full h-screen">
       {" "}
-      {!isLoading && location.pathname === "/bin" && (
-        <ProductList
+      {!isLoading && location.pathname.includes("bin") && (
+        // <ProductList
+        //   className="w-full"
+        //   searchText={searchText}
+        //   actionBtns={actionBtns}
+        //   location={location}
+        //   colsCount="3"
+        // >
+        //   <Paginator count={disabledProducts.length} perPage={5} />
+        // </ProductList>
+        <ProductListBin
+          disabledProducts={disabledProducts}
           className="w-full"
-          data={disabledProducts}
-          searchText={searchText}
           actionBtns={actionBtns}
           colsCount="3"
         >
           <Paginator count={disabledProducts.length} perPage={5} />
-        </ProductList>
+        </ProductListBin>
       )}
       {isLoading && <Spinner />}
     </div>

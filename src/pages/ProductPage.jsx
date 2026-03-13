@@ -38,7 +38,7 @@ function ProductPage() {
   const handleSaveProduct = useCallback(
     (product) => {
       console.log("savedProduct: ", product);
-      navigate(`mainpage/${user.email}`);
+      navigate(`mainpage/${user.email.split("@")[0]}`);
     },
     [navigate, user.email],
   );
@@ -46,7 +46,7 @@ function ProductPage() {
   const handleCancelProduct = useCallback(
     (product) => {
       console.log("cancelProduct: ", product);
-      navigate(`mainpage/${user.email}`);
+      navigate(`mainpage/${user.email.split("@")[0]}`);
     },
     [navigate, user.email],
   );

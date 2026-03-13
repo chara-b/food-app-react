@@ -19,12 +19,10 @@ const CustomModalContext = createContext(null);
 // to save sto routing na douleuei
 // o paginator
 // to context tis listas me ta proionta sto filtering klp na ftiaxtei
-// o bin kai to logout
+// o bin
 // optimization
 // typescript
-// to routing pou me to piso belaki tou browser an patousa opoiodipote button
-// apothikeue ta kli kai meta ithele na patiso tosa piso belakia ston browser osa
-// ta klik pou eixa kanei sto koumpi!
+
 // se env arxeio ta constants mou na psakso na do pos ginetai !
 
 function reducer(state, action) {

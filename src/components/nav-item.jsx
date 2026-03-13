@@ -1,19 +1,24 @@
-function NavBarItem({
-  type,
-  value,
-  placeholder,
-  onChange,
-  styles,
-  text,
-  icon,
-}) {
+/* eslint-disable no-unused-vars */
+import { useProductsContext } from "../contexts/ProductsContext";
+
+function NavBarItem({ type, placeholder, styles, text, icon }) {
+  const {
+    filteredProducts,
+    availableProducts,
+    searchText,
+    handleChangedSearchText,
+    getDisabledProducts,
+    getAvailableProducts,
+    handleFilteredProducts,
+  } = useProductsContext();
+
   if (type === "input") {
     return (
       <input
         type="text"
-        value={value || ""}
+        value={searchText || ""}
         placeholder={placeholder || ""}
-        onChange={onChange}
+        onChange={handleChangedSearchText}
         className={styles}
       />
     );
