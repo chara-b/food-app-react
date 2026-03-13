@@ -24,9 +24,9 @@ import { AuthContextProvider } from "./contexts/FakeAuthContext.jsx";
 // constants
 
 const router = createBrowserRouter([
-  { path: "/login", element: <Login /> },
+  { path: "/", element: <Login /> },
   {
-    path: "/",
+    path: "/mainpage/:userEmail",
     element: (
       <ProtectedRoute>
         <MainPage />

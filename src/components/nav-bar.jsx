@@ -2,7 +2,7 @@
 import Button from "./button";
 import ProductList from "./product-list";
 import CustomModal from "./custom-modal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
 import MemoizedCustomModal from "./custom-modal";
 import { useFormContext } from "../contexts/FormContext.jsx";
@@ -40,10 +40,11 @@ function NavBar({ children }) {
   } = useFormContext();
 
   const navigate = useNavigate();
+  const { userEmail } = useParams();
 
   const handleLougout = () => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
   const handleBinClick = () => {
@@ -53,6 +54,11 @@ function NavBar({ children }) {
   return (
     <div className="flex items-center gap-4 rounded-lg bg-blue-200 p-6 shadow-md outline outline-black/5">
       {children}
+      {
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-500 text-white shadow-sm">
+          Hello {userEmail.split("@")[0].toUpperCase()}!
+        </span>
+      }
       <div className="flex ml-auto gap-4">
         <Button
           styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"

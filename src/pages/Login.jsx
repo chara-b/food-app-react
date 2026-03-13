@@ -23,10 +23,10 @@ function Login() {
   useEffect(
     function () {
       if (isAuthenticated) {
-        navigate("/");
+        navigate(`mainpage/${user.email}`);
       }
     },
-    [isAuthenticated, navigate],
+    [isAuthenticated, navigate, user?.email],
   );
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col">

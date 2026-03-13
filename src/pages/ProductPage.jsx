@@ -1,10 +1,27 @@
+/* eslint-disable no-unused-vars */
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Product from "../components/product.jsx";
 import { useCallback, useMemo } from "react";
+import { useFormContext } from "../contexts/FormContext.jsx";
 
 function ProductPage() {
   const fetchedProduct = useLoaderData();
+
   const navigate = useNavigate();
+
+  const {
+    formState,
+    formErrors,
+    isFormValid,
+    onChange,
+    user,
+    isAuthenticated,
+    logout,
+    submitLogin,
+    submitNewProduct,
+    updateProductDetails,
+    submitNewInputFields,
+  } = useFormContext();
 
   const actionBtns = useMemo(
     () => [
@@ -21,17 +38,17 @@ function ProductPage() {
   const handleSaveProduct = useCallback(
     (product) => {
       console.log("savedProduct: ", product);
-      navigate("/");
+      navigate(`mainpage/${user.email}`);
     },
-    [navigate],
+    [navigate, user.email],
   );
 
   const handleCancelProduct = useCallback(
     (product) => {
       console.log("cancelProduct: ", product);
-      navigate("/");
+      navigate(`mainpage/${user.email}`);
     },
-    [navigate],
+    [navigate, user.email],
   );
 
   const handleProduct = useCallback(

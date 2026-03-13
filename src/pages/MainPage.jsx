@@ -61,7 +61,7 @@ function MainPage() {
           </NavBar>
 
           {!isLoading &&
-            (location.pathname === "/" ? (
+            (location.pathname.includes("mainpage") ? (
               <ProductList
                 className="w-full"
                 searchText={searchText}

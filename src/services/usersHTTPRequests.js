@@ -7,8 +7,8 @@ export async function fetchUser(email) {
     if (!res.ok) {
       throw new Error("Something went wrong while fetching user data");
     }
-    const data = await res.json();
-    return data;
+    const user = await res.json();
+    return user[0];
   } catch (err) {
     throw new Error(err.message);
   }
