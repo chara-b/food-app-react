@@ -7,8 +7,8 @@ import { useEffect, useMemo } from "react";
 import { useProductsContext } from "../contexts/ProductsContext";
 
 function Bin() {
-  const disabledProducts = useLoaderData();
-  console.log("binData", disabledProducts);
+  const disabledProductsLoaded = useLoaderData();
+  console.log("binData", disabledProductsLoaded);
 
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
@@ -26,17 +26,35 @@ function Bin() {
     [],
   );
 
+  const {
+    filteredProducts,
+    availableProducts,
+    disabledProducts,
+    searchText,
+    handleChangedSearchText,
+    getDisabledProducts,
+    getAvailableProducts,
+    handleFilteredProducts,
+  } = useProductsContext();
+
+  useEffect(
+    function () {
+      handleFilteredProducts(disabledProductsLoaded);
+    },
+    [disabledProductsLoaded, handleFilteredProducts],
+  );
+
   return (
     <div className="flex flex-col gap-4 w-full h-screen">
       {" "}
       {!isLoading && location.pathname.includes("bin") && (
         <ProductListBin
-          disabledProducts={disabledProducts}
+          disabledProductsLoaded={disabledProductsLoaded}
           className="w-full"
           actionBtns={actionBtns}
           colsCount="3"
         >
-          <Paginator count={disabledProducts.length} perPage={5} />
+          <Paginator count={disabledProductsLoaded.length} perPage={5} />
         </ProductListBin>
       )}
       {isLoading && <Spinner />}

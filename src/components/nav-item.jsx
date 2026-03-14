@@ -5,6 +5,7 @@ function NavBarItem({ type, placeholder, styles, text, icon }) {
   const {
     filteredProducts,
     availableProducts,
+    disabledProducts,
     searchText,
     handleChangedSearchText,
     getDisabledProducts,

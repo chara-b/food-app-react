@@ -32,7 +32,7 @@
       "currency_symbol": "€",
       "imgName": "burger.png",
       "quantity": 10,
-      "disabled": true
+      "disabled": false
     },
     {
       "id": "3",
@@ -71,7 +71,7 @@
       "currency_symbol": "€",
       "imgName": "salad.png",
       "quantity": 10,
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "5",

@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Product from "./product.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import React, { useEffect } from "react";
+import { useFormContext } from "../contexts/FormContext.jsx";
 
 const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
   const {
     filteredProducts,
     availableProducts,
+    disabledProducts,
     searchText,
     handleChangedSearchText,
     getDisabledProducts,
@@ -15,31 +17,9 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
     handleFilteredProducts,
   } = useProductsContext();
 
-  const navigate = useNavigate();
-
-  const handleEditedProduct = (editedProduct) => {
-    console.log("editedProduct: ", editedProduct);
-    navigate(`product/${editedProduct.id}`);
-  };
-
-  const handleProduct = async (actionBtn, product, updateProductFn) => {
-    if (actionBtn === "delete") {
-      updateProductFn({
-        id: product.id,
-        propToUpdate: "disabled",
-        newValue: true,
-      });
-      getAvailableProducts();
-    }
-
-    if (actionBtn === "edit") {
-      handleEditedProduct(product);
-    }
-  };
-
   useEffect(
     function () {
-      handleFilteredProducts(availableProducts);
+      // handleFilteredProducts(availableProducts);
 
       if (searchText && !searchText?.trim()) {
         handleFilteredProducts(availableProducts);
@@ -68,7 +48,6 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
             <Product
               product={product}
               key={product.id}
-              onClick={handleProduct}
               actionBtns={actionBtns}
             />
           );
