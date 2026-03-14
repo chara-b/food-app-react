@@ -17,6 +17,8 @@ const CustomModalContext = createContext(null);
 // o paginator
 // optimization
 // typescript
+// to search kanei infinite loop kai otan sbino to keyword den fernei pali ta available
+// kollaei sta filtered tou keyword !
 
 // se env arxeio ta constants mou na psakso na do pos ginetai !
 

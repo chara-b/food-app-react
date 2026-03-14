@@ -113,6 +113,7 @@ function FormContextProvider({ children }) {
       try {
         await createNewProduct(product);
         console.log("newProduct submitted");
+        return true;
       } catch (error) {
         console.error("Failed to submit new product:", error);
         throw error;

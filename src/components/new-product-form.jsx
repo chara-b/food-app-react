@@ -3,6 +3,7 @@ import { memo, useRef } from "react";
 import { useFormContext } from "../contexts/FormContext";
 import { Form } from "react-router-dom";
 import { Button } from "@headlessui/react";
+import { useCustomModalContext } from "../contexts/CustomModalContext";
 
 const NewProductForm = memo(() => {
   const {
@@ -19,11 +20,35 @@ const NewProductForm = memo(() => {
     submitNewInputFields,
   } = useFormContext();
 
+  const {
+    showCustomModal,
+    modalTriggerButtonName,
+    modalTitle,
+    modalContent,
+    modalIcon,
+    modalActionBtnLeft,
+    modalActionBtnRight,
+    addNewInputModalResultData,
+    addNewInputDisabledBtn,
+    addNewInputFormState,
+    onAddNewProduct,
+    onAddNewInputField,
+    onCloseModal,
+    onConfirmModal,
+  } = useCustomModalContext();
+
+  function handleSubmit(e) {
+    const submitted = submitNewProduct(e, formRef);
+    if (submitted) {
+      onConfirmModal();
+    }
+  }
+
   const formRef = useRef();
   return (
     <Form
       className="w-full max-w-sm m-auto"
-      onSubmit={(e) => submitNewProduct(e, formRef)}
+      onSubmit={handleSubmit}
       ref={formRef}
     >
       <div className="md:flex md:items-center mb-6">
@@ -155,6 +180,7 @@ const NewProductForm = memo(() => {
         <div className="md:w-1/3">
           <Button
             type="button"
+            onClick={onCloseModal}
             styles="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
           >
             Cancel
