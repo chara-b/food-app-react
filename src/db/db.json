@@ -142,6 +142,17 @@
       "imgName": "koulouri.png",
       "quantity": 10,
       "disabled": false
+    },
+    {
+      "id": "728b",
+      "title": "παγωτό",
+      "ingredients": "σοκολάτα",
+      "price": "3",
+      "quantity": "20",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "",
+      "disabled": false
     }
   ],
   "users": [

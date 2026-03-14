@@ -34,6 +34,7 @@ declare global {
   const navBar: typeof import('./components/nav-bar.jsx').default
   const navItem: typeof import('./components/nav-item.jsx').default
   const newInputForm: typeof import('./components/new-input-form.jsx').default
+  const newProductForm: typeof import('./components/new-product-form.jsx').default
   const paginator: typeof import('./components/paginator.jsx').default
   const product: typeof import('./components/product.jsx').default
   const productList: typeof import('./components/product-list.jsx').default

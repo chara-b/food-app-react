@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
 import MemoizedCustomModal from "./custom-modal";
 import { useFormContext } from "../contexts/FormContext.jsx";
+import NewProductForm from "./new-product-form.jsx";
 
 function NavBar({ children }) {
   const {
@@ -68,7 +69,7 @@ function NavBar({ children }) {
       <div className="flex ml-auto gap-4">
         <Button
           styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
-          onClick={onAddNewProduct}
+          onClick={() => onAddNewProduct(<NewProductForm />)}
         >
           <i className="fa-solid fa-circle-plus"></i>Add
         </Button>

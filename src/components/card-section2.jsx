@@ -5,6 +5,7 @@ import { useCustomModalContext } from "../contexts/CustomModalContext";
 import MemoizedCustomModal from "./custom-modal";
 import Form from "./form";
 import Button from "./button";
+import { useFormContext } from "../contexts/FormContext";
 
 const CardSection2 = React.memo(
   ({ product, editable, onClick, actionBtns, onSubmit }) => {
@@ -51,6 +52,20 @@ const CardSection2 = React.memo(
       onConfirmModal,
     } = useCustomModalContext();
 
+    const {
+      formState,
+      formErrors,
+      isFormValid,
+      onChange,
+      user,
+      isAuthenticated,
+      logout,
+      submitLogin,
+      submitNewProduct,
+      updateProductDetails,
+      submitNewInputFields,
+    } = useFormContext();
+
     function handleAddNewIngredient() {
       setIngredientNames((ingredientNames) => [...ingredientNames, ""]);
     }
@@ -71,14 +86,16 @@ const CardSection2 = React.memo(
     if (editable) {
       return (
         <Form
-          title={product?.title || "New Food"}
+          titleInputWithLabel={productTitleInput}
           inputsTitle="Ingredients"
           inputsNoLabels={ingredientNames}
           inputsWithLabels={labeledInputsData}
-          titleInputWithLabel={productTitleInput}
+          onSubmit={onSubmit}
           onClick={onClick}
           actionBtns={actionBtns}
-          onSubmit={onSubmit}
+          formState={formState}
+          formErrors={formErrors}
+          onChange={onChange}
         >
           {showCustomModal && modalTriggerButtonName === "addInput" && (
             <MemoizedCustomModal

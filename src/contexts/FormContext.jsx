@@ -60,15 +60,63 @@ function FormContextProvider({ children }) {
     [login, setFormErrors, validateForm],
   );
 
-  const submitNewProduct = useCallback(async (newProduct) => {
-    try {
-      await createNewProduct(newProduct);
-      console.log("newProduct submitted");
-    } catch (error) {
-      console.error("Failed to submit new product:", error);
-      throw error;
-    }
-  }, []);
+  const submitNewProduct = useCallback(
+    async (e, formRef) => {
+      e.preventDefault();
+
+      const product = {
+        title: "",
+        ingredients: [],
+        price: "",
+        quantity: "",
+        currency: "euro",
+        currency_symbol: "€",
+        imgName: "",
+
+        disabled: false,
+      };
+
+      const title = formRef.current?.querySelector('input[name="title"]').value;
+      const ingredients = formRef.current?.querySelector(
+        'input[name="ingredients"]',
+      ).value;
+      const price = formRef.current?.querySelector('input[name="price"]').value;
+      const quantity = formRef.current?.querySelector(
+        'input[name="quantity"]',
+      ).value;
+
+      const { formErrors, isFormValid } = validateForm({
+        title: { value: title, rules: { required: true } },
+        ingredients: { value: ingredients, rules: { required: true } },
+        price: { value: price, rules: { required: true } },
+        quantity: { value: quantity, rules: { required: true } },
+      });
+
+      if (!isFormValid) {
+        setFormErrors(formErrors);
+        return;
+      }
+      if (isFormValid) {
+        setFormErrors({});
+        product.title = title;
+        product.ingredients = ingredients;
+        product.price = price;
+        product.quantity = quantity;
+        product.currency = "euro";
+        product.currency_symbol = "€";
+        product.imgName = "";
+        product.disabled = false;
+      }
+      try {
+        await createNewProduct(product);
+        console.log("newProduct submitted");
+      } catch (error) {
+        console.error("Failed to submit new product:", error);
+        throw error;
+      }
+    },
+    [setFormErrors, validateForm],
+  );
 
   const updateProductDetails = useCallback(async (productDetails) => {
     try {

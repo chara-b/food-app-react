@@ -19,8 +19,6 @@ const CustomModalContext = createContext(null);
 // use reducer sti forma tou edit product gia na tin elegxei!
 // to save sto routing na douleuei
 // o paginator
-// to context tis listas me ta proionta sto filtering klp na ftiaxtei
-// o bin
 // optimization
 // typescript
 
@@ -69,18 +67,6 @@ function CustomModalContextProvider({ children }) {
     modalActionBtnRight,
   } = state;
 
-  const actionBtns = useMemo(
-    () => [
-      {
-        actionBtn: "save",
-        buttonIcon: "fa-solid fa-floppy-disk",
-        type: "submit",
-      },
-      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x", type: "button" },
-    ],
-    [],
-  );
-
   const handleCloseCustomModal = useCallback(() => {
     dispatch({ type: "showCustomModal", payload: false });
   }, [dispatch]);
@@ -89,26 +75,18 @@ function CustomModalContextProvider({ children }) {
     dispatch({ type: "showCustomModal", payload: false });
   };
 
-  const getCardSection2 = useCallback(
-    () => (
-      <CardSection2
-        editable={true}
-        onClick={handleCloseCustomModal}
-        actionBtns={actionBtns}
-      />
-    ),
-    [actionBtns, handleCloseCustomModal],
+  const handleAddNewProduct = useCallback(
+    (content) => {
+      dispatch({ type: "showCustomModal", payload: true });
+      dispatch({ type: "modalTriggerButtonName", payload: "addProduct" });
+      dispatch({ type: "modalTitle", payload: "Add new Product" });
+      dispatch({ type: "modalContent", payload: content });
+      dispatch({ type: "modalIcon", payload: "fa-solid fa-utensils" });
+      dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
+      dispatch({ type: "modalActionBtnRight", payload: "Add" });
+    },
+    [dispatch],
   );
-
-  const handleAddNewProduct = useCallback(() => {
-    dispatch({ type: "showCustomModal", payload: true });
-    dispatch({ type: "modalTriggerButtonName", payload: "addProduct" });
-    dispatch({ type: "modalTitle", payload: "Add new Product" });
-    dispatch({ type: "modalContent", payload: getCardSection2() });
-    dispatch({ type: "modalIcon", payload: "fa-solid fa-utensils" });
-    dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
-    dispatch({ type: "modalActionBtnRight", payload: "Add" });
-  }, [dispatch, getCardSection2]);
 
   const handleNewInput = useCallback(() => {
     dispatch({ type: "showCustomModal", payload: true });

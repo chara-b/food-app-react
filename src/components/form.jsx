@@ -12,7 +12,7 @@ const Form = React.memo(
     onSubmit,
     onClick,
     actionBtns,
-    formState,
+    formErrors,
     onChange,
     children,
   }) => {
@@ -24,16 +24,21 @@ const Form = React.memo(
             label={titleInputWithLabel.label}
             id={titleInputWithLabel.id?.toLowerCase().split(" ").join("-")}
             name={titleInputWithLabel.name?.toLowerCase().split(" ").join("-")}
-            value={titleInputWithLabel.value}
             onChange={onChange}
             type={titleInputWithLabel.type}
-            className={formState?.errors ? "border border-red-500" : ""}
+            className={
+              formErrors?.[titleInputWithLabel.name.toLowerCase()]?.length
+                ? "border border-red-500"
+                : ""
+            }
           >
-            {formState?.errors && (
+            {formErrors?.[titleInputWithLabel.name.toLowerCase()]?.length && (
               <ul className="text-red-500 text-sm">
-                {formState.errors.map((error, i) => (
-                  <li key={i}>{error}</li>
-                ))}
+                {formErrors?.[titleInputWithLabel.name.toLowerCase()]?.map(
+                  (error, i) => (
+                    <li key={i}>{error}</li>
+                  ),
+                )}
               </ul>
             )}
           </Input>
@@ -49,9 +54,15 @@ const Form = React.memo(
                   <Input
                     id={`${inputsTitle?.toLowerCase().split(" ").join("-")}-${inputNoLabel?.toLowerCase().split(" ").join("-")}`}
                     name={`${inputsTitle?.toLowerCase().split(" ").join("-")}-${inputNoLabel?.toLowerCase().split(" ").join("-")}`}
-                    value={inputNoLabel}
                     onChange={onChange}
                     type="text"
+                    className={
+                      formErrors?.[
+                        `${inputsTitle?.toLowerCase().split(" ").join("-")}-${inputNoLabel?.toLowerCase().split(" ").join("-")}`
+                      ]?.length
+                        ? "border border-red-500"
+                        : ""
+                    }
                   />
                 </li>
               ))}
@@ -65,14 +76,21 @@ const Form = React.memo(
               label={inputData.label}
               id={inputData.id?.toLowerCase().split(" ").join("-")}
               name={inputData.name?.toLowerCase().split(" ").join("-")}
-              value={formState?.enteredValue}
               onChange={onChange}
               type={inputData.type}
-              className={formState?.errors ? "border border-red-500" : ""}
+              className={
+                formErrors?.[inputData.name?.toLowerCase().split(" ").join("-")]
+                  ?.length
+                  ? "border border-red-500"
+                  : ""
+              }
             >
-              {formState?.errors && (
+              {formErrors?.[inputData.name?.toLowerCase().split(" ").join("-")]
+                ?.length && (
                 <ul className="text-red-500 text-sm">
-                  {formState.errors.map((error, i) => (
+                  {formErrors?.[
+                    inputData.name?.toLowerCase().split(" ").join("-")
+                  ]?.map((error, i) => (
                     <li key={i}>{error}</li>
                   ))}
                 </ul>
@@ -88,6 +106,7 @@ const Form = React.memo(
                   key={i}
                   onClick={onClick}
                   type={type}
+                  disabled={Object.keys(formErrors)?.length}
                 >
                   {actionBtn}
 

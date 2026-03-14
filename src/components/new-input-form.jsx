@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { useFormContext } from "../contexts/FormContext";
+import { useCustomModalContext } from "../contexts/CustomModalContext";
 
 const handleChange = (value) => {
   console.log(value);
@@ -20,8 +21,38 @@ const NewInputForm = memo(() => {
     updateProductDetails,
     submitNewInputFields,
   } = useFormContext();
-  <Form
-    inputsWithLabels={[
+
+  const {
+    showCustomModal,
+    modalTriggerButtonName,
+    modalTitle,
+    modalContent,
+    modalIcon,
+    modalActionBtnLeft,
+    modalActionBtnRight,
+    addNewInputModalResultData,
+    addNewInputDisabledBtn,
+    addNewInputFormState,
+    onAddNewProduct,
+    onAddNewInputField,
+    onCloseModal,
+    onConfirmModal,
+  } = useCustomModalContext();
+
+  const actionBtns = useMemo(
+    () => [
+      {
+        actionBtn: "save",
+        buttonIcon: "fa-solid fa-floppy-disk",
+        type: "submit",
+      },
+      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x", type: "button" },
+    ],
+    [],
+  );
+
+  const inputsWithLabels = useMemo(
+    () => [
       {
         label: "Enter new form field label",
         id: "new-field-label",
@@ -36,10 +67,21 @@ const NewInputForm = memo(() => {
         value: "",
         type: "text",
       },
-    ]}
-    formState={formState}
-    onChange={(e) => handleChange(e.target.value)}
-  />;
+    ],
+    [],
+  );
+
+  return (
+    <Form
+      inputsWithLabels={inputsWithLabels}
+      onSubmit={submitNewInputFields}
+      onClick={onCloseModal}
+      actionBtns={actionBtns}
+      formState={formState}
+      formErrors={formErrors}
+      onChange={(e) => handleChange(e.target.value)}
+    />
+  );
 });
 
 export default NewInputForm;
