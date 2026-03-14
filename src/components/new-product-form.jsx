@@ -4,6 +4,7 @@ import { useFormContext } from "../contexts/FormContext";
 import { Form } from "react-router-dom";
 import { Button } from "@headlessui/react";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
+import { useProductsContext } from "../contexts/ProductsContext";
 
 const NewProductForm = memo(() => {
   const {
@@ -37,9 +38,21 @@ const NewProductForm = memo(() => {
     onConfirmModal,
   } = useCustomModalContext();
 
-  function handleSubmit(e) {
-    const submitted = submitNewProduct(e, formRef);
+  const {
+    filteredProducts,
+    availableProducts,
+    disabledProducts,
+    searchText,
+    handleChangedSearchText,
+    getDisabledProducts,
+    getAvailableProducts,
+    handleFilteredProducts,
+  } = useProductsContext();
+
+  async function handleSubmit(e) {
+    const submitted = await submitNewProduct(e, formRef);
     if (submitted) {
+      await getAvailableProducts();
       onConfirmModal();
     }
   }
@@ -165,6 +178,15 @@ const NewProductForm = memo(() => {
         <div className="md:w-1/3"></div>
         <div className="md:w-1/3">
           <Button
+            type="button"
+            onClick={onCloseModal}
+            className="shadow bg-gray-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          >
+            Cancel
+          </Button>
+        </div>
+        <div className="md:w-1/3">
+          <Button
             type="submit"
             disabled={
               formErrors.title ||
@@ -172,20 +194,12 @@ const NewProductForm = memo(() => {
               formErrors.price ||
               formErrors.quantity
             }
-            styles="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
           >
             Save
           </Button>
         </div>
-        <div className="md:w-1/3">
-          <Button
-            type="button"
-            onClick={onCloseModal}
-            styles="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-          >
-            Cancel
-          </Button>
-        </div>
+
         <div className="md:w-1/3">
           {formErrors.form && (
             <span className="text-red-600">{formErrors.form}</span>
