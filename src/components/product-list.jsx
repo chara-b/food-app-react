@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useNavigate } from "react-router-dom";
 import Product from "./product.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import React, { useEffect } from "react";
-import { useFormContext } from "../contexts/FormContext.jsx";
 
 const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
   const {

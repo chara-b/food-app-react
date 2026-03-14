@@ -48,10 +48,13 @@ function NavBar({ children }) {
   };
 
   const handleBinClick = () => {
-    // navigate("bin", {
-    //   replace: true,
-    // });
-    navigate("bin");
+    navigate("bin", {
+      replace: true,
+    });
+    // navigate("bin"); // an diagrapso kai bo sto bin kai meta piso sto mainpage den fortonei ta
+    // available data alla ta disabled ksana ! epeidi den prokalei rerender to browser history
+    // ki as ksanasetaro ta initial data tou state me auta pou erxontai apo tin loader function
+    // kata to routing back !
   };
 
   return (
