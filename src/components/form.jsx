@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import Input from "./input.jsx";
 import Button from "./button.jsx";
 import React from "react";
@@ -11,7 +10,7 @@ const Form = React.memo(
     inputsWithLabels,
     onSubmit,
     onClick,
-    actionBtns,
+    formState,
     formErrors,
     onChange,
     children,
@@ -21,24 +20,20 @@ const Form = React.memo(
         <div className="flex gap-4 justify-end">{children}</div>
         {titleInputWithLabel && (
           <Input
-            label={titleInputWithLabel.label}
-            id={titleInputWithLabel.id?.toLowerCase().split(" ").join("-")}
-            name={titleInputWithLabel.name?.toLowerCase().split(" ").join("-")}
-            onChange={onChange}
-            type={titleInputWithLabel.type}
-            className={
-              formErrors?.[titleInputWithLabel.name.toLowerCase()]?.length
-                ? "border border-red-500"
-                : ""
-            }
+            label={titleInputWithLabel.title}
+            id="title"
+            name="title"
+            placeholder={titleInputWithLabel.value}
+            value={formState?.title}
+            onChange={(e) => onChange("title", e.target.value)}
+            type="text"
+            className={formErrors?.title?.length ? "border border-red-500" : ""}
           >
-            {formErrors?.[titleInputWithLabel.name.toLowerCase()]?.length && (
+            {formErrors?.title?.length && (
               <ul className="text-red-500 text-sm">
-                {formErrors?.[titleInputWithLabel.name.toLowerCase()]?.map(
-                  (error, i) => (
-                    <li key={i}>{error}</li>
-                  ),
-                )}
+                {formErrors?.title?.map((error, i) => (
+                  <li key={i}>{error}</li>
+                ))}
               </ul>
             )}
           </Input>
@@ -52,21 +47,25 @@ const Form = React.memo(
               {inputsNoLabels.map((inputNoLabel, i) => (
                 <li key={i}>
                   <Input
-                    id={`${inputsTitle?.toLowerCase().split(" ").join("-")}-${inputNoLabel?.toLowerCase().split(" ").join("-")}`}
-                    name={`${inputsTitle?.toLowerCase().split(" ").join("-")}-${inputNoLabel?.toLowerCase().split(" ").join("-")}`}
-                    onChange={onChange}
-                    type="text"
-                    className={
-                      formErrors?.[
-                        `${inputsTitle?.toLowerCase().split(" ").join("-")}-${inputNoLabel?.toLowerCase().split(" ").join("-")}`
-                      ]?.length
-                        ? "border border-red-500"
-                        : ""
+                    id={`ingredient-${i}`}
+                    name={`ingredient-${i}`}
+                    placeholder={inputNoLabel}
+                    value={formState?.[`ingredient-${i}`]}
+                    onChange={(e) =>
+                      onChange(`ingredient-${i}`, e.target.value)
                     }
+                    type="text"
                   />
                 </li>
               ))}
             </ul>
+            {formErrors?.ingredients?.length && (
+              <ul className="text-red-500 text-sm">
+                {formErrors?.ingredients?.map((error, i) => (
+                  <li key={i}>{error}</li>
+                ))}
+              </ul>
+            )}
           </div>
         )}
         {inputsWithLabels?.length &&
@@ -74,23 +73,21 @@ const Form = React.memo(
             <Input
               key={i}
               label={inputData.label}
-              id={inputData.id?.toLowerCase().split(" ").join("-")}
-              name={inputData.name?.toLowerCase().split(" ").join("-")}
-              onChange={onChange}
-              type={inputData.type}
+              id={`feature-${i}`}
+              name={`feature-${i}`}
+              placeholder={inputData.value}
+              value={formState?.[`feature-${i}`]}
+              onChange={(e) => onChange(`feature-${i}`, e.target.value)}
+              type="text"
               className={
-                formErrors?.[inputData.name?.toLowerCase().split(" ").join("-")]
-                  ?.length
+                formErrors?.[`feature-${i}`]?.length
                   ? "border border-red-500"
                   : ""
               }
             >
-              {formErrors?.[inputData.name?.toLowerCase().split(" ").join("-")]
-                ?.length && (
+              {formErrors?.[`feature-${i}`]?.length && (
                 <ul className="text-red-500 text-sm">
-                  {formErrors?.[
-                    inputData.name?.toLowerCase().split(" ").join("-")
-                  ]?.map((error, i) => (
+                  {formErrors?.[`feature-${i}`]?.map((error, i) => (
                     <li key={i}>{error}</li>
                   ))}
                 </ul>
@@ -98,40 +95,31 @@ const Form = React.memo(
             </Input>
           ))}
         <div className="flex mt-5 justify-end gap-5">
-          {actionBtns?.length &&
-            actionBtns?.map(({ actionBtn, buttonIcon, type }, i) => {
-              return (
-                <Button
-                  styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
-                  key={i}
-                  onClick={onClick}
-                  type={type}
-                  disabled={Object.keys(formErrors)?.length}
-                >
-                  {actionBtn}
+          <div className="md:w-1/3"></div>
+          <div className="md:w-1/3">
+            <Button
+              type="button"
+              onClick={onClick}
+              styles="shadow bg-gray-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            >
+              Cancel
+            </Button>
+          </div>
+          <div className="md:w-1/3">
+            <Button
+              type="submit"
+              disabled={Object.keys(formErrors).length}
+              styles="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            >
+              Save
+            </Button>
+          </div>
 
-                  <i className={buttonIcon}></i>
-                </Button>
-              );
-            })}
-          {/* {!actionBtns?.length && (
-            <>
-              <Button
-                type="button"
-                onClick={onClick}
-                styles="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                styles="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
-                disabled={formState?.errors}
-              >
-                Add
-              </Button>
-            </>
-          )} */}
+          <div className="md:w-1/3">
+            {formErrors.form && (
+              <span className="text-red-600">{formErrors.form}</span>
+            )}
+          </div>
         </div>
       </form>
     );

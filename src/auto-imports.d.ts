@@ -23,10 +23,12 @@ declare global {
   const createContext: typeof import('react').createContext
   const createRef: typeof import('react').createRef
   const customModal: typeof import('./components/custom-modal.jsx').default
+  const editProductForm: typeof import('./components/edit-product-form.jsx').default
   const food: typeof import('./components/food.jsx').default
   const foodList: typeof import('./components/food-list.jsx').default
   const footer: typeof import('./components/footer.jsx').default
   const form: typeof import('./components/form.jsx').default
+  const formOld: typeof import('./components/form-old.jsx').default
   const forwardRef: typeof import('react').forwardRef
   const input: typeof import('./components/input.jsx').default
   const lazy: typeof import('react').lazy

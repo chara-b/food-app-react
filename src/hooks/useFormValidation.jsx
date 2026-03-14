@@ -40,6 +40,14 @@ export function useFormValidation() {
     return isValidImageName(value);
   }, []);
 
+  const validateIngredient = useCallback((label) => {
+    return hasLettersAndNumbersOnly(label);
+  }, []);
+
+  const validateFeature = useCallback((label) => {
+    return hasLettersAndNumbersOnly(label);
+  }, []);
+
   const validateField = useCallback(
     (fieldName, value, rules = {}) => {
       const errors = { ...fieldErrors };
@@ -48,8 +56,12 @@ export function useFormValidation() {
         errors[fieldName] = `${fieldName} must be filled`;
       } else if (fieldName === "email" && !validateEmail(value)) {
         errors[fieldName] = "invalid email";
-      } else if (fieldName === "label" && !validateLabel(value)) {
-        errors[fieldName] = "label must contain only letters and numbers";
+      } else if (
+        (fieldName === "label" || fieldName === "title") &&
+        !validateLabel(value)
+      ) {
+        errors[fieldName] =
+          `${fieldName} must contain only letters and numbers`;
       } else if (fieldName === "value" && !validateValue(value)) {
         errors[fieldName] = "value must contain either letters or numbers";
       } else if (fieldName === "price" && !validatePrice(value)) {
@@ -62,6 +74,13 @@ export function useFormValidation() {
       } else if (fieldName === "imgName" && !validateImgName(value)) {
         errors[fieldName] =
           "imgName must contain only alphanumeric words, underscore and only .png extension or empty";
+      } else if (
+        fieldName.includes("ingredient-") &&
+        !validateIngredient(value)
+      ) {
+        errors[fieldName] = "ingredient must be alphanumeric";
+      } else if (fieldName.includes("feature-") && !validateFeature(value)) {
+        errors[fieldName] = "must be alphanumeric";
       } else {
         delete errors[fieldName];
       }

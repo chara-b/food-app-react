@@ -1,4 +1,13 @@
-function Input({ label, id, name, value, type, onChange, children }) {
+function Input({
+  label,
+  id,
+  name,
+  value,
+  type,
+  onChange,
+  placeholder,
+  children,
+}) {
   return (
     <div>
       <label htmlFor={id} className="block text-sm/6 font-medium text-gray-900">
@@ -9,6 +18,7 @@ function Input({ label, id, name, value, type, onChange, children }) {
           <input
             id={id}
             name={name}
+            placeholder={placeholder}
             value={value}
             type={type}
             onChange={onChange}

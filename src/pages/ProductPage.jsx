@@ -3,6 +3,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import Product from "../components/product.jsx";
 import { useCallback, useMemo } from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
+import { useProductsContext } from "../contexts/ProductsContext.jsx";
 
 function ProductPage() {
   const fetchedProduct = useLoaderData();
@@ -23,49 +24,39 @@ function ProductPage() {
     submitNewInputFields,
   } = useFormContext();
 
-  const actionBtns = useMemo(
-    () => [
-      {
-        actionBtn: "save",
-        buttonIcon: "fa-solid fa-floppy-disk",
-        type: "submit",
-      },
-      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x", type: "button" },
-    ],
-    [],
+  const {
+    filteredProducts,
+    availableProducts,
+    disabledProducts,
+    searchText,
+    handleChangedSearchText,
+    getDisabledProducts,
+    getAvailableProducts,
+    handleFilteredProducts,
+  } = useProductsContext();
+
+  const submitProduct = useCallback(
+    async (e, formRef) => {
+      const submitted = await updateProductDetails(e, formRef);
+      if (submitted) {
+        navigate(`/mainpage/${user.email.split("@")[0]}`);
+        await getAvailableProducts();
+      }
+    },
+    [getAvailableProducts, navigate, updateProductDetails, user.email],
   );
 
-  const handleSaveProduct = useCallback(
-    (product) => {
-      console.log("savedProduct: ", product);
-      navigate(`mainpage/${user.email.split("@")[0]}`);
-    },
-    [navigate, user.email],
-  );
-
-  const handleCancelProduct = useCallback(
-    (product) => {
-      console.log("cancelProduct: ", product);
-      navigate(`mainpage/${user.email.split("@")[0]}`);
-    },
-    [navigate, user.email],
-  );
-
-  const handleProduct = useCallback(
-    (actionBtn, product) => {
-      if (actionBtn === "save") handleSaveProduct(product);
-      if (actionBtn === "cancel") handleCancelProduct(product);
-    },
-    [handleSaveProduct, handleCancelProduct],
-  );
+  function handleCancel() {
+    navigate(`/mainpage/${user.email.split("@")[0]}`);
+  }
 
   return (
     <div className="flex flex-col gap-4 w-full h-screen overflow-auto">
       <Product
         product={fetchedProduct}
-        onClick={handleProduct}
+        onClick={handleCancel}
+        onSubmit={submitProduct}
         editable={true}
-        actionBtns={actionBtns}
       />
     </div>
   );
