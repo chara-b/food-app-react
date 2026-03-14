@@ -20,9 +20,6 @@ const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
       // handleFilteredProducts(disabledProducts);
 
       if (searchText && !searchText?.trim()) {
-        // filtered products get the all kind of fltered products even the disabled ones are meant to be
-        // considered as filtered ! so we have 2 products state ! one for the available and one for the
-        // all kind of filtered products either by searching via search bar or via the bin page !
         handleFilteredProducts(disabledProducts);
       }
 

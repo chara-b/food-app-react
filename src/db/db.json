@@ -15,7 +15,7 @@
       "currency_symbol": "€",
       "imgName": "pizza.png",
       "quantity": 10,
-      "disabled": true
+      "disabled": false
     },
     {
       "id": "2",
