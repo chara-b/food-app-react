@@ -1,15 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {
   createContext,
-  memo,
   useCallback,
   useContext,
   useMemo,
   useReducer,
 } from "react";
-import Form from "../components/form";
-import { useFormContext } from "./FormContext";
-import CardSection2 from "../components/card-section2";
 import NewInputForm from "../components/new-input-form";
 
 const CustomModalContext = createContext(null);

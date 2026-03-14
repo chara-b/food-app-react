@@ -3,7 +3,9 @@ import {
   hasLettersAndNumbersOnly,
   hasOnlyLetters,
   hasOnlyNumbers,
+  isCommaSeparatedWords,
   isValidEmail,
+  isValidImageName,
 } from "../utils/validation";
 
 export function useFormValidation() {
@@ -30,11 +32,19 @@ export function useFormValidation() {
     return hasOnlyNumbers(value);
   }, []);
 
+  const validateIngredients = useCallback((value) => {
+    return isCommaSeparatedWords(value);
+  }, []);
+
+  const validateImgName = useCallback((value) => {
+    return isValidImageName(value);
+  }, []);
+
   const validateField = useCallback(
     (fieldName, value, rules = {}) => {
       const errors = { ...fieldErrors };
 
-      if (rules?.required && !value?.trim()) {
+      if (rules?.required && !value?.trim() && fieldName !== "imgName") {
         errors[fieldName] = `${fieldName} must be filled`;
       } else if (fieldName === "email" && !validateEmail(value)) {
         errors[fieldName] = "invalid email";
@@ -46,6 +56,12 @@ export function useFormValidation() {
         errors[fieldName] = "price must contain only numbers";
       } else if (fieldName === "quantity" && !validateQuantity(value)) {
         errors[fieldName] = "quantity must contain only numbers";
+      } else if (fieldName === "ingredients" && !validateIngredients(value)) {
+        errors[fieldName] =
+          "ingredients must contain only alphanumeric words or phrases with gaps seperated by commas";
+      } else if (fieldName === "imgName" && !validateImgName(value)) {
+        errors[fieldName] =
+          "imgName must contain only alphanumeric words, underscore and only .png extension or empty";
       } else {
         delete errors[fieldName];
       }
@@ -60,6 +76,8 @@ export function useFormValidation() {
     [
       fieldErrors,
       validateEmail,
+      validateImgName,
+      validateIngredients,
       validateLabel,
       validatePrice,
       validateQuantity,

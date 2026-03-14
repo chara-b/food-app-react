@@ -144,9 +144,12 @@
       "disabled": false
     },
     {
-      "id": "728b",
-      "title": "παγωτό",
-      "ingredients": "σοκολάτα",
+      "id": "d036",
+      "title": "Παγωτό",
+      "ingredients": [
+        "σοκολάτα",
+        " βανίλια"
+      ],
       "price": "3",
       "quantity": "20",
       "currency": "euro",

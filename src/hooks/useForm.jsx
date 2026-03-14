@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useFormValidation } from "./useFormValidation";
 
-// Custom hook with pending state
 export const useForm = () => {
   const [formState, setFormState] = useState({});
 

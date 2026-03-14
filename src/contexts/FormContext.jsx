@@ -72,7 +72,6 @@ function FormContextProvider({ children }) {
         currency: "euro",
         currency_symbol: "€",
         imgName: "",
-
         disabled: false,
       };
 
@@ -84,12 +83,16 @@ function FormContextProvider({ children }) {
       const quantity = formRef.current?.querySelector(
         'input[name="quantity"]',
       ).value;
+      const imgName = formRef.current?.querySelector(
+        'input[name="imgName"]',
+      ).value;
 
       const { formErrors, isFormValid } = validateForm({
         title: { value: title, rules: { required: true } },
         ingredients: { value: ingredients, rules: { required: true } },
         price: { value: price, rules: { required: true } },
         quantity: { value: quantity, rules: { required: true } },
+        imgName: { value: imgName, rules: {} },
       });
 
       if (!isFormValid) {
@@ -99,12 +102,12 @@ function FormContextProvider({ children }) {
       if (isFormValid) {
         setFormErrors({});
         product.title = title;
-        product.ingredients = ingredients;
+        product.ingredients = ingredients.split(",");
         product.price = price;
         product.quantity = quantity;
         product.currency = "euro";
         product.currency_symbol = "€";
-        product.imgName = "";
+        product.imgName = imgName;
         product.disabled = false;
       }
       try {

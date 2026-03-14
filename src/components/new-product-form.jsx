@@ -25,13 +25,6 @@ const NewProductForm = memo(() => {
       className="w-full max-w-sm m-auto"
       onSubmit={(e) => submitNewProduct(e, formRef)}
       ref={formRef}
-      //   inputsWithLabels={inputsWithLabels}
-      //   onSubmit={submitNewInputFields}
-      //   onClick={onCloseModal}
-      //   actionBtns={actionBtns}
-      //   formState={formState}
-      //   formErrors={formErrors}
-      //   onChange={(e) => handleChange(e.target.value)}
     >
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
@@ -61,7 +54,7 @@ const NewProductForm = memo(() => {
             className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
             htmlFor="ingredients"
           >
-            Ingredients
+            Ingredients (comma seperated)
           </label>
         </div>
         <div className="md:w-2/3">
@@ -118,6 +111,28 @@ const NewProductForm = memo(() => {
           />
           {formErrors.quantity && (
             <span className="text-red-600">{formErrors.quantity}</span>
+          )}
+        </div>
+      </div>
+      <div className="md:flex md:items-center mb-6">
+        <div className="md:w-1/3">
+          <label
+            className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+            htmlFor="imgName"
+          >
+            ImgName (eg. imgName.png)
+          </label>
+        </div>
+        <div className="md:w-2/3">
+          <input
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            id="imgName"
+            name="imgName"
+            type="text"
+            onChange={(e) => onChange("imgName", e.target.value)}
+          />
+          {formErrors.imgName && (
+            <span className="text-red-600">{formErrors.imgName}</span>
           )}
         </div>
       </div>
