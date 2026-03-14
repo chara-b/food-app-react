@@ -42,20 +42,20 @@ const Product = React.memo(({ product, onClick, editable, actionBtns }) => {
 
   const handleProduct = async (actionBtn, product) => {
     if (actionBtn === "delete") {
-      updateProductDetails({
+      await updateProductDetails({
         id: product.id,
         propToUpdate: "disabled",
         newValue: true,
       });
-      getAvailableProducts();
+      await getAvailableProducts();
     }
     if (actionBtn === "restore") {
-      updateProductDetails({
+      await updateProductDetails({
         id: product.id,
         propToUpdate: "disabled",
         newValue: false,
       });
-      getDisabledProducts();
+      await getDisabledProducts();
     }
     if (actionBtn === "edit") {
       handleEditedProduct(product);

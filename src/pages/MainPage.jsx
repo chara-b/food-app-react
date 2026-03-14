@@ -32,8 +32,8 @@ function MainPage() {
 
   const location = useLocation();
 
-  const fetchedData = useLoaderData();
-  console.log("fetchedData MainPage", fetchedData);
+  const fetchedDataLoaded = useLoaderData();
+  console.log("fetchedDataLoaded MainPage", fetchedDataLoaded);
 
   const actionBtns = useMemo(
     () => [
@@ -45,7 +45,7 @@ function MainPage() {
 
   return (
     <CustomModalContextProvider>
-      <ProductsContextProvider initialData={fetchedData}>
+      <ProductsContextProvider initialData={fetchedDataLoaded}>
         <div className="flex flex-col w-full h-screen">
           <NavBar className="w-full">
             <NavBarItem
@@ -63,7 +63,7 @@ function MainPage() {
                 actionBtns={actionBtns}
                 colsCount="3"
               >
-                <Paginator count={fetchedData.length} perPage={5} />
+                <Paginator count={fetchedDataLoaded.length} perPage={5} />
               </ProductList>
             ) : (
               <Outlet />
