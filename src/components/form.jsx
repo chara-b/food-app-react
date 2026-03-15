@@ -20,7 +20,7 @@ const Form = React.memo(
   }) => {
     return (
       <form className="flex flex-col w-full" onSubmit={onSubmit} ref={formRef}>
-        <div className="flex gap-4 justify-end">{children}</div>
+        <div className="flex gap-4 justify-end flex-col">{children}</div>
         {titleInput && (
           <>
             <Input

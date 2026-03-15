@@ -64,7 +64,7 @@ function NavBar({ children }) {
 
   const handleAddNewProduct = useCallback(
     (content) => {
-      // setFormErrors({});
+      setFormErrors({});
       dispatch({ type: "showCustomModal", payload: true });
       dispatch({ type: "modalTriggerButtonName", payload: "addProduct" });
       dispatch({ type: "modalTitle", payload: "Add new Product" });
@@ -73,7 +73,7 @@ function NavBar({ children }) {
       dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
       dispatch({ type: "modalActionBtnRight", payload: "Add" });
     },
-    [dispatch],
+    [dispatch, setFormErrors],
   );
 
   return (
