@@ -17,8 +17,6 @@ const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
 
   useEffect(
     function () {
-      // handleFilteredProducts(disabledProducts);
-
       if (searchText && !searchText?.trim()) {
         handleFilteredProducts(disabledProducts);
       }

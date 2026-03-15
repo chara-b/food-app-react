@@ -5,10 +5,12 @@ import { Form } from "react-router-dom";
 import { Button } from "@headlessui/react";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
 import { useProductsContext } from "../contexts/ProductsContext";
+import { newProductForm } from "../constants/formNames.js";
 
 const NewProductForm = memo(() => {
   const {
     formState,
+    setFormState,
     formErrors,
     setFormErrors,
     isFormValid,
@@ -70,7 +72,7 @@ const NewProductForm = memo(() => {
         <div className="md:w-1/3">
           <label
             className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-            htmlFor="title"
+            htmlFor={`${newProductForm}_title`}
           >
             Title
           </label>
@@ -78,13 +80,17 @@ const NewProductForm = memo(() => {
         <div className="md:w-2/3">
           <input
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            id="title"
-            name="title"
+            id={`${newProductForm}_title`}
+            name={`${newProductForm}_title`}
             type="text"
-            onChange={(e) => onChange("title", e.target.value)}
+            onChange={(e) =>
+              onChange(`${newProductForm}_title`, e.target.value)
+            }
           />
-          {formErrors.title && (
-            <span className="text-red-600">{formErrors.title}</span>
+          {formErrors?.[`${newProductForm}_title`] && (
+            <span className="text-red-600">
+              {formErrors[`${newProductForm}_title`]}
+            </span>
           )}
         </div>
       </div>
@@ -92,7 +98,7 @@ const NewProductForm = memo(() => {
         <div className="md:w-1/3">
           <label
             className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-            htmlFor="ingredients"
+            htmlFor={`${newProductForm}_ingredients`}
           >
             Ingredients (comma seperated)
           </label>
@@ -100,13 +106,17 @@ const NewProductForm = memo(() => {
         <div className="md:w-2/3">
           <input
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            id="ingredients"
-            name="ingredients"
-            type="ingredients"
-            onChange={(e) => onChange("ingredients", e.target.value)}
+            id={`${newProductForm}_ingredients`}
+            name={`${newProductForm}_ingredients`}
+            type="text"
+            onChange={(e) =>
+              onChange(`${newProductForm}_ingredients`, e.target.value)
+            }
           />
-          {formErrors.ingredients && (
-            <span className="text-red-600">{formErrors.ingredients}</span>
+          {formErrors?.[`${newProductForm}_ingredients`] && (
+            <span className="text-red-600">
+              {formErrors[`${newProductForm}_ingredients`]}
+            </span>
           )}
         </div>
       </div>
@@ -114,7 +124,7 @@ const NewProductForm = memo(() => {
         <div className="md:w-1/3">
           <label
             className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-            htmlFor="price"
+            htmlFor={`${newProductForm}_price`}
           >
             Price
           </label>
@@ -122,13 +132,17 @@ const NewProductForm = memo(() => {
         <div className="md:w-2/3">
           <input
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            id="price"
-            name="price"
+            id={`${newProductForm}_price`}
+            name={`${newProductForm}_price`}
             type="text"
-            onChange={(e) => onChange("price", e.target.value)}
+            onChange={(e) =>
+              onChange(`${newProductForm}_price`, e.target.value)
+            }
           />
-          {formErrors.price && (
-            <span className="text-red-600">{formErrors.price}</span>
+          {formErrors?.[`${newProductForm}_price`] && (
+            <span className="text-red-600">
+              {formErrors[`${newProductForm}_price`]}
+            </span>
           )}
         </div>
       </div>
@@ -136,7 +150,7 @@ const NewProductForm = memo(() => {
         <div className="md:w-1/3">
           <label
             className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-            htmlFor="quantity"
+            htmlFor={`${newProductForm}_quantity`}
           >
             Quantity
           </label>
@@ -144,13 +158,17 @@ const NewProductForm = memo(() => {
         <div className="md:w-2/3">
           <input
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            id="quantity"
-            name="quantity"
+            id={`${newProductForm}_quantity`}
+            name={`${newProductForm}_quantity`}
             type="text"
-            onChange={(e) => onChange("quantity", e.target.value)}
+            onChange={(e) =>
+              onChange(`${newProductForm}_quantity`, e.target.value)
+            }
           />
-          {formErrors.quantity && (
-            <span className="text-red-600">{formErrors.quantity}</span>
+          {formErrors?.[`${newProductForm}_quantity`] && (
+            <span className="text-red-600">
+              {formErrors[[`${newProductForm}_quantity`]]}
+            </span>
           )}
         </div>
       </div>
@@ -158,7 +176,7 @@ const NewProductForm = memo(() => {
         <div className="md:w-1/3">
           <label
             className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-            htmlFor="imgName"
+            htmlFor={`${newProductForm}_imgName`}
           >
             ImgName (eg. imgName.png)
           </label>
@@ -166,13 +184,17 @@ const NewProductForm = memo(() => {
         <div className="md:w-2/3">
           <input
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            id="imgName"
-            name="imgName"
+            id={`${newProductForm}_imgName`}
+            name={`${newProductForm}_imgName`}
             type="text"
-            onChange={(e) => onChange("imgName", e.target.value)}
+            onChange={(e) =>
+              onChange(`${newProductForm}_imgName`, e.target.value)
+            }
           />
-          {formErrors.imgName && (
-            <span className="text-red-600">{formErrors.imgName}</span>
+          {formErrors?.[`${newProductForm}_imgName`] && (
+            <span className="text-red-600">
+              {formErrors[`${newProductForm}_imgName`]}
+            </span>
           )}
         </div>
       </div>

@@ -14,13 +14,12 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
     getAvailableProducts,
     handleFilteredProducts,
   } = useProductsContext();
+
   console.log("availableProducts", availableProducts);
   console.log("filteredProducts", filteredProducts);
 
   useEffect(
     function () {
-      // handleFilteredProducts(availableProducts);
-
       if (searchText && !searchText?.trim()) {
         handleFilteredProducts(availableProducts);
       }

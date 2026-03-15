@@ -52,26 +52,29 @@ export function useFormValidation() {
     (fieldName, value, rules = {}) => {
       const errors = { ...fieldErrors };
 
-      if (rules?.required && !value?.trim() && fieldName !== "imgName") {
-        errors[fieldName] = `${fieldName} must be filled`;
+      if (rules?.required && !value.trim() && !fieldName.includes(`imgName`)) {
+        errors[fieldName] = `${fieldName.split("_")[1]} must be filled`;
       } else if (fieldName === "email" && !validateEmail(value)) {
         errors[fieldName] = "invalid email";
       } else if (
-        (fieldName === "label" || fieldName === "title") &&
+        (fieldName.includes("label") || fieldName.includes("title")) &&
         !validateLabel(value)
       ) {
         errors[fieldName] =
-          `${fieldName} must contain only letters and numbers`;
-      } else if (fieldName === "value" && !validateValue(value)) {
+          `${fieldName.split("_")[1]} must contain only letters and numbers`;
+      } else if (fieldName.includes("value") && !validateValue(value)) {
         errors[fieldName] = "value must contain either letters or numbers";
-      } else if (fieldName === "price" && !validatePrice(value)) {
+      } else if (fieldName.includes("price") && !validatePrice(value)) {
         errors[fieldName] = "price must contain only numbers";
-      } else if (fieldName === "quantity" && !validateQuantity(value)) {
+      } else if (fieldName.includes("quantity") && !validateQuantity(value)) {
         errors[fieldName] = "quantity must contain only numbers";
-      } else if (fieldName === "ingredients" && !validateIngredients(value)) {
+      } else if (
+        fieldName.includes("ingredients") &&
+        !validateIngredients(value)
+      ) {
         errors[fieldName] =
           "ingredients must contain only alphanumeric words or phrases with gaps seperated by commas";
-      } else if (fieldName === "imgName" && !validateImgName(value)) {
+      } else if (fieldName.includes("imgName") && !validateImgName(value)) {
         errors[fieldName] =
           "imgName must contain only alphanumeric words, underscore and only .png extension or empty";
       } else if (

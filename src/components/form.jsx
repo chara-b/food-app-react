@@ -4,12 +4,13 @@ import React from "react";
 
 const Form = React.memo(
   ({
+    formName,
     titleInput,
     inputsTitle,
     inputsNoLabels,
     labeledInputs,
     onSubmit,
-    onClick,
+    onCancel,
     formState,
     formErrors,
     onChange,
@@ -23,14 +24,16 @@ const Form = React.memo(
           <>
             <Input
               label={titleInput.title}
-              id="title"
-              name="title"
+              id={`${formName}_title`}
+              name={`${formName}_title`}
               placeholder={titleInput.value}
-              value={formState?.title}
-              onChange={(e) => onChange("title", e.target.value)}
+              value={formState?.[`${formName}_title`] || ""}
+              onChange={(e) => onChange(`${formName}_title`, e.target.value)}
               type="text"
               className={
-                formErrors?.title?.length ? "border border-red-500" : ""
+                formErrors?.[`${formName}_title`]?.length
+                  ? "border border-red-500"
+                  : ""
               }
             >
               {/* {formErrors?.title?.length && (
@@ -41,8 +44,11 @@ const Form = React.memo(
               </ul>
             )} */}
             </Input>
-            {formErrors?.title && (
-              <span className="text-red-500 text-sm"> {formErrors.title}</span>
+            {formErrors?.[`${formName}_title`] && (
+              <span className="text-red-500 text-sm">
+                {" "}
+                {formErrors[`${formName}_title`]}
+              </span>
             )}
           </>
         )}
@@ -55,12 +61,12 @@ const Form = React.memo(
               {inputsNoLabels.map((inputNoLabel, i) => (
                 <li key={i}>
                   <Input
-                    id={`ingredient-${i}`}
-                    name={`ingredient-${i}`}
+                    id={`${formName}_ingredient${i}`}
+                    name={`${formName}_ingredient${i}`}
                     placeholder={inputNoLabel}
-                    value={formState?.[`ingredient-${i}`]}
+                    value={formState?.[`${formName}_ingredient${i}`] || ""}
                     onChange={(e) =>
-                      onChange(`ingredient-${i}`, e.target.value)
+                      onChange(`${formName}_ingredient${i}`, e.target.value)
                     }
                     type="text"
                   />
@@ -74,9 +80,9 @@ const Form = React.memo(
                 ))}
               </ul>
             )} */}
-            {formErrors?.ingredients && (
+            {formErrors?.[`${formName}_ingredients`] && (
               <span className="text-red-500 text-sm">
-                {formErrors.ingredients}
+                {formErrors[`${formName}_ingredients`]}
               </span>
             )}
           </div>
@@ -87,16 +93,24 @@ const Form = React.memo(
             <React.Fragment key={i}>
               <Input
                 label={inputData.label}
-                id={`feature-${i}`}
-                name={inputData?.label?.toLowerCase()}
+                id={`${formName}_feature${i}`}
+                name={`${formName}_${inputData?.label}`.toLowerCase()}
                 placeholder={inputData.value}
-                value={formState?.[inputData?.label?.toLowerCase()]}
+                value={
+                  formState?.[
+                    `${formName}_${inputData?.label}`.toLowerCase()
+                  ] || ""
+                }
                 onChange={(e) =>
-                  onChange(inputData?.label?.toLowerCase(), e.target.value)
+                  onChange(
+                    `${formName}_${inputData?.label}`.toLowerCase(),
+                    e.target.value,
+                  )
                 }
                 type="text"
                 className={
-                  formErrors?.[inputData?.label?.toLowerCase()]?.length
+                  formErrors?.[`${formName}_${inputData?.label}`.toLowerCase()]
+                    ?.length
                     ? "border border-red-500"
                     : ""
                 }
@@ -111,9 +125,11 @@ const Form = React.memo(
                 </ul>
               )} */}
               </Input>
-              {formErrors?.[inputData?.label?.toLowerCase()] && (
+              {formErrors?.[
+                `${formName}_${inputData?.label}`.toLowerCase()
+              ] && (
                 <span className="text-red-500 text-sm">
-                  {formErrors[inputData?.label?.toLowerCase()]}
+                  {formErrors[`${formName}_${inputData?.label}`.toLowerCase()]}
                 </span>
               )}
             </React.Fragment>
@@ -123,7 +139,7 @@ const Form = React.memo(
           <div className="md:w-1/3">
             <Button
               type="button"
-              onClick={onClick}
+              onClick={onCancel}
               styles="shadow bg-gray-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
             >
               Cancel

@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { defaultProductFormInputs } from "../constants/formFieldsNames";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
 import MemoizedCustomModal from "./custom-modal";
@@ -52,6 +58,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
 
   const {
     formState,
+    setFormState,
     formErrors,
     setFormErrors,
     isFormValid,
@@ -118,7 +125,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
           inputsTitle="Ingredients"
           inputsNoLabels={ingredientNames}
           labeledInputs={labeledInputsData}
-          onClick={onClick}
+          onCancel={onClick}
           formState={formState}
           formErrors={formErrors}
           onChange={onChange}

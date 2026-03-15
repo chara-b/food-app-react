@@ -7,6 +7,11 @@ import {
 } from "../services/productsHTTPRequests.js";
 import { useForm } from "../hooks/useForm.jsx";
 import { useAuthContext } from "./FakeAuthContext.jsx";
+import {
+  newProductForm,
+  editProductForm,
+  newInputForm,
+} from "../constants/formNames.js";
 
 const FormContext = createContext(null);
 
@@ -78,24 +83,40 @@ function FormContextProvider({ children }) {
         disabled: false,
       };
 
-      const title = formRef.current?.querySelector('input[name="title"]').value;
-      const ingredients = formRef.current?.querySelector(
-        'input[name="ingredients"]',
+      const title = formRef.current?.querySelector(
+        `input[name="${newProductForm}_title"]`,
       ).value;
-      const price = formRef.current?.querySelector('input[name="price"]').value;
+      const ingredients = formRef.current?.querySelector(
+        `input[name="${newProductForm}_ingredients"]`,
+      ).value;
+      const price = formRef.current?.querySelector(
+        `input[name="${newProductForm}_price"]`,
+      ).value;
       const quantity = formRef.current?.querySelector(
-        'input[name="quantity"]',
+        `input[name="${newProductForm}_quantity"]`,
       ).value;
       const imgName = formRef.current?.querySelector(
-        'input[name="imgName"]',
+        `input[name="${newProductForm}_imgName"]`,
       ).value;
 
       const { formErrors, isFormValid } = validateForm({
-        title: { value: title, rules: { required: true } },
-        ingredients: { value: ingredients, rules: { required: true } },
-        price: { value: price, rules: { required: true } },
-        quantity: { value: quantity, rules: { required: true } },
-        imgName: { value: imgName, rules: {} },
+        [`${newProductForm}_title`]: {
+          value: title,
+          rules: { required: true },
+        },
+        [`${newProductForm}_ingredients`]: {
+          value: ingredients,
+          rules: { required: true },
+        },
+        [`${newProductForm}_price`]: {
+          value: price,
+          rules: { required: true },
+        },
+        [`${newProductForm}_quantity`]: {
+          value: quantity,
+          rules: { required: true },
+        },
+        [`${newProductForm}_imgName`]: { value: imgName, rules: {} },
       });
 
       if (!isFormValid) {
@@ -148,34 +169,50 @@ function FormContextProvider({ children }) {
       };
 
       const title = formRef?.current?.querySelector(
-        'input[name="title"]',
+        `input[name="${editProductForm}_title"]`,
       ).value;
       const ingredients = Array.from(
-        formRef?.current?.querySelectorAll("[name^='ingredient-']"),
+        formRef?.current?.querySelectorAll(
+          `[name^='${editProductForm}_ingredient']`,
+        ),
       )
         .map((ingredientElem) => ingredientElem.value)
         .join(",");
 
       const price = formRef?.current?.querySelector(
-        'input[name="price"]',
+        `input[name="${editProductForm}_price"]`,
       ).value;
       const quantity = formRef?.current?.querySelector(
-        'input[name="quantity"]',
+        `input[name="${editProductForm}_quantity"]`,
       ).value;
 
       const newInputs = Array.from(
-        formRef?.current?.querySelector('input[id^="feature-"]'),
+        formRef?.current?.querySelector(
+          `input[id^="${editProductForm}_feature"]`,
+        ),
       ).map((newInput) => ({ name: newInput.name, value: newInput.value }));
 
       const formRulesObj = {
-        title: { value: title, rules: { required: true } },
-        ingredients: { value: ingredients, rules: { required: true } },
-        price: { value: price, rules: { required: true } },
-        quantity: { value: quantity, rules: { required: true } },
+        [`${editProductForm}_title`]: {
+          value: title,
+          rules: { required: true },
+        },
+        [`${editProductForm}_ingredients`]: {
+          value: ingredients,
+          rules: { required: true },
+        },
+        [`${editProductForm}_price`]: {
+          value: price,
+          rules: { required: true },
+        },
+        [`${editProductForm}_quantity`]: {
+          value: quantity,
+          rules: { required: true },
+        },
       };
 
       newInputs.forEach((newInput, i) => {
-        formRulesObj[`feature-${i}`] = {
+        formRulesObj[`${editProductForm}_feature${i}`] = {
           value: newInput.value,
           rules: { required: true },
         };
@@ -216,6 +253,7 @@ function FormContextProvider({ children }) {
   const value = useMemo(
     () => ({
       formState,
+      setFormState,
       formErrors,
       setFormErrors,
       isFormValid,
@@ -237,6 +275,7 @@ function FormContextProvider({ children }) {
       logout,
       onChange,
       setFormErrors,
+      setFormState,
       submitLogin,
       submitNewInputFields,
       submitNewProduct,

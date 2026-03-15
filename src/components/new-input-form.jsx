@@ -11,6 +11,7 @@ const handleChange = (value) => {
 const NewInputForm = memo(() => {
   const {
     formState,
+    setFormState,
     formErrors,
     setFormErrors,
     isFormValid,

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
 import Button from "./button";
 import CardSection1 from "./card-section1.jsx";
@@ -13,6 +13,7 @@ const Product = React.memo(
 
     const {
       formState,
+      setFormState,
       formErrors,
       setFormErrors,
       isFormValid,
@@ -39,6 +40,8 @@ const Product = React.memo(
     } = useProductsContext();
 
     const handleEditedProduct = (editedProduct) => {
+      setFormState({});
+      setFormErrors({});
       console.log("editedProduct: ", editedProduct);
       navigate(`product/${editedProduct.id}`);
     };
