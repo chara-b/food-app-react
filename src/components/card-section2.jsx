@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { defaultProductFormInputs } from "../constants/formFieldsNames";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
 import MemoizedCustomModal from "./custom-modal";
@@ -7,6 +7,8 @@ import Form from "./form.jsx";
 import { useFormContext } from "../contexts/FormContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
+import Button from "./button.jsx";
+import NewInputForm from "../components/new-input-form";
 
 const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
   // for ingredient inputs with no labels
@@ -92,35 +94,67 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     ]);
   }
 
+  const handleNewInput = useCallback(() => {
+    dispatch({ type: "showCustomModal", payload: true });
+    dispatch({ type: "modalTriggerButtonName", payload: "addInput" });
+    dispatch({ type: "modalTitle", payload: "Add new Input" });
+    dispatch({
+      type: "modalContent",
+      payload: <NewInputForm />,
+    });
+
+    dispatch({ type: "modalIcon", payload: "fa-solid fa-plus" });
+    dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
+    dispatch({ type: "modalActionBtnRight", payload: "Add" });
+  }, [dispatch]);
+
   const formRef = useRef();
 
   if (editable) {
     return (
-      <Form
-        titleInput={titleInput}
-        inputsTitle="Ingredients"
-        inputsNoLabels={ingredientNames}
-        labeledInputs={labeledInputsData}
-        onClick={onClick}
-        formState={formState}
-        formErrors={formErrors}
-        onChange={onChange}
-        onSubmit={(e) => onSubmit(e, formRef)}
-        formRef={formRef}
-      >
-        {showCustomModal && modalTriggerButtonName === "addInput" && (
-          <MemoizedCustomModal
-            isOpen={true}
-            onClose={onCloseModal}
-            onConfirm={handleCloseModal}
-            title={modalTitle}
-            icon={modalIcon}
-            disabledBtn={addNewInputDisabledBtn}
-          >
-            {modalContent}
-          </MemoizedCustomModal>
-        )}
-      </Form>
+      <>
+        <Form
+          titleInput={titleInput}
+          inputsTitle="Ingredients"
+          inputsNoLabels={ingredientNames}
+          labeledInputs={labeledInputsData}
+          onClick={onClick}
+          formState={formState}
+          formErrors={formErrors}
+          onChange={onChange}
+          onSubmit={(e) => onSubmit(e, formRef)}
+          formRef={formRef}
+        >
+          <div className="flex flex-row justify-end items-center gap-2">
+            <Button
+              type="button"
+              onClick={handleAddNewIngredient}
+              styles="shadow bg-blue-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            >
+              Add new Ingredient
+            </Button>
+            <Button
+              type="button"
+              onClick={handleNewInput}
+              styles="shadow bg-blue-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            >
+              Add new Input
+            </Button>
+          </div>
+          {showCustomModal && modalTriggerButtonName === "addInput" && (
+            <MemoizedCustomModal
+              isOpen={true}
+              onClose={onCloseModal}
+              onConfirm={handleCloseModal}
+              title={modalTitle}
+              icon={modalIcon}
+              disabledBtn={addNewInputDisabledBtn}
+            >
+              {modalContent}
+            </MemoizedCustomModal>
+          )}
+        </Form>
+      </>
     );
   }
   return (

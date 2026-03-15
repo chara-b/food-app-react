@@ -4,6 +4,7 @@ import Product from "../components/product.jsx";
 import { useCallback, useMemo } from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
+import Button from "../components/button.jsx";
 
 function ProductPage() {
   const fetchedProduct = useLoaderData();

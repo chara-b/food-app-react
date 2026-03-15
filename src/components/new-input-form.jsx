@@ -2,6 +2,7 @@
 import { memo, useMemo } from "react";
 import { useFormContext } from "../contexts/FormContext";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
+import Form from "./form";
 
 const handleChange = (value) => {
   console.log(value);

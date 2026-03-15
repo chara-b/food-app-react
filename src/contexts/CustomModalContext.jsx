@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   createContext,
   useCallback,
@@ -6,7 +5,6 @@ import {
   useMemo,
   useReducer,
 } from "react";
-import NewInputForm from "../components/new-input-form";
 
 const CustomModalContext = createContext(null);
 // to button sto new input modal na energopoieitai mono otan exoun siblirothei kai ta dio inputs!
@@ -20,6 +18,7 @@ const CustomModalContext = createContext(null);
 // to search kanei infinite loop kai otan sbino to keyword den fernei pali ta available
 // kollaei sta filtered tou keyword !
 // tailwind
+// delete buttonaki dipla se kathe ingredient sto edit product page !
 
 // se env arxeio ta constants mou na psakso na do pos ginetai !
 
@@ -74,20 +73,6 @@ function CustomModalContextProvider({ children }) {
     dispatch({ type: "showCustomModal", payload: false });
   };
 
-  const handleNewInput = useCallback(() => {
-    dispatch({ type: "showCustomModal", payload: true });
-    dispatch({ type: "modalTriggerButtonName", payload: "addInput" });
-    dispatch({ type: "modalTitle", payload: "Add new Input" });
-    dispatch({
-      type: "modalContent",
-      payload: NewInputForm,
-    });
-
-    dispatch({ type: "modalIcon", payload: "fa-solid fa-plus" });
-    dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
-    dispatch({ type: "modalActionBtnRight", payload: "Add" });
-  }, []);
-
   const value = useMemo(
     () => ({
       showCustomModal: showCustomModal,
@@ -97,17 +82,13 @@ function CustomModalContextProvider({ children }) {
       modalIcon: modalIcon,
       modalActionBtnLeft: modalActionBtnLeft,
       modalActionBtnRight: modalActionBtnRight,
-      // addNewInputModalResultData: formState,
-      // addNewInputDisabledBtn: formState?.errors,
-      // addNewInputFormState: formState,
       dispatch,
-      onAddNewInputField: handleNewInput,
+
       onCloseModal: handleCloseCustomModal,
       onConfirmModal: handleConfirmCustomModal,
     }),
     [
       handleCloseCustomModal,
-      handleNewInput,
       modalActionBtnLeft,
       modalActionBtnRight,
       modalContent,

@@ -75,17 +75,18 @@
     },
     {
       "id": "5",
-      "title": "Τοστ",
+      "title": "tosttttt",
       "ingredients": [
-        "γκούντα",
-        "καπνιστή μπριζόλα",
-        "φιλαδέλφεια"
+        "hfg",
+        "gfh",
+        "gfhgf",
+        "tost"
       ],
-      "price": 2.5,
+      "price": "54",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "toast.png",
-      "quantity": 10,
+      "quantity": "545",
       "disabled": false
     },
     {
