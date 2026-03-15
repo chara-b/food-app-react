@@ -57,9 +57,9 @@ function ProductPage() {
     ],
   );
 
-  function handleCancel() {
+  const handleCancel = useCallback(() => {
     navigate(`/mainpage/${user.email.split("@")[0]}`);
-  }
+  }, [navigate, user.email]);
 
   return (
     <div className="flex flex-col gap-4 w-full h-screen overflow-auto">

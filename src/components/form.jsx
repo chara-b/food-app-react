@@ -13,10 +13,11 @@ const Form = React.memo(
     formState,
     formErrors,
     onChange,
+    formRef,
     children,
   }) => {
     return (
-      <form className="flex flex-col w-full" onSubmit={onSubmit}>
+      <form className="flex flex-col w-full" onSubmit={onSubmit} ref={formRef}>
         <div className="flex gap-4 justify-end">{children}</div>
         {titleInput && (
           <Input
@@ -29,12 +30,15 @@ const Form = React.memo(
             type="text"
             className={formErrors?.title?.length ? "border border-red-500" : ""}
           >
-            {formErrors?.title?.length && (
+            {/* {formErrors?.title?.length && (
               <ul className="text-red-500 text-sm">
                 {formErrors?.title?.map((error, i) => (
                   <li key={i}>{error}</li>
                 ))}
               </ul>
+            )} */}
+            {formErrors?.title && (
+              <span className="text-red-500 text-sm">{formErrors.title}</span>
             )}
           </Input>
         )}
@@ -59,12 +63,17 @@ const Form = React.memo(
                 </li>
               ))}
             </ul>
-            {formErrors?.ingredients?.length && (
+            {/* {formErrors?.ingredients?.length && (
               <ul className="text-red-500 text-sm">
                 {formErrors?.ingredients?.map((error, i) => (
                   <li key={i}>{error}</li>
                 ))}
               </ul>
+            )} */}
+            {formErrors?.ingredients && (
+              <span className="text-red-500 text-sm">
+                {formErrors.ingredients}
+              </span>
             )}
           </div>
         )}
@@ -88,7 +97,7 @@ const Form = React.memo(
                   : ""
               }
             >
-              {formErrors?.[inputData?.label?.toLowerCase()]?.length && (
+              {/* {formErrors?.[inputData?.label?.toLowerCase()]?.length && (
                 <ul className="text-red-500 text-sm">
                   {formErrors?.inputData?.label
                     ?.toLowerCase()
@@ -96,6 +105,11 @@ const Form = React.memo(
                       <li key={i}>{error}</li>
                     ))}
                 </ul>
+              )} */}
+              {formErrors?.[inputData?.label?.toLowerCase()] && (
+                <span className="text-red-500 text-sm">
+                  {formErrors.ingredients}
+                </span>
               )}
             </Input>
           ))}
@@ -121,7 +135,7 @@ const Form = React.memo(
           </div>
 
           <div className="md:w-1/3">
-            {formErrors.form && (
+            {formErrors?.form && (
               <span className="text-red-600">{formErrors.form}</span>
             )}
           </div>

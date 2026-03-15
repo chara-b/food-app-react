@@ -143,34 +143,43 @@ function FormContextProvider({ children }) {
         ingredients: [],
         price: "",
         quantity: "",
-        currency: "euro",
-        currency_symbol: "€",
-        imgName: "",
-        disabled: false,
       };
 
-      const title = formRef.current?.querySelector('input[name="title"]').value;
+      const title = formRef?.current?.querySelector(
+        'input[name="title"]',
+      ).value;
       const ingredients = Array.from(
-        formRef.current?.querySelectorAll("[name^='ingredient-']"),
+        formRef?.current?.querySelectorAll("[name^='ingredient-']"),
       )
         .map((ingredientElem) => ingredientElem.value)
         .join(",");
 
-      const price = formRef.current?.querySelector('input[name="price"]').value;
-      const quantity = formRef.current?.querySelector(
+      const price = formRef?.current?.querySelector(
+        'input[name="price"]',
+      ).value;
+      const quantity = formRef?.current?.querySelector(
         'input[name="quantity"]',
       ).value;
 
-      const newInputs = formRef.current?.querySelector(
-        'input[id^="feature-"]',
-      ).value;
+      const newInputs = Array.from(
+        formRef?.current?.querySelector('input[id^="feature-"]'),
+      ).map((newInput) => ({ name: newInput.name, value: newInput.value }));
 
-      const { formErrors, isFormValid } = validateForm({
+      const formRulesObj = {
         title: { value: title, rules: { required: true } },
         ingredients: { value: ingredients, rules: { required: true } },
         price: { value: price, rules: { required: true } },
         quantity: { value: quantity, rules: { required: true } },
+      };
+
+      newInputs.forEach((newInput, i) => {
+        formRulesObj[`feature-${i}`] = {
+          value: newInput.value,
+          rules: { required: true },
+        };
       });
+
+      const { formErrors, isFormValid } = validateForm(formRulesObj);
 
       if (!isFormValid) {
         setFormErrors(formErrors);
@@ -182,13 +191,13 @@ function FormContextProvider({ children }) {
         product.ingredients = ingredients.split(",");
         product.price = price;
         product.quantity = quantity;
-        product.currency = "euro";
-        product.currency_symbol = "€";
-        product.imgName = imgName;
-        product.disabled = false;
+
+        newInputs.forEach((newInput, i) => {
+          product[newInput.name] = newInput.value;
+        });
       }
       try {
-        await updateProduct(productDetails);
+        await updateProduct(product);
         console.log("product details updated");
         return true;
       } catch (error) {

@@ -95,7 +95,9 @@ export function useFormValidation() {
     [
       fieldErrors,
       validateEmail,
+      validateFeature,
       validateImgName,
+      validateIngredient,
       validateIngredients,
       validateLabel,
       validatePrice,

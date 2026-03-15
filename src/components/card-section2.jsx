@@ -104,8 +104,8 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
         formState={formState}
         formErrors={formErrors}
         onChange={onChange}
-        onSubmit={onSubmit}
-        ref={formRef}
+        onSubmit={(e) => onSubmit(e, formRef)}
+        formRef={formRef}
       >
         {showCustomModal && modalTriggerButtonName === "addInput" && (
           <MemoizedCustomModal

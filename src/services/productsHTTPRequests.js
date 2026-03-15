@@ -97,7 +97,7 @@ export async function updateProduct(product) {
 export async function updateWholeProduct(product) {
   try {
     const res = await fetch(`${PRODUCTS_URL}/${product.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(product),
     });
