@@ -13,6 +13,7 @@ function ProductPage() {
   const {
     formState,
     formErrors,
+    setFormErrors,
     isFormValid,
     onChange,
     user,

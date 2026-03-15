@@ -13,6 +13,7 @@ const FormContext = createContext(null);
 function FormContextProvider({ children }) {
   const {
     formState,
+    setFormState,
     onChange,
     formErrors,
     setFormErrors,
@@ -200,13 +201,14 @@ function FormContextProvider({ children }) {
       try {
         await updateWholeProduct(product);
         console.log("product details updated");
+        setFormState({});
         return true;
       } catch (error) {
         console.error("Failed to update product details", error);
         throw error;
       }
     },
-    [setFormErrors, validateForm],
+    [setFormErrors, setFormState, validateForm],
   );
 
   const submitNewInputFields = useCallback(() => {}, []);
@@ -215,6 +217,7 @@ function FormContextProvider({ children }) {
     () => ({
       formState,
       formErrors,
+      setFormErrors,
       isFormValid,
       onChange,
       user,
@@ -233,6 +236,7 @@ function FormContextProvider({ children }) {
       isFormValid,
       logout,
       onChange,
+      setFormErrors,
       submitLogin,
       submitNewInputFields,
       submitNewProduct,

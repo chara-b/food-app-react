@@ -15,6 +15,7 @@ export const useForm = () => {
 
   return {
     formState,
+    setFormState,
     onChange: updateField,
     formErrors,
     setFormErrors,

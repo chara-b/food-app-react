@@ -15,7 +15,7 @@
       "currency_symbol": "€",
       "imgName": "pizza.png",
       "quantity": "4",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "2",
@@ -52,25 +52,25 @@
       "currency_symbol": "€",
       "imgName": "sandwich.png",
       "quantity": 10,
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "4",
-      "title": "Σαλάτα",
+      "title": "mpriam",
       "ingredients": [
-        "μαρούλι",
-        "κρουτόν",
-        "ντοματίνια",
-        "ζαμπόν",
-        "γκούντα",
-        "μαγιονέζα",
-        "καλαμπόκι"
+        "sdfds",
+        "dsfdsfdsfds",
+        "dsfs",
+        "dfds",
+        "dfsd",
+        "dsfsd",
+        "dsfsd"
       ],
-      "price": 3,
+      "price": "4",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "salad.png",
-      "quantity": 10,
+      "quantity": "5",
       "disabled": false
     },
     {

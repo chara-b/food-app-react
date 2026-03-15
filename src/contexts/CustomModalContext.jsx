@@ -74,19 +74,6 @@ function CustomModalContextProvider({ children }) {
     dispatch({ type: "showCustomModal", payload: false });
   };
 
-  const handleAddNewProduct = useCallback(
-    (content) => {
-      dispatch({ type: "showCustomModal", payload: true });
-      dispatch({ type: "modalTriggerButtonName", payload: "addProduct" });
-      dispatch({ type: "modalTitle", payload: "Add new Product" });
-      dispatch({ type: "modalContent", payload: content });
-      dispatch({ type: "modalIcon", payload: "fa-solid fa-utensils" });
-      dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
-      dispatch({ type: "modalActionBtnRight", payload: "Add" });
-    },
-    [dispatch],
-  );
-
   const handleNewInput = useCallback(() => {
     dispatch({ type: "showCustomModal", payload: true });
     dispatch({ type: "modalTriggerButtonName", payload: "addInput" });
@@ -113,13 +100,12 @@ function CustomModalContextProvider({ children }) {
       // addNewInputModalResultData: formState,
       // addNewInputDisabledBtn: formState?.errors,
       // addNewInputFormState: formState,
-      onAddNewProduct: handleAddNewProduct,
+      dispatch,
       onAddNewInputField: handleNewInput,
       onCloseModal: handleCloseCustomModal,
       onConfirmModal: handleConfirmCustomModal,
     }),
     [
-      handleAddNewProduct,
       handleCloseCustomModal,
       handleNewInput,
       modalActionBtnLeft,

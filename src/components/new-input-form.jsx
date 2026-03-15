@@ -11,6 +11,7 @@ const NewInputForm = memo(() => {
   const {
     formState,
     formErrors,
+    setFormErrors,
     isFormValid,
     onChange,
     user,
@@ -34,7 +35,7 @@ const NewInputForm = memo(() => {
     addNewInputModalResultData,
     addNewInputDisabledBtn,
     addNewInputFormState,
-    onAddNewProduct,
+    dispatch,
     onAddNewInputField,
     onCloseModal,
     onConfirmModal,

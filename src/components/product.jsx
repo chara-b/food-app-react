@@ -14,6 +14,7 @@ const Product = React.memo(
     const {
       formState,
       formErrors,
+      setFormErrors,
       isFormValid,
       onChange,
       user,

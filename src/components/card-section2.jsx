@@ -42,7 +42,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     addNewInputModalResultData,
     addNewInputDisabledBtn,
     addNewInputFormState,
-    onAddNewProduct,
+    dispatch,
     onAddNewInputField,
     onCloseModal,
     onConfirmModal,
@@ -51,6 +51,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
   const {
     formState,
     formErrors,
+    setFormErrors,
     isFormValid,
     onChange,
     user,

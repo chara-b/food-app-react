@@ -7,6 +7,7 @@ import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
 import MemoizedCustomModal from "./custom-modal";
 import { useFormContext } from "../contexts/FormContext.jsx";
 import NewProductForm from "./new-product-form.jsx";
+import { useCallback } from "react";
 
 function NavBar({ children }) {
   const {
@@ -20,7 +21,7 @@ function NavBar({ children }) {
     addNewInputModalResultData,
     addNewInputDisabledBtn,
     addNewInputFormState,
-    onAddNewProduct,
+    dispatch,
     onAddNewInputField,
     onCloseModal,
     onConfirmModal,
@@ -29,6 +30,7 @@ function NavBar({ children }) {
   const {
     formState,
     formErrors,
+    setFormErrors,
     isFormValid,
     onChange,
     user,
@@ -59,6 +61,20 @@ function NavBar({ children }) {
     // kata to routing back !
   };
 
+  const handleAddNewProduct = useCallback(
+    (content) => {
+      setFormErrors({});
+      dispatch({ type: "showCustomModal", payload: true });
+      dispatch({ type: "modalTriggerButtonName", payload: "addProduct" });
+      dispatch({ type: "modalTitle", payload: "Add new Product" });
+      dispatch({ type: "modalContent", payload: content });
+      dispatch({ type: "modalIcon", payload: "fa-solid fa-utensils" });
+      dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
+      dispatch({ type: "modalActionBtnRight", payload: "Add" });
+    },
+    [dispatch, setFormErrors],
+  );
+
   return (
     <div className="flex items-center gap-4 rounded-lg bg-blue-200 p-6 shadow-md outline outline-black/5">
       {children}
@@ -70,7 +86,7 @@ function NavBar({ children }) {
       <div className="flex ml-auto gap-4">
         <Button
           styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
-          onClick={() => onAddNewProduct(<NewProductForm />)}
+          onClick={() => handleAddNewProduct(<NewProductForm />)}
         >
           <i className="fa-solid fa-circle-plus"></i>Add
         </Button>
