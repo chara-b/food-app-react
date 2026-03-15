@@ -18,6 +18,7 @@ const NewProductForm = memo(() => {
     submitLogin,
     submitNewProduct,
     updateProductDetails,
+    updateWholeProductDetails,
     submitNewInputFields,
   } = useFormContext();
 

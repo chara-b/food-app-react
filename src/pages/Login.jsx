@@ -17,6 +17,7 @@ function Login() {
     submitLogin,
     submitNewProduct,
     updateProductDetails,
+    updateWholeProductDetails,
     submitNewInputFields,
   } = useFormContext();
 

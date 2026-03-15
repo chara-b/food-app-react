@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { defaultProductFormInputs } from "../constants/formFieldsNames";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
 import MemoizedCustomModal from "./custom-modal";
@@ -22,12 +22,15 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
       };
     });
   });
-  // for the title one and only input
-  const [productTitleInput] = useState({
-    title: "Food Title",
-    value: product.title,
-  });
 
+  // for product title input
+  const titleInput = useMemo(
+    () => ({
+      title: "Food Title",
+      value: product.title,
+    }),
+    [product.title],
+  );
   const {
     showCustomModal,
     modalTriggerButtonName,
@@ -56,6 +59,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     submitLogin,
     submitNewProduct,
     updateProductDetails,
+    updateWholeProductDetails,
     submitNewInputFields,
   } = useFormContext();
 
@@ -92,10 +96,10 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
   if (editable) {
     return (
       <Form
-        titleInputWithLabel={productTitleInput}
+        titleInput={titleInput}
         inputsTitle="Ingredients"
         inputsNoLabels={ingredientNames}
-        inputsWithLabels={labeledInputsData}
+        labeledInputs={labeledInputsData}
         onClick={onClick}
         formState={formState}
         formErrors={formErrors}

@@ -4,10 +4,10 @@ import React from "react";
 
 const Form = React.memo(
   ({
-    titleInputWithLabel,
+    titleInput,
     inputsTitle,
     inputsNoLabels,
-    inputsWithLabels,
+    labeledInputs,
     onSubmit,
     onClick,
     formState,
@@ -18,12 +18,12 @@ const Form = React.memo(
     return (
       <form className="flex flex-col w-full" onSubmit={onSubmit}>
         <div className="flex gap-4 justify-end">{children}</div>
-        {titleInputWithLabel && (
+        {titleInput && (
           <Input
-            label={titleInputWithLabel.title}
+            label={titleInput.title}
             id="title"
             name="title"
-            placeholder={titleInputWithLabel.value}
+            placeholder={titleInput.value}
             value={formState?.title}
             onChange={(e) => onChange("title", e.target.value)}
             type="text"
@@ -68,28 +68,33 @@ const Form = React.memo(
             )}
           </div>
         )}
-        {inputsWithLabels?.length &&
-          inputsWithLabels.map((inputData, i) => (
+
+        {labeledInputs?.length &&
+          labeledInputs.map((inputData, i) => (
             <Input
               key={i}
               label={inputData.label}
               id={`feature-${i}`}
-              name={`feature-${i}`}
+              name={inputData?.label?.toLowerCase()}
               placeholder={inputData.value}
-              value={formState?.[`feature-${i}`]}
-              onChange={(e) => onChange(`feature-${i}`, e.target.value)}
+              value={formState?.[inputData?.label?.toLowerCase()]}
+              onChange={(e) =>
+                onChange(inputData?.label?.toLowerCase(), e.target.value)
+              }
               type="text"
               className={
-                formErrors?.[`feature-${i}`]?.length
+                formErrors?.[inputData?.label?.toLowerCase()]?.length
                   ? "border border-red-500"
                   : ""
               }
             >
-              {formErrors?.[`feature-${i}`]?.length && (
+              {formErrors?.[inputData?.label?.toLowerCase()]?.length && (
                 <ul className="text-red-500 text-sm">
-                  {formErrors?.[`feature-${i}`]?.map((error, i) => (
-                    <li key={i}>{error}</li>
-                  ))}
+                  {formErrors?.inputData?.label
+                    ?.toLowerCase()
+                    ?.map((error, i) => (
+                      <li key={i}>{error}</li>
+                    ))}
                 </ul>
               )}
             </Input>

@@ -21,6 +21,7 @@ function ProductPage() {
     submitLogin,
     submitNewProduct,
     updateProductDetails,
+    updateWholeProductDetails,
     submitNewInputFields,
   } = useFormContext();
 
@@ -35,15 +36,25 @@ function ProductPage() {
     handleFilteredProducts,
   } = useProductsContext();
 
-  const submitProduct = useCallback(
+  const updateWholeProduct = useCallback(
     async (e, formRef) => {
-      const submitted = await updateProductDetails(e, formRef);
+      const submitted = await updateWholeProductDetails(
+        e,
+        formRef,
+        fetchedProduct,
+      );
       if (submitted) {
         navigate(`/mainpage/${user.email.split("@")[0]}`);
         await getAvailableProducts();
       }
     },
-    [getAvailableProducts, navigate, updateProductDetails, user.email],
+    [
+      fetchedProduct,
+      getAvailableProducts,
+      navigate,
+      updateWholeProductDetails,
+      user.email,
+    ],
   );
 
   function handleCancel() {
@@ -55,7 +66,7 @@ function ProductPage() {
       <Product
         product={fetchedProduct}
         onClick={handleCancel}
-        onSubmit={submitProduct}
+        onSubmit={updateWholeProduct}
         editable={true}
       />
     </div>

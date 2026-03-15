@@ -19,6 +19,7 @@ const NewInputForm = memo(() => {
     submitLogin,
     submitNewProduct,
     updateProductDetails,
+    updateWholeProductDetails,
     submitNewInputFields,
   } = useFormContext();
 
@@ -51,7 +52,7 @@ const NewInputForm = memo(() => {
     [],
   );
 
-  const inputsWithLabels = useMemo(
+  const newInputs = useMemo(
     () => [
       {
         label: "Enter new form field label",
@@ -73,7 +74,7 @@ const NewInputForm = memo(() => {
 
   return (
     <Form
-      inputsWithLabels={inputsWithLabels}
+      newInputs={newInputs}
       onSubmit={submitNewInputFields}
       onClick={onCloseModal}
       actionBtns={actionBtns}

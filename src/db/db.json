@@ -32,7 +32,7 @@
       "currency_symbol": "€",
       "imgName": "burger.png",
       "quantity": 10,
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "3",
@@ -177,6 +177,19 @@
       ],
       "price": "89",
       "quantity": "567",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "",
+      "disabled": false
+    },
+    {
+      "id": "c318",
+      "title": "ooppppppppppppppp",
+      "ingredients": [
+        "yol"
+      ],
+      "price": "9",
+      "quantity": "9",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "",

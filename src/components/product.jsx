@@ -22,6 +22,7 @@ const Product = React.memo(
       submitLogin,
       submitNewProduct,
       updateProductDetails,
+      updateWholeProductDetails,
       submitNewInputFields,
     } = useFormContext();
 

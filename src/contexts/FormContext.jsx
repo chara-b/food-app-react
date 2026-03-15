@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createContext, useCallback, useContext, useMemo } from "react";
 import {
   createNewProduct,
@@ -122,7 +123,7 @@ function FormContextProvider({ children }) {
     [setFormErrors, validateForm],
   );
 
-  const updateProductDetails_ = useCallback(async (productDetails) => {
+  const updateProductDetails = useCallback(async (productDetails) => {
     try {
       await updateProduct(productDetails);
       console.log("product details updated");
@@ -132,11 +133,12 @@ function FormContextProvider({ children }) {
     }
   }, []);
 
-  const updateProductDetails = useCallback(
-    async (e, formRef) => {
+  const updateWholeProductDetails = useCallback(
+    async (e, formRef, editedProduct) => {
       e.preventDefault();
 
       const product = {
+        id: editedProduct.id,
         title: "",
         ingredients: [],
         price: "",
@@ -154,11 +156,13 @@ function FormContextProvider({ children }) {
         .map((ingredientElem) => ingredientElem.value)
         .join(",");
 
-      const price = formRef.current?.querySelector(
-        'input[name="feature-0"]',
-      ).value;
+      const price = formRef.current?.querySelector('input[name="price"]').value;
       const quantity = formRef.current?.querySelector(
-        'input[name="feature-1"]',
+        'input[name="quantity"]',
+      ).value;
+
+      const newInputs = formRef.current?.querySelector(
+        'input[id^="feature-"]',
       ).value;
 
       const { formErrors, isFormValid } = validateForm({
@@ -209,6 +213,7 @@ function FormContextProvider({ children }) {
       submitLogin,
       submitNewProduct,
       updateProductDetails,
+      updateWholeProductDetails,
       submitNewInputFields,
     }),
     [
@@ -222,6 +227,7 @@ function FormContextProvider({ children }) {
       submitNewInputFields,
       submitNewProduct,
       updateProductDetails,
+      updateWholeProductDetails,
       user,
     ],
   );
