@@ -13,6 +13,7 @@ const Form = React.memo(
     onCancel,
     formState,
     formErrors,
+    disabled,
     onChange,
     formRef,
     children,
@@ -87,29 +88,28 @@ const Form = React.memo(
             )}
           </div>
         )}
-
         {labeledInputs?.length &&
           labeledInputs.map((inputData, i) => (
             <React.Fragment key={i}>
               <Input
                 label={inputData.label}
                 id={`${formName}_feature${i}`}
-                name={`${formName}_${inputData?.label}`.toLowerCase()}
+                name={`${formName}_${inputData?.label.toLowerCase()}`}
                 placeholder={inputData.value}
                 value={
                   formState?.[
-                    `${formName}_${inputData?.label}`.toLowerCase()
+                    `${formName}_${inputData?.label.toLowerCase()}`
                   ] || ""
                 }
                 onChange={(e) =>
                   onChange(
-                    `${formName}_${inputData?.label}`.toLowerCase(),
+                    `${formName}_${inputData?.label.toLowerCase()}`,
                     e.target.value,
                   )
                 }
                 type="text"
                 className={
-                  formErrors?.[`${formName}_${inputData?.label}`.toLowerCase()]
+                  formErrors?.[`${formName}_${inputData?.label.toLowerCase()}`]
                     ?.length
                     ? "border border-red-500"
                     : ""
@@ -126,10 +126,10 @@ const Form = React.memo(
               )} */}
               </Input>
               {formErrors?.[
-                `${formName}_${inputData?.label}`.toLowerCase()
+                `${formName}_${inputData?.label.toLowerCase()}`
               ] && (
                 <span className="text-red-500 text-sm">
-                  {formErrors[`${formName}_${inputData?.label}`.toLowerCase()]}
+                  {formErrors[`${formName}_${inputData?.label.toLowerCase()}`]}
                 </span>
               )}
             </React.Fragment>
@@ -148,7 +148,7 @@ const Form = React.memo(
           <div className="md:w-1/3">
             <Button
               type="submit"
-              disabled={Object.keys(formErrors).length}
+              disabled={disabled}
               styles="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
             >
               Save

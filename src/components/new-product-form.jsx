@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { memo, useRef } from "react";
 import { useFormContext } from "../contexts/FormContext";
-import { Form } from "react-router-dom";
 import { Button } from "@headlessui/react";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
 import { useProductsContext } from "../contexts/ProductsContext";
 import { newProductForm } from "../constants/formNames.js";
+import Form from "./form.jsx";
 
 const NewProductForm = memo(() => {
   const {
@@ -66,7 +66,8 @@ const NewProductForm = memo(() => {
     <Form
       className="w-full max-w-sm m-auto"
       onSubmit={handleSubmit}
-      ref={formRef}
+      formRef={formRef}
+      disabled={formErrors ? Object.keys(formErrors).length !== 0 : false}
     >
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
@@ -198,7 +199,7 @@ const NewProductForm = memo(() => {
           )}
         </div>
       </div>
-      <div className="md:flex md:items-center">
+      {/* <div className="md:flex md:items-center">
         <div className="md:w-1/3"></div>
         <div className="md:w-1/3">
           <Button
@@ -212,12 +213,7 @@ const NewProductForm = memo(() => {
         <div className="md:w-1/3">
           <Button
             type="submit"
-            disabled={
-              formErrors.title ||
-              formErrors.ingredients ||
-              formErrors.price ||
-              formErrors.quantity
-            }
+            disabled={Object.keys(formErrors).length}
             className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
           >
             Save
@@ -229,7 +225,7 @@ const NewProductForm = memo(() => {
             <span className="text-red-600">{formErrors.form}</span>
           )}
         </div>
-      </div>
+      </div> */}
     </Form>
   );
 });

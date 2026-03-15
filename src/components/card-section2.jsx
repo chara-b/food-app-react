@@ -1,20 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { defaultProductFormInputs } from "../constants/formFieldsNames";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
 import MemoizedCustomModal from "./custom-modal";
 import Form from "./form.jsx";
 import { useFormContext } from "../contexts/FormContext";
-import { useNavigate, useParams } from "react-router-dom";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import Button from "./button.jsx";
 import NewInputForm from "../components/new-input-form";
+import { editProductForm } from "../constants/formNames.js";
 
 const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
   // for ingredient inputs with no labels
@@ -121,6 +115,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     return (
       <>
         <Form
+          formName={editProductForm}
           titleInput={titleInput}
           inputsTitle="Ingredients"
           inputsNoLabels={ingredientNames}
@@ -131,6 +126,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
           onChange={onChange}
           onSubmit={(e) => onSubmit(e, formRef)}
           formRef={formRef}
+          disabled={formErrors ? Object.keys(formErrors).length !== 0 : false}
         >
           <div className="flex flex-row justify-end items-center gap-2">
             <Button
