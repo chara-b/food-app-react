@@ -2,19 +2,19 @@
   "products": [
     {
       "id": "1",
-      "title": "Πίτσα",
+      "title": "pizza",
       "ingredients": [
-        "ντομάτα",
-        "γκούντα",
-        "γαλοπούλα",
-        "μανητάρια",
-        "πιπεριά"
+        "dsfgd",
+        "dsgfds",
+        "gfdgfdg",
+        "fdgfdgfdgf",
+        "fdgfd"
       ],
-      "price": 10,
+      "price": "4",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "pizza.png",
-      "quantity": 10,
+      "quantity": "4",
       "disabled": false
     },
     {

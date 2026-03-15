@@ -20,27 +20,31 @@ const Form = React.memo(
       <form className="flex flex-col w-full" onSubmit={onSubmit} ref={formRef}>
         <div className="flex gap-4 justify-end">{children}</div>
         {titleInput && (
-          <Input
-            label={titleInput.title}
-            id="title"
-            name="title"
-            placeholder={titleInput.value}
-            value={formState?.title}
-            onChange={(e) => onChange("title", e.target.value)}
-            type="text"
-            className={formErrors?.title?.length ? "border border-red-500" : ""}
-          >
-            {/* {formErrors?.title?.length && (
+          <>
+            <Input
+              label={titleInput.title}
+              id="title"
+              name="title"
+              placeholder={titleInput.value}
+              value={formState?.title}
+              onChange={(e) => onChange("title", e.target.value)}
+              type="text"
+              className={
+                formErrors?.title?.length ? "border border-red-500" : ""
+              }
+            >
+              {/* {formErrors?.title?.length && (
               <ul className="text-red-500 text-sm">
                 {formErrors?.title?.map((error, i) => (
                   <li key={i}>{error}</li>
                 ))}
               </ul>
             )} */}
+            </Input>
             {formErrors?.title && (
-              <span className="text-red-500 text-sm">{formErrors.title}</span>
+              <span className="text-red-500 text-sm"> {formErrors.title}</span>
             )}
-          </Input>
+          </>
         )}
         {inputsNoLabels?.length && (
           <div className="mb-5">
@@ -80,24 +84,24 @@ const Form = React.memo(
 
         {labeledInputs?.length &&
           labeledInputs.map((inputData, i) => (
-            <Input
-              key={i}
-              label={inputData.label}
-              id={`feature-${i}`}
-              name={inputData?.label?.toLowerCase()}
-              placeholder={inputData.value}
-              value={formState?.[inputData?.label?.toLowerCase()]}
-              onChange={(e) =>
-                onChange(inputData?.label?.toLowerCase(), e.target.value)
-              }
-              type="text"
-              className={
-                formErrors?.[inputData?.label?.toLowerCase()]?.length
-                  ? "border border-red-500"
-                  : ""
-              }
-            >
-              {/* {formErrors?.[inputData?.label?.toLowerCase()]?.length && (
+            <React.Fragment key={i}>
+              <Input
+                label={inputData.label}
+                id={`feature-${i}`}
+                name={inputData?.label?.toLowerCase()}
+                placeholder={inputData.value}
+                value={formState?.[inputData?.label?.toLowerCase()]}
+                onChange={(e) =>
+                  onChange(inputData?.label?.toLowerCase(), e.target.value)
+                }
+                type="text"
+                className={
+                  formErrors?.[inputData?.label?.toLowerCase()]?.length
+                    ? "border border-red-500"
+                    : ""
+                }
+              >
+                {/* {formErrors?.[inputData?.label?.toLowerCase()]?.length && (
                 <ul className="text-red-500 text-sm">
                   {formErrors?.inputData?.label
                     ?.toLowerCase()
@@ -106,12 +110,13 @@ const Form = React.memo(
                     ))}
                 </ul>
               )} */}
+              </Input>
               {formErrors?.[inputData?.label?.toLowerCase()] && (
                 <span className="text-red-500 text-sm">
-                  {formErrors.ingredients}
+                  {formErrors[inputData?.label?.toLowerCase()]}
                 </span>
               )}
-            </Input>
+            </React.Fragment>
           ))}
         <div className="flex mt-5 justify-end gap-5">
           <div className="md:w-1/3"></div>

@@ -3,6 +3,7 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 import {
   createNewProduct,
   updateProduct,
+  updateWholeProduct,
 } from "../services/productsHTTPRequests.js";
 import { useForm } from "../hooks/useForm.jsx";
 import { useAuthContext } from "./FakeAuthContext.jsx";
@@ -197,7 +198,7 @@ function FormContextProvider({ children }) {
         });
       }
       try {
-        await updateProduct(product);
+        await updateWholeProduct(product);
         console.log("product details updated");
         return true;
       } catch (error) {
