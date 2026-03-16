@@ -15,51 +15,62 @@
       "currency_symbol": "€",
       "imgName": "pizza.png",
       "quantity": "44",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "2",
       "title": "Burger",
-      "ingredients": ["gouda cheese", "sauce", "meat", "onions"],
+      "ingredients": [
+        "gouda cheese",
+        "sauce",
+        "meat",
+        "onions"
+      ],
       "price": "3",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "burger.png",
       "quantity": "50",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "3",
       "title": "coca cola",
-      "ingredients": ["zero sugar"],
+      "ingredients": [
+        "zero sugar"
+      ],
       "price": "2.90",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "cocacola.png",
       "quantity": "100",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "4",
       "title": "juice",
-      "ingredients": ["with sugar"],
+      "ingredients": [
+        "with sugar"
+      ],
       "price": "2.90",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "juice.png",
       "quantity": "100",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "5",
       "title": "koulouri",
-      "ingredients": ["with sesame"],
+      "ingredients": [
+        "with sesame"
+      ],
       "price": "0.50",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "koulouri.png",
       "quantity": "10",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": "6",
@@ -82,7 +93,9 @@
     {
       "id": "7",
       "title": "mpougatsa",
-      "ingredients": ["with cream"],
+      "ingredients": [
+        "with cream"
+      ],
       "price": "1.50",
       "currency": "euro",
       "currency_symbol": "€",
@@ -112,7 +125,9 @@
     {
       "id": "9",
       "title": "water",
-      "ingredients": ["mineral water"],
+      "ingredients": [
+        "mineral water"
+      ],
       "price": "0.50",
       "currency": "euro",
       "currency_symbol": "€",
@@ -123,7 +138,11 @@
     {
       "id": "10",
       "title": "toast",
-      "ingredients": ["gouda cheese", "ham", "lettuce"],
+      "ingredients": [
+        "gouda cheese",
+        "ham",
+        "lettuce"
+      ],
       "price": "1.50",
       "currency": "euro",
       "currency_symbol": "€",

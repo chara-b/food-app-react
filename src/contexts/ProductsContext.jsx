@@ -64,10 +64,43 @@ function ProductsContextProvider({ initialData, children }) {
     dispatch({ type: "filteredProducts", payload: filteredProducts });
   }, []);
 
-  const handleChangedSearchText = useCallback((e) => {
-    const searchText = e.target.value;
-    setSearchText(searchText);
-  }, []);
+  const handleChangedSearchText = useCallback(
+    (e, pathname) => {
+      const searchText = e.target.value;
+      setSearchText(searchText);
+
+      if (!searchText?.trim() && !pathname.includes("bin")) {
+        handleFilteredProducts(availableProducts);
+      }
+
+      if (searchText && searchText?.trim() && !pathname.includes("bin")) {
+        const lowCaseSearchText = searchText.toLowerCase();
+        const filteredResults = availableProducts.filter((product) =>
+          product.title.toLowerCase().includes(lowCaseSearchText),
+        );
+        handleFilteredProducts(filteredResults);
+      }
+
+      if (!searchText?.trim() && pathname.includes("bin")) {
+        handleFilteredProducts(disabledProducts);
+      }
+
+      if (searchText && searchText?.trim() && pathname.includes("bin")) {
+        dispatch({ type: "disabledProducts", payload: filteredProducts });
+        const lowCaseSearchText = searchText.toLowerCase();
+        const filteredResults = filteredProducts.filter((product) =>
+          product.title.toLowerCase().includes(lowCaseSearchText),
+        );
+        handleFilteredProducts(filteredResults);
+      }
+    },
+    [
+      availableProducts,
+      disabledProducts,
+      filteredProducts,
+      handleFilteredProducts,
+    ],
+  );
 
   const value = useMemo(
     () => ({
@@ -83,9 +116,9 @@ function ProductsContextProvider({ initialData, children }) {
     [
       filteredProducts,
       availableProducts,
+      disabledProducts,
       searchText,
       handleChangedSearchText,
-      disabledProducts,
       getDisabledProducts,
       getAvailableProducts,
       handleFilteredProducts,

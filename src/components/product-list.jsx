@@ -18,22 +18,7 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
   console.log("availableProducts", availableProducts);
   console.log("filteredProducts", filteredProducts);
 
-  useEffect(
-    function () {
-      if (searchText && !searchText?.trim()) {
-        handleFilteredProducts(availableProducts);
-      }
-
-      if (searchText && searchText?.trim()) {
-        const lowCaseSearchText = searchText.toLowerCase();
-        const filteredResults = availableProducts.filter((product) =>
-          product.title.toLowerCase().includes(lowCaseSearchText),
-        );
-        handleFilteredProducts(filteredResults);
-      }
-    },
-    [availableProducts, filteredProducts, handleFilteredProducts, searchText],
-  );
+  useEffect(function () {}, [searchText]);
 
   let productsNum = filteredProducts.length;
 

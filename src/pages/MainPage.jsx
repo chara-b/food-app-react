@@ -19,6 +19,7 @@ import Paginator from "../components/paginator.jsx";
 // custom hooks
 
 // constants
+import { perPage } from "../constants/paginator.js";
 // contexts
 import { CustomModalContextProvider } from "../contexts/CustomModalContext.jsx";
 import {
@@ -27,6 +28,14 @@ import {
 } from "../contexts/ProductsContext.jsx";
 
 function MainPage() {
+  const [current, setCurrent] = useState(0);
+
+  function handleNext() {
+    setCurrent((curr) => curr + perPage);
+  }
+  function handlePrevious() {
+    setCurrent((curr) => curr - perPage);
+  }
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
 
@@ -63,7 +72,13 @@ function MainPage() {
                 actionBtns={actionBtns}
                 colsCount="3"
               >
-                <Paginator count={fetchedDataLoaded.length} perPage={5} />
+                <Paginator
+                  count={fetchedDataLoaded.length}
+                  perPage={perPage}
+                  next={handleNext}
+                  previous={handlePrevious}
+                  current={current}
+                />
               </ProductList>
             ) : (
               <Outlet />

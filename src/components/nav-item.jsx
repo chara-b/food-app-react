@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
+import { useLocation } from "react-router-dom";
 import { useProductsContext } from "../contexts/ProductsContext";
 
 function NavBarItem({ type, placeholder, styles, text, icon }) {
+  const location = useLocation();
   const {
     filteredProducts,
     availableProducts,
@@ -19,7 +21,7 @@ function NavBarItem({ type, placeholder, styles, text, icon }) {
         type="text"
         value={searchText || ""}
         placeholder={placeholder || ""}
-        onChange={handleChangedSearchText}
+        onChange={(e) => handleChangedSearchText(e, location.pathname)}
         className={styles}
       />
     );

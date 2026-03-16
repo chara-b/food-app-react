@@ -3,10 +3,20 @@ import { useLoaderData, useLocation, useNavigation } from "react-router-dom";
 import Paginator from "../components/paginator";
 import ProductListBin from "../components/product-list-bin";
 import Spinner from "../components/spinner/spinner";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useProductsContext } from "../contexts/ProductsContext";
+import { perPage } from "../constants/paginator.js";
 
 function Bin() {
+  const [current, setCurrent] = useState(0);
+
+  function handleNext() {
+    setCurrent((curr) => curr + perPage);
+  }
+  function handlePrevious() {
+    setCurrent((curr) => curr - perPage);
+  }
+
   const disabledProductsLoaded = useLoaderData();
   console.log("binData", disabledProductsLoaded);
 
@@ -51,7 +61,13 @@ function Bin() {
 
   return (
     <ProductListBin className="w-full" actionBtns={actionBtns} colsCount="3">
-      <Paginator count={disabledProductsLoaded.length} perPage={5} />
+      <Paginator
+        count={disabledProductsLoaded.length}
+        perPage={perPage}
+        next={handleNext}
+        previous={handlePrevious}
+        current={current}
+      />
     </ProductListBin>
   );
 }

@@ -15,22 +15,7 @@ const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
     handleFilteredProducts,
   } = useProductsContext();
 
-  useEffect(
-    function () {
-      if (searchText && !searchText?.trim()) {
-        handleFilteredProducts(disabledProducts);
-      }
-
-      if (searchText && searchText?.trim()) {
-        const lowCaseSearchText = searchText.toLowerCase();
-        const filteredResults = disabledProducts.filter((product) =>
-          product.title.toLowerCase().includes(lowCaseSearchText),
-        );
-        handleFilteredProducts(filteredResults);
-      }
-    },
-    [disabledProducts, filteredProducts, handleFilteredProducts, searchText],
-  );
+  useEffect(function () {}, [searchText]);
 
   let productsNum = filteredProducts.length;
 
