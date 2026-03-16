@@ -68,7 +68,7 @@ function Bin() {
   );
 
   return (
-    <ProductListBin className="w-full" actionBtns={actionBtns} colsCount="3">
+    <ProductListBin className="w-full" actionBtns={actionBtns} colsCount="1">
       <Paginator
         count={disabledProductsLoaded.length}
         perPage={perPage}

@@ -15,7 +15,7 @@
       "currency_symbol": "€",
       "imgName": "pizza.png",
       "quantity": "44",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": "2",
@@ -148,7 +148,7 @@
       "currency_symbol": "€",
       "imgName": "toast.png",
       "quantity": "25",
-      "disabled": false
+      "disabled": true
     }
   ],
   "users": [

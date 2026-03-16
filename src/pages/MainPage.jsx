@@ -70,7 +70,7 @@ function MainPage() {
               <ProductList
                 className="w-full"
                 actionBtns={actionBtns}
-                colsCount="3"
+                colsCount="1"
               >
                 <Paginator
                   count={fetchedDataLoaded.length}
