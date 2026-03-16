@@ -7,20 +7,6 @@ import {
 } from "react";
 
 const CustomModalContext = createContext(null);
-// to button sto new input modal na energopoieitai mono otan exoun siblirothei kai ta dio inputs!
-// ta errors sti forma tou add new input na fainontai
-// to add new inputs to the form na paizei
-// to save sto routing na douleuei
-// o paginator
-// optimization ola ta objs sto render logic pouperno san props se child components na einai optimized giati an
-// o parent kanei rerender tha ksanadimiourgithoun kai na perasoun sto child os kainouria kai tha tou kanoun kai autou rerender askopa !
-// typescript
-// to search kanei infinite loop kai otan sbino to keyword den fernei pali ta available
-// kollaei sta filtered tou keyword !
-// tailwind
-// delete buttonaki dipla se kathe ingredient sto edit product page !
-
-// se env arxeio ta constants mou na psakso na do pos ginetai !
 
 function reducer(state, action) {
   switch (action.type) {
