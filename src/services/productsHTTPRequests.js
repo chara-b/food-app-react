@@ -18,7 +18,9 @@ export async function fetchProduct({ params }) {
     const res = await fetch(`${PRODUCTS_URL}/${params.productId}`);
 
     if (!res.ok) {
-      throw new Error("Something went wrong while fetching product data");
+      throw new Error(
+        "Something went wrong while fetching product data ! Product may not exist anymore",
+      );
     }
     const data = await res.json();
     return data;
