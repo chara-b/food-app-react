@@ -13,6 +13,7 @@ const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
     getDisabledProducts,
     getAvailableProducts,
     handleFilteredProducts,
+    setDisabledProducts,
   } = useProductsContext();
 
   useEffect(function () {}, [searchText]);

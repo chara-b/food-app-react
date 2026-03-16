@@ -76,6 +76,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     getDisabledProducts,
     getAvailableProducts,
     handleFilteredProducts,
+    setDisabledProducts,
   } = useProductsContext();
 
   function handleAddNewIngredient() {

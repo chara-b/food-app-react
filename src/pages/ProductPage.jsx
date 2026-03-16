@@ -37,6 +37,7 @@ function ProductPage() {
     getDisabledProducts,
     getAvailableProducts,
     handleFilteredProducts,
+    setDisabledProducts,
   } = useProductsContext();
 
   const updateWholeProduct = useCallback(

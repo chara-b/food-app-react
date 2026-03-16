@@ -13,6 +13,7 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
     getDisabledProducts,
     getAvailableProducts,
     handleFilteredProducts,
+    setDisabledProducts,
   } = useProductsContext();
 
   console.log("availableProducts", availableProducts);

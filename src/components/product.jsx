@@ -38,6 +38,7 @@ const Product = React.memo(
       getDisabledProducts,
       getAvailableProducts,
       handleFilteredProducts,
+      setDisabledProducts,
     } = useProductsContext();
 
     const handleEditedProduct = (editedProduct) => {

@@ -50,13 +50,21 @@ function Bin() {
     getDisabledProducts,
     getAvailableProducts,
     handleFilteredProducts,
+    setDisabledProducts,
   } = useProductsContext();
 
   useEffect(
     function () {
       handleFilteredProducts(disabledProductsLoaded);
+      setDisabledProducts(disabledProductsLoaded);
+      console.log("disabledProductsSet", disabledProducts);
     },
-    [disabledProductsLoaded, handleFilteredProducts],
+    [
+      disabledProducts,
+      disabledProductsLoaded,
+      handleFilteredProducts,
+      setDisabledProducts,
+    ],
   );
 
   return (

@@ -6,8 +6,11 @@ import { useCustomModalContext } from "../contexts/CustomModalContext";
 import { useProductsContext } from "../contexts/ProductsContext";
 import { newProductForm } from "../constants/formNames.js";
 import Form from "./form.jsx";
+import { useNavigate } from "react-router-dom";
 
 const NewProductForm = memo(() => {
+  const navigate = useNavigate();
+  const cachedUser = JSON.parse(localStorage.getItem("user"));
   const {
     formState,
     setFormState,
@@ -51,12 +54,14 @@ const NewProductForm = memo(() => {
     getDisabledProducts,
     getAvailableProducts,
     handleFilteredProducts,
+    setDisabledProducts,
   } = useProductsContext();
 
   async function handleSubmit(e) {
     const submitted = await submitNewProduct(e, formRef);
     if (submitted) {
       await getAvailableProducts();
+      navigate(`/mainpage/${cachedUser.email.split("@")[0]}`);
       onConfirmModal();
     }
   }

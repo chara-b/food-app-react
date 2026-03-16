@@ -13,6 +13,7 @@ function NavBarItem({ type, placeholder, styles, text, icon }) {
     getDisabledProducts,
     getAvailableProducts,
     handleFilteredProducts,
+    setDisabledProducts,
   } = useProductsContext();
 
   if (type === "input") {
