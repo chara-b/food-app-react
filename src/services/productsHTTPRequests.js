@@ -111,3 +111,19 @@ export async function updateWholeProduct(product) {
     throw new Error(err.message);
   }
 }
+
+export async function permanentlyRemoveProduct(product) {
+  try {
+    const res = await fetch(`${PRODUCTS_URL}/${product.id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      throw new Error("Something went wrong while updating product data");
+    }
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}

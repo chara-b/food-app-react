@@ -2,284 +2,134 @@
   "products": [
     {
       "id": "1",
-      "title": "fdgfd",
+      "title": "Pizza",
       "ingredients": [
-        "fgfd",
-        "fdgfd",
-        "gfdg",
-        "fdgfdg",
-        "fdgfd"
+        "gouda cheese",
+        "sauce",
+        "pepperoni",
+        "mashrooms",
+        "onions"
       ],
-      "price": "678658",
+      "price": "4",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "pizza.png",
-      "quantity": "678768",
-      "disabled": true,
-      "editProductForm_newwww2": "23",
-      "editProductForm_mo": "343",
-      "editProductForm_no": "ewrghjg",
-      "editProductForm_mpesamel": "ghgfhg",
-      "editProductForm_fdgdg": "hgjhgjhgjg"
+      "quantity": "44",
+      "disabled": false
     },
     {
       "id": "2",
-      "title": "google",
-      "ingredients": [
-        "dfgfd",
-        "dfgfd",
-        "fdgfd",
-        "gfdg",
-        "fdgfdg"
-      ],
-      "price": "7",
+      "title": "Burger",
+      "ingredients": ["gouda cheese", "sauce", "meat", "onions"],
+      "price": "3",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "burger.png",
-      "quantity": "54353454",
+      "quantity": "50",
       "disabled": false
     },
     {
       "id": "3",
-      "title": "Σάντουιτς",
-      "ingredients": [
-        "ντομάτα",
-        "γκούντα",
-        "γαλοπούλα",
-        "μαρούλι",
-        "κέτσαπ",
-        "μαγιονέζα",
-        "κρεμμύδι",
-        "αυγό"
-      ],
-      "price": 4,
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "sandwich.png",
-      "quantity": 10,
-      "disabled": true
-    },
-    {
-      "id": "4",
-      "title": "qwerty2",
-      "ingredients": [
-        "gfdg",
-        "fgdf",
-        "fdgdf",
-        "fgfd",
-        "fdgfd",
-        "fdg",
-        "fgd",
-        "gdf",
-        "last"
-      ],
-      "price": "4",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "salad.png",
-      "quantity": "44",
-      "disabled": true
-    },
-    {
-      "id": "5",
-      "title": "tosttttt",
-      "ingredients": [
-        "hfg",
-        "gfh",
-        "gfhgf",
-        "tost"
-      ],
-      "price": "54",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "toast.png",
-      "quantity": "545",
-      "disabled": true
-    },
-    {
-      "id": "6",
-      "title": "Κόκα κόλα",
-      "ingredients": [],
-      "price": 1,
+      "title": "coca cola",
+      "ingredients": ["zero sugar"],
+      "price": "2.90",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "cocacola.png",
-      "quantity": 10,
+      "quantity": "100",
+      "disabled": false
+    },
+    {
+      "id": "4",
+      "title": "juice",
+      "ingredients": ["with sugar"],
+      "price": "2.90",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "juice.png",
+      "quantity": "100",
+      "disabled": false
+    },
+    {
+      "id": "5",
+      "title": "koulouri",
+      "ingredients": ["with sesame"],
+      "price": "0.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "koulouri.png",
+      "quantity": "10",
+      "disabled": false
+    },
+    {
+      "id": "6",
+      "title": "salad",
+      "ingredients": [
+        "tomato",
+        "onions",
+        "feta cheese",
+        "lettuce",
+        "bell peppers",
+        "cucumber"
+      ],
+      "price": "1.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "salad.png",
+      "quantity": "10",
       "disabled": false
     },
     {
       "id": "7",
-      "title": "Πορτοκαλάδα",
-      "ingredients": [],
-      "price": 1,
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "juice.png",
-      "quantity": 10,
-      "disabled": true
-    },
-    {
-      "id": "8",
-      "title": "Νερό",
-      "ingredients": [],
-      "price": 0.5,
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "water.png",
-      "quantity": 10,
-      "disabled": true
-    },
-    {
-      "id": "9",
-      "title": "Μπουγάτσα",
-      "ingredients": [],
-      "price": 2.5,
+      "title": "mpougatsa",
+      "ingredients": ["with cream"],
+      "price": "1.50",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "mpougatsa.png",
-      "quantity": 10,
+      "quantity": "15",
+      "disabled": false
+    },
+    {
+      "id": "8",
+      "title": "sandwich",
+      "ingredients": [
+        "gouda cheese",
+        "ham",
+        "tomato",
+        "onions",
+        "lettuce",
+        "bell peppers",
+        "cucumber"
+      ],
+      "price": "3.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "sandwich.png",
+      "quantity": "5",
+      "disabled": false
+    },
+    {
+      "id": "9",
+      "title": "water",
+      "ingredients": ["mineral water"],
+      "price": "0.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "water.png",
+      "quantity": "30",
       "disabled": false
     },
     {
       "id": "10",
-      "title": "Κουλούρι Θεσσαλονίκης",
-      "ingredients": [],
-      "price": 0.5,
+      "title": "toast",
+      "ingredients": ["gouda cheese", "ham", "lettuce"],
+      "price": "1.50",
       "currency": "euro",
       "currency_symbol": "€",
-      "imgName": "koulouri.png",
-      "quantity": 10,
-      "disabled": true
-    },
-    {
-      "id": "ff56",
-      "title": "",
-      "ingredients": [
-        "sdfds"
-      ],
-      "price": "3",
-      "quantity": "3",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "2851",
-      "title": "",
-      "ingredients": [
-        ""
-      ],
-      "price": "",
-      "quantity": "",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "8db0",
-      "title": "",
-      "ingredients": [
-        ""
-      ],
-      "price": "",
-      "quantity": "",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "3ae0",
-      "title": "",
-      "ingredients": [
-        ""
-      ],
-      "price": "",
-      "quantity": "",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "c3c9",
-      "title": "",
-      "ingredients": [
-        ""
-      ],
-      "price": "",
-      "quantity": "",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "8ab7",
-      "title": "",
-      "ingredients": [
-        ""
-      ],
-      "price": "",
-      "quantity": "",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "43c0",
-      "title": "",
-      "ingredients": [
-        ""
-      ],
-      "price": "",
-      "quantity": "",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "25fc",
-      "title": "newfood",
-      "ingredients": [
-        "zxcxx"
-      ],
-      "price": "5",
-      "quantity": "4",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "733e",
-      "title": "hgfh",
-      "ingredients": [
-        "hgfh"
-      ],
-      "price": "4",
-      "quantity": "4",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
-    },
-    {
-      "id": "62e6",
-      "title": "newwwww",
-      "ingredients": [
-        "r3"
-      ],
-      "price": "3",
-      "quantity": "3",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "",
-      "disabled": true
+      "imgName": "toast.png",
+      "quantity": "25",
+      "disabled": false
     }
   ],
   "users": [

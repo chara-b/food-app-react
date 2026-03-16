@@ -22,6 +22,11 @@ function Bin() {
         buttonIcon: "fa-solid fa-arrow-rotate-left",
         type: "button",
       },
+      {
+        actionBtn: "remove",
+        buttonIcon: "fa-solid fa-trash",
+        type: "button",
+      },
     ],
     [],
   );

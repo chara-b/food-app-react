@@ -6,6 +6,7 @@ import CardSection1 from "./card-section1.jsx";
 import CardSection2 from "./card-section2.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { permanentlyRemoveProduct } from "../services/productsHTTPRequests.js";
 
 const Product = React.memo(
   ({ product, onClick, onSubmit, editable, actionBtns }) => {
@@ -65,6 +66,11 @@ const Product = React.memo(
       }
       if (actionBtn === "edit") {
         handleEditedProduct(product);
+      }
+      if (actionBtn === "remove") {
+        console.log("permanently removed product:", product);
+        await permanentlyRemoveProduct(product);
+        await getDisabledProducts();
       }
     };
 
