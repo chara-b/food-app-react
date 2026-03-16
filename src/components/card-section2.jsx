@@ -82,18 +82,26 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     setIngredientNames((ingredientNames) => [...ingredientNames, ""]);
   }
 
-  function handleCloseModal() {
-    onConfirmModal();
-    console.log("MODAL DATA", addNewInputModalResultData);
-    setLabeledInputsData((prev) => [
-      ...prev,
-      {
-        label: addNewInputModalResultData.label,
-        value: addNewInputModalResultData.value,
-        type: "text",
-      },
-    ]);
-  }
+  const handleCloseModal = useCallback(
+    (e, formRef) => {
+      e.preventDefault();
+      const newInputDetails = submitNewInputFields(e, formRef);
+      console.log("newInput:", newInputDetails);
+
+      if (newInputDetails.label && newInputDetails.value) {
+        setLabeledInputsData((prev) => [
+          ...prev,
+          {
+            label: newInputDetails.label,
+            value: newInputDetails.value,
+            type: "text",
+          },
+        ]);
+        onConfirmModal();
+      }
+    },
+    [onConfirmModal, submitNewInputFields],
+  );
 
   const handleNewInput = useCallback(() => {
     setFormErrors({});
@@ -102,13 +110,13 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     dispatch({ type: "modalTitle", payload: "Add new Input" });
     dispatch({
       type: "modalContent",
-      payload: <NewInputForm />,
+      payload: <NewInputForm onSubmit={handleCloseModal} />,
     });
 
     dispatch({ type: "modalIcon", payload: "fa-solid fa-plus" });
     dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
     dispatch({ type: "modalActionBtnRight", payload: "Add" });
-  }, [dispatch, setFormErrors]);
+  }, [dispatch, handleCloseModal, setFormErrors]);
 
   const formRef = useRef();
 
@@ -150,10 +158,9 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
           <MemoizedCustomModal
             isOpen={true}
             onClose={onCloseModal}
-            onConfirm={handleCloseModal}
+            onConfirm={onConfirmModal}
             title={modalTitle}
             icon={modalIcon}
-            disabledBtn={addNewInputDisabledBtn}
           >
             {modalContent}
           </MemoizedCustomModal>

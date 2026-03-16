@@ -5,7 +5,7 @@ import { useCustomModalContext } from "../contexts/CustomModalContext";
 import Form from "./form";
 import { newInputForm } from "../constants/formNames.js";
 
-const NewInputForm = memo(() => {
+const NewInputForm = memo(({ onSubmit }) => {
   const {
     formState,
     setFormState,
@@ -72,20 +72,12 @@ const NewInputForm = memo(() => {
     [],
   );
 
-  function handleSubmit(e) {
-    const submitted = submitNewInputFields(e, formRef);
-
-    if (submitted) {
-      onConfirmModal();
-    }
-  }
-
   const formRef = useRef();
 
   return (
     <Form
       className="w-full max-w-sm m-auto"
-      onSubmit={handleSubmit}
+      onSubmit={(e) => onSubmit(e, formRef)}
       onCancel={onCloseModal}
       formRef={formRef}
       disabled={formErrors ? Object.keys(formErrors).length !== 0 : false}

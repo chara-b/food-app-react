@@ -19,20 +19,20 @@
     },
     {
       "id": "2",
-      "title": "Μπέργκερ",
+      "title": "berger",
       "ingredients": [
-        "ντομάτα",
-        "χοιρινό μπιφτέκι",
-        "σος",
-        "μαρούλι",
-        "γκούντα"
+        "cxvcx",
+        "vcxvcx",
+        "vcxvcx",
+        "vxcvx",
+        "cvxcv"
       ],
-      "price": 7,
+      "price": "7",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "burger.png",
-      "quantity": 10,
-      "disabled": true
+      "quantity": "43",
+      "disabled": false
     },
     {
       "id": "3",

@@ -285,7 +285,7 @@ function FormContextProvider({ children }) {
         newInput.label = label;
         newInput.value = value;
         console.log("newInput submitted", newInput);
-        return true;
+        return newInput;
       }
     },
     [setFormErrors, validateForm],
