@@ -248,7 +248,48 @@ function FormContextProvider({ children }) {
     [setFormErrors, setFormState, validateForm],
   );
 
-  const submitNewInputFields = useCallback(() => {}, []);
+  const submitNewInputFields = useCallback(
+    (e, formRef) => {
+      e.preventDefault();
+
+      const newInput = {
+        label: "",
+        value: "",
+      };
+
+      const label = formRef.current?.querySelector(
+        `input[name="${newInputForm}_label"]`,
+      ).value;
+
+      const value = formRef.current?.querySelector(
+        `input[name="${newInputForm}_value"]`,
+      ).value;
+
+      const { formErrors, isFormValid } = validateForm({
+        [`${newInputForm}_label`]: {
+          value: label,
+          rules: { required: true },
+        },
+        [`${newInputForm}_value`]: {
+          value: value,
+          rules: { required: true },
+        },
+      });
+
+      if (!isFormValid) {
+        setFormErrors(formErrors);
+        return;
+      }
+      if (isFormValid) {
+        setFormErrors({});
+        newInput.label = label;
+        newInput.value = value;
+        console.log("newInput submitted", newInput);
+        return true;
+      }
+    },
+    [setFormErrors, validateForm],
+  );
 
   const value = useMemo(
     () => ({

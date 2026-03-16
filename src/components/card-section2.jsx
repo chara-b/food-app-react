@@ -96,6 +96,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
   }
 
   const handleNewInput = useCallback(() => {
+    setFormErrors({});
     dispatch({ type: "showCustomModal", payload: true });
     dispatch({ type: "modalTriggerButtonName", payload: "addInput" });
     dispatch({ type: "modalTitle", payload: "Add new Input" });
@@ -107,7 +108,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     dispatch({ type: "modalIcon", payload: "fa-solid fa-plus" });
     dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
     dispatch({ type: "modalActionBtnRight", payload: "Add" });
-  }, [dispatch]);
+  }, [dispatch, setFormErrors]);
 
   const formRef = useRef();
 
@@ -144,19 +145,19 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
               Add new Input
             </Button>
           </div>
-          {showCustomModal && modalTriggerButtonName === "addInput" && (
-            <MemoizedCustomModal
-              isOpen={true}
-              onClose={onCloseModal}
-              onConfirm={handleCloseModal}
-              title={modalTitle}
-              icon={modalIcon}
-              disabledBtn={addNewInputDisabledBtn}
-            >
-              {modalContent}
-            </MemoizedCustomModal>
-          )}
         </Form>
+        {showCustomModal && modalTriggerButtonName === "addInput" && (
+          <MemoizedCustomModal
+            isOpen={true}
+            onClose={onCloseModal}
+            onConfirm={handleCloseModal}
+            title={modalTitle}
+            icon={modalIcon}
+            disabledBtn={addNewInputDisabledBtn}
+          >
+            {modalContent}
+          </MemoizedCustomModal>
+        )}
       </>
     );
   }
