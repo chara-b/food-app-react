@@ -187,6 +187,20 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
         Price: {`${product?.price || ""} ${product?.currency_symbol || ""}`}
       </p>
       <span>Quantity: {product?.quantity || ""}</span>
+
+      {/* to display the new inputs */}
+      {Object.entries(
+        Object.keys(product)
+          .filter((key) => key.startsWith("editProductForm"))
+          .reduce((newObj, key) => {
+            newObj[key] = product[key];
+            return newObj;
+          }, {}),
+      ).map(([key, value], i) => (
+        <span key={i}>
+          {key.split("_")[1]}: {value || ""}
+        </span>
+      ))}
     </div>
   );
 });

@@ -187,8 +187,8 @@ function FormContextProvider({ children }) {
       ).value;
 
       const newInputs = Array.from(
-        formRef?.current?.querySelector(
-          `input[id^="${editProductForm}_feature"]`,
+        formRef?.current?.querySelectorAll(
+          `input[id^="${editProductForm}_feature"]:not([name="${editProductForm}_quantity"]):not([name="${editProductForm}_price"])`,
         ),
       ).map((newInput) => ({ name: newInput.name, value: newInput.value }));
 
@@ -212,7 +212,7 @@ function FormContextProvider({ children }) {
       };
 
       newInputs.forEach((newInput, i) => {
-        formRulesObj[`${editProductForm}_feature${i}`] = {
+        formRulesObj[newInput.name] = {
           value: newInput.value,
           rules: { required: true },
         };

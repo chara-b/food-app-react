@@ -40,38 +40,6 @@ const NewInputForm = memo(({ onSubmit }) => {
     onConfirmModal,
   } = useCustomModalContext();
 
-  const actionBtns = useMemo(
-    () => [
-      {
-        actionBtn: "save",
-        buttonIcon: "fa-solid fa-floppy-disk",
-        type: "submit",
-      },
-      { actionBtn: "cancel", buttonIcon: "fa-solid fa-x", type: "button" },
-    ],
-    [],
-  );
-
-  const newInputs = useMemo(
-    () => [
-      {
-        label: "Enter new form field label",
-        id: "new-field-label",
-        name: "new-field-label",
-        value: "",
-        type: "text",
-      },
-      {
-        label: "Enter new form field value",
-        id: "new-field-value",
-        name: "new-field-value",
-        value: "",
-        type: "text",
-      },
-    ],
-    [],
-  );
-
   const formRef = useRef();
 
   return (
