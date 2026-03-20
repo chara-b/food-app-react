@@ -3,62 +3,75 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // css
 import "./App.css";
 // components
+import ProtectedRoute from "./components/protected-route.jsx";
+import AppLayout from "./components/app-layout.jsx";
 // pages
 import Login from "./pages/Login.jsx";
-import MainPage from "./pages/MainPage.jsx";
 import Bin from "./pages/Bin.jsx";
 import Error from "./pages/Error.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
-import ProtectedRoute from "./components/protected-route.jsx";
-// custom hooks
+import ProductsPage from "./pages/ProductsPage.jsx";
 // loaders for fetching data at routing
 import {
   fetchProduct,
   fetchDisabledProducts,
   fetchAvailableProducts,
 } from "./services/productsHTTPRequests.js";
+// contexts
 import { FormContextProvider } from "./contexts/FormContext.jsx";
 import { AuthContextProvider } from "./contexts/FakeAuthContext.jsx";
-
-// constants
+import { CustomModalContextProvider } from "./contexts/CustomModalContext.jsx";
+import { ProductsContextProvider } from "./contexts/ProductsContext.jsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Login /> },
+  { path: "/login", element: <Login /> },
   {
-    path: "/mainpage/:username",
     element: (
       <ProtectedRoute>
-        <MainPage />
+        <AppLayout />
       </ProtectedRoute>
     ),
-    loader: fetchAvailableProducts,
-    errorElement: <Error />,
     children: [
+      {
+        path: "/",
+        element: <Navigate to="/products" replace />,
+      },
+      {
+        path: "products",
+        element: <ProductsPage />,
+        loader: fetchAvailableProducts,
+        errorElement: <Error />,
+      },
+      {
+        path: "products/product/:productId",
+        element: <ProductPage />,
+        loader: fetchProduct,
+        errorElement: <Error />,
+      },
       {
         path: "bin",
         element: <Bin />,
         loader: fetchDisabledProducts,
         errorElement: <Error />,
       },
-      {
-        path: "product/:productId",
-        element: <ProductPage />,
-        loader: fetchProduct,
-        errorElement: <Error />,
-      },
     ],
   },
-  // { path: "/error", element: <Error /> },
   { path: "*", element: <PageNotFound /> },
 ]);
 
 function App() {
   return (
     <AuthContextProvider>
-      <FormContextProvider>
-        <RouterProvider router={router} />
-      </FormContextProvider>
+      <ProductsContextProvider>
+        <CustomModalContextProvider>
+          <FormContextProvider>
+            <RouterProvider router={router}>
+              <AppLayout />
+            </RouterProvider>
+          </FormContextProvider>
+        </CustomModalContextProvider>
+      </ProductsContextProvider>
     </AuthContextProvider>
   );
 }

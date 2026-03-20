@@ -53,7 +53,7 @@ export function useFormValidation() {
       const errors = { ...fieldErrors };
 
       if (rules?.required && !value.trim() && !fieldName.includes(`imgName`)) {
-        errors[fieldName] = `${fieldName.split("_")[1]} must be filled`;
+        errors[fieldName] = `${fieldName} must be filled`;
       } else if (fieldName === "email" && !validateEmail(value)) {
         errors[fieldName] = "invalid email";
       } else if (
@@ -61,7 +61,7 @@ export function useFormValidation() {
         !validateLabel(value)
       ) {
         errors[fieldName] =
-          `${fieldName.split("_")[1]} must contain only letters and numbers`;
+          `${fieldName} must contain only letters and numbers`;
       } else if (fieldName.includes("value") && !validateValue(value)) {
         errors[fieldName] = "value must contain either letters or numbers";
       } else if (fieldName.includes("price") && !validatePrice(value)) {

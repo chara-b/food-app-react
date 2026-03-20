@@ -69,7 +69,6 @@ function CustomModalContextProvider({ children }) {
       modalActionBtnLeft: modalActionBtnLeft,
       modalActionBtnRight: modalActionBtnRight,
       dispatch,
-
       onCloseModal: handleCloseCustomModal,
       onConfirmModal: handleConfirmCustomModal,
     }),

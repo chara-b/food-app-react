@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const NewProductForm = memo(() => {
   const navigate = useNavigate();
-  const cachedUser = JSON.parse(localStorage.getItem("user"));
+
   const {
     formState,
     setFormState,
@@ -50,6 +50,7 @@ const NewProductForm = memo(() => {
     availableProducts,
     disabledProducts,
     searchText,
+    dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
     getAvailableProducts,
@@ -61,7 +62,7 @@ const NewProductForm = memo(() => {
     const submitted = await submitNewProduct(e, formRef);
     if (submitted) {
       await getAvailableProducts();
-      navigate(`/mainpage/${cachedUser.email.split("@")[0]}`);
+      navigate(`/products`, { replace: true });
       onConfirmModal();
     }
   }

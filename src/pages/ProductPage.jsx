@@ -33,6 +33,7 @@ function ProductPage() {
     availableProducts,
     disabledProducts,
     searchText,
+    dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
     getAvailableProducts,
@@ -48,22 +49,16 @@ function ProductPage() {
         fetchedProduct,
       );
       if (submitted) {
-        navigate(`/mainpage/${user.email.split("@")[0]}`);
+        navigate(`/products`, { replace: true });
         await getAvailableProducts();
       }
     },
-    [
-      fetchedProduct,
-      getAvailableProducts,
-      navigate,
-      updateWholeProductDetails,
-      user.email,
-    ],
+    [fetchedProduct, getAvailableProducts, navigate, updateWholeProductDetails],
   );
 
   const handleCancel = useCallback(() => {
-    navigate(`/mainpage/${user.email.split("@")[0]}`);
-  }, [navigate, user.email]);
+    navigate(`/products`, { replace: true });
+  }, [navigate]);
 
   return (
     <div className="flex flex-col gap-4 w-full h-screen overflow-auto">

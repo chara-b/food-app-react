@@ -106,6 +106,7 @@ function ProductsContextProvider({ initialData, children }) {
       availableProducts: availableProducts,
       disabledProducts,
       searchText,
+      dispatchProducts: dispatch,
       handleChangedSearchText,
       getDisabledProducts: getDisabledProducts,
       getAvailableProducts: getAvailableProducts,

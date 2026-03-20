@@ -9,14 +9,13 @@ const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
     availableProducts,
     disabledProducts,
     searchText,
+    dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
     getAvailableProducts,
     handleFilteredProducts,
     setDisabledProducts,
   } = useProductsContext();
-
-  useEffect(function () {}, [searchText]);
 
   let productsNum = filteredProducts.length;
 

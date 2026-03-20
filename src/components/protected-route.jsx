@@ -7,20 +7,22 @@ function ProtectedRoute({ children }) {
   const { user, isAuthenticated, login, logout } = useAuthContext();
   const navigate = useNavigate();
 
-  const location = useLocation();
+  // const location = useLocation();
 
-  useEffect(
-    function () {
-      const cachedUser = JSON.parse(localStorage.getItem("user"));
-      if (!isAuthenticated) {
-        navigate("/");
-      }
-      if (cachedUser && !location.pathname.includes("mainpage")) {
-        navigate(`/mainpage/${cachedUser.email.split("@")[0]}`);
-      }
-    },
-    [isAuthenticated, location.pathname, navigate],
-  );
+  // useEffect(
+  //   function () {
+  // if (!isAuthenticated) {
+  //   navigate("/login", { replace: true });
+  // }
+  // if (user && location.pathname === "/login") {
+  //   navigate(`/products`, { replace: true });
+  // }
+  //   },
+  //   [isAuthenticated, navigate],
+  // );
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
   return children;
 }

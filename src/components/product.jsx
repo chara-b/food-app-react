@@ -34,6 +34,7 @@ const Product = React.memo(
       availableProducts,
       disabledProducts,
       searchText,
+      dispatchProducts,
       handleChangedSearchText,
       getDisabledProducts,
       getAvailableProducts,
@@ -45,7 +46,7 @@ const Product = React.memo(
       setFormState({});
       setFormErrors({});
       console.log("editedProduct: ", editedProduct);
-      navigate(`product/${editedProduct.id}`);
+      navigate(`product/${editedProduct.id}`, { replace: true });
     };
 
     const handleProduct = async (actionBtn, product) => {

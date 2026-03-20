@@ -4,13 +4,14 @@ import ProductList from "./product-list";
 import CustomModal from "./custom-modal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
-import MemoizedCustomModal from "./custom-modal";
+import MemoizedCustomModal from "./custom-modal.jsx";
 import { useFormContext } from "../contexts/FormContext.jsx";
 import NewProductForm from "./new-product-form.jsx";
 import { useCallback, useState } from "react";
 
 function NavBar({ children }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const {
     showCustomModal,
     modalTriggerButtonName,
@@ -46,11 +47,14 @@ function NavBar({ children }) {
   } = useFormContext();
 
   const navigate = useNavigate();
-  const { username } = useParams();
+  const userFirstName = JSON.parse(localStorage.getItem("user"))?.firstName;
+  const userLastName = JSON.parse(localStorage.getItem("user"))?.lastName;
+  const userFullName =
+    userFirstName && userLastName ? `${userFirstName} ${userLastName}` : "";
 
   const handleLougout = () => {
     logout();
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   const handleBinClick = () => {
@@ -77,10 +81,22 @@ function NavBar({ children }) {
     [dispatch, setFormErrors],
   );
 
+  function goToHomepage() {
+    navigate("/products", { replace: true });
+  }
+
   return (
     <nav className="bg-blue-200 shadow-lg">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
+          <div className="hidden md:block">
+            <Button
+              styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
+              onClick={goToHomepage}
+            >
+              Homepage
+            </Button>
+          </div>
           {/* search bar */}
           {children}
 
@@ -88,7 +104,7 @@ function NavBar({ children }) {
           <div className="hidden md:flex gap-4">
             {
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-500 text-white shadow-sm">
-                Hello {username.toUpperCase()}!
+                Hello {userFullName.toUpperCase()}!
               </span>
             }
             <Button
@@ -112,7 +128,7 @@ function NavBar({ children }) {
               styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
               onClick={handleBinClick}
             >
-              <i className="fa-solid fa-trash"></i>Deleted
+              <i className="fa-solid fa-trash"></i>Bin
             </Button>
             <Button
               styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
@@ -149,9 +165,15 @@ function NavBar({ children }) {
             <div className="flex flex-col gap-2 py-4 px-4">
               {
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-500 text-white shadow-sm">
-                  Hello {username.toUpperCase()}!
+                  Hello {userFullName.toUpperCase()}!
                 </span>
               }
+              <Button
+                styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
+                onClick={goToHomepage}
+              >
+                Homepage
+              </Button>
               <Button
                 styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
                 onClick={() => handleAddNewProduct(<NewProductForm />)}
@@ -173,7 +195,7 @@ function NavBar({ children }) {
                 styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
                 onClick={handleBinClick}
               >
-                <i className="fa-solid fa-trash"></i>Deleted
+                <i className="fa-solid fa-trash"></i>Bin
               </Button>
               <Button
                 styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"

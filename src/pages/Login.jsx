@@ -23,16 +23,20 @@ function Login() {
     submitNewInputFields,
   } = useFormContext();
 
-  useEffect(
-    function () {
-      if (isAuthenticated) {
-        navigate(`mainpage/${user.email.split("@")[0]}`);
-      }
-    },
-    [isAuthenticated, navigate, user?.email],
-  );
-
   const formRef = useRef();
+
+  if (isAuthenticated) {
+    return <Navigate to="/products" replace />;
+  }
+  // useEffect(
+  //   function () {
+  //     if (isAuthenticated) {
+  //       navigate("/products");
+  //     }
+  //   },
+  //   [isAuthenticated, navigate, user?.email],
+  // );
+
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col">
       <Form

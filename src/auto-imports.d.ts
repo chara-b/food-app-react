@@ -15,6 +15,7 @@ declare global {
   const Route: typeof import('react-router-dom').Route
   const Routes: typeof import('react-router-dom').Routes
   const Suspense: typeof import('react').Suspense
+  const appLayout: typeof import('./components/app-layout.jsx').default
   const button: typeof import('./components/button.jsx').default
   const cache: typeof import('react').cache
   const cacheSignal: typeof import('react').cacheSignal

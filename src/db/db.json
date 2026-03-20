@@ -1,23 +1,6 @@
 {
   "products": [
     {
-      "id": "1",
-      "title": "Pizza",
-      "ingredients": [
-        "gouda cheese",
-        "sauce",
-        "pepperoni",
-        "mashrooms",
-        "onions"
-      ],
-      "price": "4",
-      "currency": "euro",
-      "currency_symbol": "€",
-      "imgName": "pizza.png",
-      "quantity": "44",
-      "disabled": false
-    },
-    {
       "id": "2",
       "title": "Burger",
       "ingredients": [
@@ -57,7 +40,7 @@
       "currency_symbol": "€",
       "imgName": "juice.png",
       "quantity": "100",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": "5",
@@ -70,7 +53,7 @@
       "currency_symbol": "€",
       "imgName": "koulouri.png",
       "quantity": "10",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": "6",
@@ -148,7 +131,7 @@
       "currency_symbol": "€",
       "imgName": "toast.png",
       "quantity": "25",
-      "disabled": true
+      "disabled": false
     }
   ],
   "users": [

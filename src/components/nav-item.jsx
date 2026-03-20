@@ -9,6 +9,7 @@ function NavBarItem({ type, placeholder, styles, text, icon }) {
     availableProducts,
     disabledProducts,
     searchText,
+    dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
     getAvailableProducts,

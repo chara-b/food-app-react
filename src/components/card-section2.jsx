@@ -72,6 +72,7 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     availableProducts,
     disabledProducts,
     searchText,
+    dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
     getAvailableProducts,

@@ -46,6 +46,7 @@ function Bin() {
     availableProducts,
     disabledProducts,
     searchText,
+    dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
     getAvailableProducts,
@@ -70,7 +71,6 @@ function Bin() {
   return (
     <ProductListBin className="w-full" actionBtns={actionBtns} colsCount="1">
       <Paginator
-        count={disabledProductsLoaded.length}
         perPage={perPage}
         next={handleNext}
         previous={handlePrevious}
