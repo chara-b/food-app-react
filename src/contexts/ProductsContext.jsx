@@ -9,6 +9,7 @@ import {
 import {
   fetchAvailableProducts,
   fetchDisabledProducts,
+  fetchProductsRange,
 } from "../services/productsHTTPRequests";
 
 const ProductContext = createContext(null);
@@ -31,6 +32,8 @@ function ProductsContextProvider({ initialData, children }) {
       filteredProducts: initialData || [],
       availableProducts: initialData || [],
       disabledProducts: [],
+      availableProductsCount: 0,
+      disabledProductsCount: 0,
     }),
     [initialData],
   );
@@ -59,6 +62,19 @@ function ProductsContextProvider({ initialData, children }) {
       console.error("Failed to fetch available products:", error);
     }
   }, []);
+
+  const getProductsRangeForPagination = useCallback(
+    async (start, end, disabled) => {
+      try {
+        const result = await fetchProductsRange(start, end, disabled);
+        console.log("products range fetched: ", result);
+        dispatch({ type: "filteredProducts", payload: result });
+      } catch (error) {
+        console.error("Failed to fetch products range for pagination:", error);
+      }
+    },
+    [],
+  );
 
   const handleFilteredProducts = useCallback((filteredProducts) => {
     dispatch({ type: "filteredProducts", payload: filteredProducts });
@@ -110,6 +126,7 @@ function ProductsContextProvider({ initialData, children }) {
       handleChangedSearchText,
       getDisabledProducts: getDisabledProducts,
       getAvailableProducts: getAvailableProducts,
+      getProductsRangeForPagination,
       handleFilteredProducts: handleFilteredProducts,
       setDisabledProducts,
     }),
@@ -121,6 +138,7 @@ function ProductsContextProvider({ initialData, children }) {
       handleChangedSearchText,
       getDisabledProducts,
       getAvailableProducts,
+      getProductsRangeForPagination,
       handleFilteredProducts,
       setDisabledProducts,
     ],

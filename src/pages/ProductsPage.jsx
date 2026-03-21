@@ -34,6 +34,8 @@ function ProductsPage() {
   const fetchedDataLoaded = useLoaderData();
   console.log("fetchedDataLoaded ProductsPage", fetchedDataLoaded);
 
+  const productsCount = fetchedDataLoaded.length;
+
   const actionBtns = useMemo(
     () => [
       { actionBtn: "delete", buttonIcon: "fa-solid fa-trash", type: "button" },
@@ -55,13 +57,12 @@ function ProductsPage() {
   return (
     <>
       {!isLoading && location.pathname === "/products" && (
-        <ProductList
-          className="w-full"
-          actionBtns={actionBtns}
-          colsCount="1"
-          perPage={perPage}
-        >
-          <Paginator perPage={perPage} />
+        <ProductList className="w-full" actionBtns={actionBtns} colsCount="1">
+          <Paginator
+            perPage={perPage}
+            areDisabled={false}
+            productsCount={productsCount}
+          />
         </ProductList>
       )}
       {isLoading && <Spinner />}

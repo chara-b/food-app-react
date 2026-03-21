@@ -129,3 +129,21 @@ export async function permanentlyRemoveProduct(product) {
     throw new Error(err.message);
   }
 }
+
+export async function fetchProductsRange(start, end, disabled) {
+  try {
+    const res = await fetch(
+      `${PRODUCTS_URL}?disabled=${disabled}&_start=${start}&_end=${end}`,
+    );
+
+    if (!res.ok) {
+      throw new Error(
+        "Something went wrong while fetching products range for pagination",
+      );
+    }
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}

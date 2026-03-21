@@ -8,17 +8,10 @@ import { useProductsContext } from "../contexts/ProductsContext";
 import { perPage } from "../constants/paginator.js";
 
 function Bin() {
-  const [current, setCurrent] = useState(0);
-
-  function handleNext() {
-    setCurrent((curr) => curr + perPage);
-  }
-  function handlePrevious() {
-    setCurrent((curr) => curr - perPage);
-  }
-
   const disabledProductsLoaded = useLoaderData();
   console.log("binData", disabledProductsLoaded);
+
+  const productsCount = disabledProductsLoaded.length;
 
   // const navigation = useNavigation();
   // const isLoading = navigation.state === "loading";
@@ -72,9 +65,8 @@ function Bin() {
     <ProductListBin className="w-full" actionBtns={actionBtns} colsCount="1">
       <Paginator
         perPage={perPage}
-        next={handleNext}
-        previous={handlePrevious}
-        current={current}
+        areDisabled={true}
+        productsCount={productsCount}
       />
     </ProductListBin>
   );
