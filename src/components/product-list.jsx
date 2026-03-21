@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Product from "./product.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
   const {
@@ -19,11 +19,20 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
 
   console.log("filteredProducts", filteredProducts);
 
+  const listRef = useRef(null);
+
   let productsNum = filteredProducts.length;
+
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = 0;
+    }
+  }, [filteredProducts]);
 
   return productsNum ? (
     <>
       <ul
+        ref={listRef}
         className={`grid grid-cols-${colsCount} gap-4 ml-5 mr-5 h-screen overflow-auto`}
       >
         {filteredProducts.map((product) => {
