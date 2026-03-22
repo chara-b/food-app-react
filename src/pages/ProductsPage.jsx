@@ -33,8 +33,8 @@ function ProductsPage() {
 
   const location = useLocation();
 
-  const fetchedDataLoaded = useLoaderData();
-  console.log("fetchedDataLoaded ProductsPage", fetchedDataLoaded);
+  const availableDataLoaded = useLoaderData();
+  console.log("availableDataLoaded ProductsPage", availableDataLoaded);
 
   const actionBtns = useMemo(
     () => [
@@ -48,15 +48,15 @@ function ProductsPage() {
     function () {
       dispatchProducts({
         type: "filteredProducts",
-        payload: fetchedDataLoaded,
+        payload: availableDataLoaded,
       });
     },
-    [dispatchProducts, fetchedDataLoaded],
+    [dispatchProducts, availableDataLoaded],
   );
 
   const productsCount = availableProductsCount
     ? availableProductsCount
-    : fetchedDataLoaded.length;
+    : availableDataLoaded.length;
 
   return (
     <>

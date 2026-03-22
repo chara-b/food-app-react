@@ -33,7 +33,7 @@ function Paginator({ perPage, areDisabled, productsCount }) {
       await getProductsRangeForPagination(start, end, areDisabled);
     }
     firstPage();
-  }, [current]);
+  }, [current, disabledProductsCount, availableProductsCount]);
 
   async function handleNext() {
     setCurrent((prevCurrent) => prevCurrent + perPage);
