@@ -8,6 +8,8 @@ function Paginator({ perPage, areDisabled, productsCount }) {
     filteredProducts,
     availableProducts,
     searchText,
+    availableProductsCount,
+    disabledProductsCount,
     dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,

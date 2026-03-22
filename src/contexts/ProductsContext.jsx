@@ -22,6 +22,10 @@ function reducer(state, action) {
       return { ...state, availableProducts: action.payload };
     case "disabledProducts":
       return { ...state, disabledProducts: action.payload };
+    case "availableProductsCount":
+      return { ...state, availableProductsCount: action.payload };
+    case "disabledProductsCount":
+      return { ...state, disabledProductsCount: action.payload };
     default:
       throw new Error("Unknown action!");
   }
@@ -41,13 +45,20 @@ function ProductsContextProvider({ initialData, children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [searchText, setSearchText] = useState("");
 
-  const { filteredProducts, availableProducts, disabledProducts } = state;
+  const {
+    filteredProducts,
+    availableProducts,
+    disabledProducts,
+    availableProductsCount,
+    disabledProductsCount,
+  } = state;
 
   const getDisabledProducts = useCallback(async () => {
     try {
       const result = await fetchDisabledProducts();
       console.log("disabled products fetched: ", result);
       dispatch({ type: "filteredProducts", payload: result });
+      dispatch({ type: "disabledProductsCount", payload: result.length });
     } catch (error) {
       console.error("Failed to fetch disabled products:", error);
     }
@@ -58,6 +69,7 @@ function ProductsContextProvider({ initialData, children }) {
       const result = await fetchAvailableProducts();
       console.log("available products fetched: ", result);
       dispatch({ type: "filteredProducts", payload: result });
+      dispatch({ type: "availableProductsCount", payload: result.length });
     } catch (error) {
       console.error("Failed to fetch available products:", error);
     }
@@ -122,6 +134,8 @@ function ProductsContextProvider({ initialData, children }) {
       availableProducts: availableProducts,
       disabledProducts,
       searchText,
+      availableProductsCount,
+      disabledProductsCount,
       dispatchProducts: dispatch,
       handleChangedSearchText,
       getDisabledProducts: getDisabledProducts,
@@ -135,6 +149,8 @@ function ProductsContextProvider({ initialData, children }) {
       availableProducts,
       disabledProducts,
       searchText,
+      availableProductsCount,
+      disabledProductsCount,
       handleChangedSearchText,
       getDisabledProducts,
       getAvailableProducts,

@@ -44,7 +44,7 @@
       "currency_symbol": "€",
       "imgName": "cocacola.png",
       "quantity": "100",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 4,
@@ -57,7 +57,7 @@
       "currency_symbol": "€",
       "imgName": "juice.png",
       "quantity": "100",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 5,
@@ -70,7 +70,7 @@
       "currency_symbol": "€",
       "imgName": "koulouri.png",
       "quantity": "10",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 6,
@@ -101,7 +101,7 @@
       "currency_symbol": "€",
       "imgName": "mpougatsa.png",
       "quantity": "15",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 8,
@@ -120,7 +120,7 @@
       "currency_symbol": "€",
       "imgName": "sandwich.png",
       "quantity": "5",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 9,
@@ -133,7 +133,7 @@
       "currency_symbol": "€",
       "imgName": "water.png",
       "quantity": "30",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 10,

@@ -11,13 +11,6 @@ function Bin() {
   const disabledProductsLoaded = useLoaderData();
   console.log("binData", disabledProductsLoaded);
 
-  const productsCount = disabledProductsLoaded.length;
-
-  // const navigation = useNavigation();
-  // const isLoading = navigation.state === "loading";
-
-  // const location = useLocation();
-
   const actionBtns = useMemo(
     () => [
       {
@@ -39,6 +32,8 @@ function Bin() {
     availableProducts,
     disabledProducts,
     searchText,
+    availableProductsCount,
+    disabledProductsCount,
     dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
@@ -60,6 +55,10 @@ function Bin() {
       setDisabledProducts,
     ],
   );
+
+  const productsCount = disabledProductsCount
+    ? disabledProductsCount
+    : disabledProductsLoaded.length;
 
   return (
     <ProductListBin className="w-full" actionBtns={actionBtns} colsCount="1">

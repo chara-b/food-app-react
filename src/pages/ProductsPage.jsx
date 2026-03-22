@@ -18,6 +18,8 @@ function ProductsPage() {
     availableProducts,
     disabledProducts,
     searchText,
+    availableProductsCount,
+    disabledProductsCount,
     dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
@@ -33,8 +35,6 @@ function ProductsPage() {
 
   const fetchedDataLoaded = useLoaderData();
   console.log("fetchedDataLoaded ProductsPage", fetchedDataLoaded);
-
-  const productsCount = fetchedDataLoaded.length;
 
   const actionBtns = useMemo(
     () => [
@@ -53,6 +53,10 @@ function ProductsPage() {
     },
     [dispatchProducts, fetchedDataLoaded],
   );
+
+  const productsCount = availableProductsCount
+    ? availableProductsCount
+    : fetchedDataLoaded.length;
 
   return (
     <>
