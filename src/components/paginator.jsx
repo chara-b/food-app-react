@@ -6,7 +6,6 @@ import Button from "./button";
 function Paginator({ perPage, areDisabled, productsCount }) {
   const {
     filteredProducts,
-    availableProducts,
     searchText,
     availableProductsCount,
     disabledProductsCount,
@@ -29,10 +28,17 @@ function Paginator({ perPage, areDisabled, productsCount }) {
     : current + (productsCount - current);
 
   useEffect(() => {
-    async function firstPage() {
+    async function pageRange() {
       await getProductsRangeForPagination(start, end, areDisabled);
+      if (current > productsCount) {
+        await getProductsRangeForPagination(
+          start - perPage,
+          end - 1,
+          areDisabled,
+        );
+      }
     }
-    firstPage();
+    pageRange();
   }, [current, disabledProductsCount, availableProductsCount]);
 
   async function handleNext() {

@@ -31,7 +31,7 @@
       "currency_symbol": "€",
       "imgName": "burger.png",
       "quantity": "50",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": 3,
@@ -44,7 +44,7 @@
       "currency_symbol": "€",
       "imgName": "cocacola.png",
       "quantity": "100",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": 4,
@@ -57,7 +57,7 @@
       "currency_symbol": "€",
       "imgName": "juice.png",
       "quantity": "100",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": 5,
@@ -70,7 +70,7 @@
       "currency_symbol": "€",
       "imgName": "koulouri.png",
       "quantity": "10",
-      "disabled": false
+      "disabled": true
     },
     {
       "id": 6,
@@ -88,7 +88,7 @@
       "currency_symbol": "€",
       "imgName": "salad.png",
       "quantity": "10",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 7,
@@ -101,7 +101,7 @@
       "currency_symbol": "€",
       "imgName": "mpougatsa.png",
       "quantity": "15",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 8,
@@ -133,7 +133,7 @@
       "currency_symbol": "€",
       "imgName": "water.png",
       "quantity": "30",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 10,
@@ -148,7 +148,7 @@
       "currency_symbol": "€",
       "imgName": "toast.png",
       "quantity": "25",
-      "disabled": true
+      "disabled": false
     }
   ],
   "users": [

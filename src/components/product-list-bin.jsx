@@ -6,8 +6,6 @@ import React, { useEffect, useRef } from "react";
 const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
   const {
     filteredProducts,
-    availableProducts,
-    disabledProducts,
     searchText,
     dispatchProducts,
     handleChangedSearchText,

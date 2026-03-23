@@ -47,8 +47,6 @@ const NewProductForm = memo(() => {
 
   const {
     filteredProducts,
-    availableProducts,
-    disabledProducts,
     searchText,
     dispatchProducts,
     handleChangedSearchText,

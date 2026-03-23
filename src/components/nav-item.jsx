@@ -6,8 +6,6 @@ function NavBarItem({ type, placeholder, styles, text, icon }) {
   const location = useLocation();
   const {
     filteredProducts,
-    availableProducts,
-    disabledProducts,
     searchText,
     dispatchProducts,
     handleChangedSearchText,

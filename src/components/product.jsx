@@ -31,8 +31,6 @@ const Product = React.memo(
 
     const {
       filteredProducts,
-      availableProducts,
-      disabledProducts,
       searchText,
       dispatchProducts,
       handleChangedSearchText,

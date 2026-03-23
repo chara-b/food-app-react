@@ -67,19 +67,6 @@ const CardSection2 = React.memo(({ product, editable, onClick, onSubmit }) => {
     submitNewInputFields,
   } = useFormContext();
 
-  const {
-    filteredProducts,
-    availableProducts,
-    disabledProducts,
-    searchText,
-    dispatchProducts,
-    handleChangedSearchText,
-    getDisabledProducts,
-    getAvailableProducts,
-    handleFilteredProducts,
-    setDisabledProducts,
-  } = useProductsContext();
-
   function handleAddNewIngredient() {
     setIngredientNames((ingredientNames) => [...ingredientNames, ""]);
   }

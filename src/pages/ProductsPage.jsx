@@ -15,8 +15,6 @@ import { useProductsContext } from "../contexts/ProductsContext.jsx";
 function ProductsPage() {
   const {
     filteredProducts,
-    availableProducts,
-    disabledProducts,
     searchText,
     availableProductsCount,
     disabledProductsCount,
@@ -50,13 +48,13 @@ function ProductsPage() {
         type: "filteredProducts",
         payload: availableDataLoaded,
       });
+      dispatchProducts({
+        type: "availableProductsCount",
+        payload: availableDataLoaded.length,
+      });
     },
     [dispatchProducts, availableDataLoaded],
   );
-
-  const productsCount = availableProductsCount
-    ? availableProductsCount
-    : availableDataLoaded.length;
 
   return (
     <>
@@ -65,7 +63,7 @@ function ProductsPage() {
           <Paginator
             perPage={perPage}
             areDisabled={false}
-            productsCount={productsCount}
+            productsCount={availableProductsCount}
           />
         </ProductList>
       )}

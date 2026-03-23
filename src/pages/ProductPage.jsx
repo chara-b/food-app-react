@@ -30,8 +30,6 @@ function ProductPage() {
 
   const {
     filteredProducts,
-    availableProducts,
-    disabledProducts,
     searchText,
     dispatchProducts,
     handleChangedSearchText,

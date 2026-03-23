@@ -29,8 +29,6 @@ function Bin() {
 
   const {
     filteredProducts,
-    availableProducts,
-    disabledProducts,
     searchText,
     availableProductsCount,
     disabledProductsCount,
@@ -44,28 +42,28 @@ function Bin() {
 
   useEffect(
     function () {
-      handleFilteredProducts(disabledProductsLoaded);
-      setDisabledProducts(disabledProductsLoaded);
-      console.log("disabledProductsSet", disabledProducts);
+      dispatchProducts({
+        type: "filteredProducts",
+        payload: disabledProductsLoaded,
+      });
+      // dispatchProducts({
+      //   type: "disabledProducts",
+      //   payload: disabledProductsLoaded,
+      // });
+      dispatchProducts({
+        type: "disabledProductsCount",
+        payload: disabledProductsLoaded.length,
+      });
     },
-    [
-      disabledProducts,
-      disabledProductsLoaded,
-      handleFilteredProducts,
-      setDisabledProducts,
-    ],
+    [disabledProductsLoaded, dispatchProducts],
   );
-
-  const productsCount = disabledProductsCount
-    ? disabledProductsCount
-    : disabledProductsLoaded.length;
 
   return (
     <ProductListBin className="w-full" actionBtns={actionBtns} colsCount="1">
       <Paginator
         perPage={perPage}
         areDisabled={true}
-        productsCount={productsCount}
+        productsCount={disabledProductsCount}
       />
     </ProductListBin>
   );

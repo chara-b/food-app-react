@@ -18,10 +18,6 @@ function reducer(state, action) {
   switch (action.type) {
     case "filteredProducts":
       return { ...state, filteredProducts: action.payload };
-    case "availableProducts":
-      return { ...state, availableProducts: action.payload };
-    case "disabledProducts":
-      return { ...state, disabledProducts: action.payload };
     case "availableProductsCount":
       return { ...state, availableProductsCount: action.payload };
     case "disabledProductsCount":
@@ -34,8 +30,6 @@ function ProductsContextProvider({ initialData, children }) {
   const initialState = useMemo(
     () => ({
       filteredProducts: initialData || [],
-      availableProducts: initialData || [],
-      disabledProducts: [],
       availableProductsCount: 0,
       disabledProductsCount: 0,
     }),
@@ -45,13 +39,8 @@ function ProductsContextProvider({ initialData, children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [searchText, setSearchText] = useState("");
 
-  const {
-    filteredProducts,
-    availableProducts,
-    disabledProducts,
-    availableProductsCount,
-    disabledProductsCount,
-  } = state;
+  const { filteredProducts, availableProductsCount, disabledProductsCount } =
+    state;
 
   const getDisabledProducts = useCallback(async () => {
     try {
@@ -88,51 +77,43 @@ function ProductsContextProvider({ initialData, children }) {
     [],
   );
 
-  const handleFilteredProducts = useCallback((filteredProducts) => {
-    dispatch({ type: "filteredProducts", payload: filteredProducts });
+  const handleChangedSearchText = useCallback(async (e, pathname) => {
+    const searchText = e.target.value;
+    setSearchText(searchText);
+
+    if (!searchText?.trim() && !pathname.includes("bin")) {
+      const result = await fetchAvailableProducts();
+      dispatch({ type: "filteredProducts", payload: result });
+    }
+
+    if (searchText && searchText?.trim() && !pathname.includes("bin")) {
+      const lowCaseSearchText = searchText.toLowerCase();
+      const result = await fetchAvailableProducts();
+      const filteredResults = result.filter((product) =>
+        product.title.toLowerCase().includes(lowCaseSearchText),
+      );
+
+      dispatch({ type: "filteredProducts", payload: filteredResults });
+    }
+
+    if (!searchText?.trim() && pathname.includes("bin")) {
+      const result = await fetchDisabledProducts();
+      dispatch({ type: "filteredProducts", payload: result });
+    }
+
+    if (searchText && searchText?.trim() && pathname.includes("bin")) {
+      const lowCaseSearchText = searchText.toLowerCase();
+      const result = await fetchDisabledProducts();
+      const filteredResults = result.filter((product) =>
+        product.title.toLowerCase().includes(lowCaseSearchText),
+      );
+      dispatch({ type: "filteredProducts", payload: filteredResults });
+    }
   }, []);
-
-  const setDisabledProducts = useCallback((disabledProducts) => {
-    dispatch({ type: "disabledProducts", payload: disabledProducts });
-  }, []);
-
-  const handleChangedSearchText = useCallback(
-    (e, pathname) => {
-      const searchText = e.target.value;
-      setSearchText(searchText);
-
-      if (!searchText?.trim() && !pathname.includes("bin")) {
-        handleFilteredProducts(availableProducts);
-      }
-
-      if (searchText && searchText?.trim() && !pathname.includes("bin")) {
-        const lowCaseSearchText = searchText.toLowerCase();
-        const filteredResults = availableProducts.filter((product) =>
-          product.title.toLowerCase().includes(lowCaseSearchText),
-        );
-        handleFilteredProducts(filteredResults);
-      }
-
-      if (!searchText?.trim() && pathname.includes("bin")) {
-        handleFilteredProducts(disabledProducts);
-      }
-
-      if (searchText && searchText?.trim() && pathname.includes("bin")) {
-        const lowCaseSearchText = searchText.toLowerCase();
-        const filteredResults = disabledProducts.filter((product) =>
-          product.title.toLowerCase().includes(lowCaseSearchText),
-        );
-        handleFilteredProducts(filteredResults);
-      }
-    },
-    [availableProducts, disabledProducts, handleFilteredProducts],
-  );
 
   const value = useMemo(
     () => ({
       filteredProducts: filteredProducts,
-      availableProducts: availableProducts,
-      disabledProducts,
       searchText,
       availableProductsCount,
       disabledProductsCount,
@@ -141,13 +122,9 @@ function ProductsContextProvider({ initialData, children }) {
       getDisabledProducts: getDisabledProducts,
       getAvailableProducts: getAvailableProducts,
       getProductsRangeForPagination,
-      handleFilteredProducts: handleFilteredProducts,
-      setDisabledProducts,
     }),
     [
       filteredProducts,
-      availableProducts,
-      disabledProducts,
       searchText,
       availableProductsCount,
       disabledProductsCount,
@@ -155,8 +132,6 @@ function ProductsContextProvider({ initialData, children }) {
       getDisabledProducts,
       getAvailableProducts,
       getProductsRangeForPagination,
-      handleFilteredProducts,
-      setDisabledProducts,
     ],
   );
 
