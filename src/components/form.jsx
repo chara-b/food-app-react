@@ -11,6 +11,8 @@ const Form = React.memo(
     labeledInputs,
     onSubmit,
     onCancel,
+    onAddNewIngredient,
+    onRemoveIngredient,
     formState,
     formErrors,
     disabled,
@@ -70,7 +72,24 @@ const Form = React.memo(
                       onChange(`${formName}_ingredient${i}`, e.target.value)
                     }
                     type="text"
-                  />
+                  >
+                    {" "}
+                    <Button
+                      type="button"
+                      onClick={
+                        i === inputsNoLabels.length - 1
+                          ? onAddNewIngredient
+                          : () => onRemoveIngredient(i)
+                      }
+                      styles={
+                        i === inputsNoLabels.length - 1
+                          ? "shadow bg-blue-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                          : "shadow bg-red-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                      }
+                    >
+                      {i === inputsNoLabels.length - 1 ? "+" : "-"}
+                    </Button>
+                  </Input>
                 </li>
               ))}
             </ul>

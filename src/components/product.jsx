@@ -7,6 +7,7 @@ import CardSection2 from "./card-section2.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { permanentlyRemoveProduct } from "../services/productsHTTPRequests.js";
+import EditProductForm from "./edit-product-form.jsx";
 
 const Product = React.memo(
   ({ product, onClick, onSubmit, editable, actionBtns }) => {
@@ -68,13 +69,17 @@ const Product = React.memo(
     return (
       <li className="flex items-center gap-4 rounded-lg bg-blue-100 p-6 shadow-md outline outline-black/5">
         <CardSection1 imgName={product.imgName} />
-        <CardSection2
-          editable={editable}
-          product={product}
-          onClick={onClick}
-          onSubmit={onSubmit}
-          actionBtns={actionBtns}
-        />
+
+        {editable ? (
+          <EditProductForm
+            product={product}
+            onClick={onClick}
+            onSubmit={onSubmit}
+          />
+        ) : (
+          <CardSection2 product={product} />
+        )}
+
         {actionBtns?.length &&
           !editable &&
           actionBtns?.map(({ actionBtn, buttonIcon }, i) => {
