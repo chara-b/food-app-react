@@ -31,7 +31,7 @@
       "currency_symbol": "€",
       "imgName": "burger.png",
       "quantity": "50",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 3,
@@ -44,7 +44,7 @@
       "currency_symbol": "€",
       "imgName": "cocacola.png",
       "quantity": "100",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 4,
@@ -120,7 +120,7 @@
       "currency_symbol": "€",
       "imgName": "sandwich.png",
       "quantity": "5",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 9,
@@ -148,7 +148,7 @@
       "currency_symbol": "€",
       "imgName": "toast.png",
       "quantity": "25",
-      "disabled": false
+      "disabled": true
     }
   ],
   "users": [

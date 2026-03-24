@@ -29,17 +29,27 @@ function Paginator({ perPage, areDisabled, productsCount }) {
 
   useEffect(() => {
     async function pageRange() {
-      await getProductsRangeForPagination(start, end, areDisabled);
-      if (current > productsCount) {
-        await getProductsRangeForPagination(
-          start - perPage,
-          end - 1,
-          areDisabled,
-        );
+      // if the last item of the last page is deleted or restored then the paginator must display the
+      // previous page products!
+      if (productsCount && current > productsCount) {
+        setCurrent((prevCurrent) => prevCurrent - perPage);
+      }
+      // if we type a keyword to search then the paginator must paginate the searched results and not
+      // call the api to get the paginated data!
+      if (searchText) {
+        const result = filteredProducts.slice(start, end);
+        dispatchProducts({ type: "filteredProducts", payload: result });
+        return;
+      } else {
+        await getProductsRangeForPagination(start, end, areDisabled);
       }
     }
+
+    // kai na sbiso an boro ta disabledProductsCount, availableProductsCount
+    // na kano dinamiki tin edit form na rendaretai me ola ta pedia old + new, xoris
+    // to prefix tis formas na apothikeuetai kai na balo tin idia forma kai sto add new product
     pageRange();
-  }, [current, disabledProductsCount, availableProductsCount]);
+  }, [current, searchText, disabledProductsCount, availableProductsCount]);
 
   async function handleNext() {
     setCurrent((prevCurrent) => prevCurrent + perPage);

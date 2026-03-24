@@ -63,7 +63,9 @@ function ProductsPage() {
           <Paginator
             perPage={perPage}
             areDisabled={false}
-            productsCount={availableProductsCount}
+            productsCount={
+              searchText ? filteredProducts.length : availableProductsCount
+            }
           />
         </ProductList>
       )}

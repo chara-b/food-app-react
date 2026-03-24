@@ -63,7 +63,9 @@ function Bin() {
       <Paginator
         perPage={perPage}
         areDisabled={true}
-        productsCount={disabledProductsCount}
+        productsCount={
+          searchText ? filteredProducts.length : disabledProductsCount
+        }
       />
     </ProductListBin>
   );
