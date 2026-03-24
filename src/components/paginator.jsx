@@ -45,9 +45,6 @@ function Paginator({ perPage, areDisabled, productsCount }) {
       }
     }
 
-    // kai na sbiso an boro ta disabledProductsCount, availableProductsCount
-    // na kano dinamiki tin edit form na rendaretai me ola ta pedia old + new, xoris
-    // to prefix tis formas na apothikeuetai kai na balo tin idia forma kai sto add new product
     pageRange();
   }, [current, searchText, disabledProductsCount, availableProductsCount]);
 
