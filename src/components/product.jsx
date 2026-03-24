@@ -29,16 +29,7 @@ const Product = React.memo(
       submitNewInputFields,
     } = useFormContext();
 
-    const {
-      filteredProducts,
-      searchText,
-      dispatchProducts,
-      handleChangedSearchText,
-      getDisabledProducts,
-      getAvailableProducts,
-      handleFilteredProducts,
-      setDisabledProducts,
-    } = useProductsContext();
+    const { getDisabledProducts, getAvailableProducts } = useProductsContext();
 
     const handleEditedProduct = (editedProduct) => {
       setFormState({});

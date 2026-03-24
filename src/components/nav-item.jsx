@@ -5,13 +5,13 @@ import { useProductsContext } from "../contexts/ProductsContext";
 function NavBarItem({ type, placeholder, styles, text, icon }) {
   const location = useLocation();
   const {
-    filteredProducts,
+    displayedProducts,
     searchText,
     dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
     getAvailableProducts,
-    handleFilteredProducts,
+    handleDisplayedProducts,
     setDisabledProducts,
   } = useProductsContext();
 

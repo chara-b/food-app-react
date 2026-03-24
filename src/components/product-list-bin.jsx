@@ -4,26 +4,17 @@ import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import React, { useEffect, useRef } from "react";
 
 const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
-  const {
-    filteredProducts,
-    searchText,
-    dispatchProducts,
-    handleChangedSearchText,
-    getDisabledProducts,
-    getAvailableProducts,
-    handleFilteredProducts,
-    setDisabledProducts,
-  } = useProductsContext();
+  const { displayedProducts } = useProductsContext();
 
   const listRef = useRef(null);
 
-  let productsNum = filteredProducts.length;
+  let productsNum = displayedProducts.length;
 
   useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTop = 0;
     }
-  }, [filteredProducts]);
+  }, [displayedProducts]);
 
   return productsNum ? (
     <>
@@ -31,7 +22,7 @@ const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
         ref={listRef}
         className={`grid grid-cols-${colsCount} gap-4 ml-5 mr-5 h-screen overflow-auto`}
       >
-        {filteredProducts.map((product) => {
+        {displayedProducts.map((product) => {
           return (
             <Product
               product={product}

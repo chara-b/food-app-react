@@ -5,7 +5,7 @@ import Button from "./button";
 
 function Paginator({ perPage, areDisabled, productsCount }) {
   const {
-    filteredProducts,
+    displayedProducts,
     searchText,
     availableProductsCount,
     disabledProductsCount,
@@ -14,7 +14,7 @@ function Paginator({ perPage, areDisabled, productsCount }) {
     getDisabledProducts,
     getAvailableProducts,
     getProductsRangeForPagination,
-    handleFilteredProducts,
+    handleDisplayedProducts,
     setDisabledProducts,
   } = useProductsContext();
 
@@ -37,8 +37,8 @@ function Paginator({ perPage, areDisabled, productsCount }) {
       // if we type a keyword to search then the paginator must paginate the searched results and not
       // call the api to get the paginated data!
       if (searchText) {
-        const result = filteredProducts.slice(start, end);
-        dispatchProducts({ type: "filteredProducts", payload: result });
+        const result = displayedProducts.slice(start, end);
+        dispatchProducts({ type: "displayedProducts", payload: result });
         return;
       } else {
         await getProductsRangeForPagination(start, end, areDisabled);

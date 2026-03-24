@@ -14,16 +14,11 @@ import { useProductsContext } from "../contexts/ProductsContext.jsx";
 
 function ProductsPage() {
   const {
-    filteredProducts,
+    displayedProducts,
     searchText,
     availableProductsCount,
-    disabledProductsCount,
+
     dispatchProducts,
-    handleChangedSearchText,
-    getDisabledProducts,
-    getAvailableProducts,
-    handleFilteredProducts,
-    setDisabledProducts,
   } = useProductsContext();
 
   const navigation = useNavigation();
@@ -45,7 +40,7 @@ function ProductsPage() {
   useEffect(
     function () {
       dispatchProducts({
-        type: "filteredProducts",
+        type: "displayedProducts",
         payload: availableDataLoaded,
       });
       dispatchProducts({
@@ -64,7 +59,7 @@ function ProductsPage() {
             perPage={perPage}
             areDisabled={false}
             productsCount={
-              searchText ? filteredProducts.length : availableProductsCount
+              searchText ? displayedProducts.length : availableProductsCount
             }
           />
         </ProductList>

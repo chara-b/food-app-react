@@ -16,8 +16,8 @@ const ProductContext = createContext(null);
 
 function reducer(state, action) {
   switch (action.type) {
-    case "filteredProducts":
-      return { ...state, filteredProducts: action.payload };
+    case "displayedProducts":
+      return { ...state, displayedProducts: action.payload };
     case "availableProductsCount":
       return { ...state, availableProductsCount: action.payload };
     case "disabledProductsCount":
@@ -29,7 +29,7 @@ function reducer(state, action) {
 function ProductsContextProvider({ initialData, children }) {
   const initialState = useMemo(
     () => ({
-      filteredProducts: initialData || [],
+      displayedProducts: initialData || [],
       availableProductsCount: 0,
       disabledProductsCount: 0,
     }),
@@ -39,14 +39,14 @@ function ProductsContextProvider({ initialData, children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [searchText, setSearchText] = useState("");
 
-  const { filteredProducts, availableProductsCount, disabledProductsCount } =
+  const { displayedProducts, availableProductsCount, disabledProductsCount } =
     state;
 
   const getDisabledProducts = useCallback(async () => {
     try {
       const result = await fetchDisabledProducts();
       console.log("disabled products fetched: ", result);
-      dispatch({ type: "filteredProducts", payload: result });
+      dispatch({ type: "displayedProducts", payload: result });
       dispatch({ type: "disabledProductsCount", payload: result.length });
     } catch (error) {
       console.error("Failed to fetch disabled products:", error);
@@ -57,7 +57,7 @@ function ProductsContextProvider({ initialData, children }) {
     try {
       const result = await fetchAvailableProducts();
       console.log("available products fetched: ", result);
-      dispatch({ type: "filteredProducts", payload: result });
+      dispatch({ type: "displayedProducts", payload: result });
       dispatch({ type: "availableProductsCount", payload: result.length });
     } catch (error) {
       console.error("Failed to fetch available products:", error);
@@ -69,7 +69,7 @@ function ProductsContextProvider({ initialData, children }) {
       try {
         const result = await fetchProductsRange(start, end, disabled);
         console.log("products range fetched: ", result);
-        dispatch({ type: "filteredProducts", payload: result });
+        dispatch({ type: "displayedProducts", payload: result });
       } catch (error) {
         console.error("Failed to fetch products range for pagination:", error);
       }
@@ -83,7 +83,7 @@ function ProductsContextProvider({ initialData, children }) {
 
     if (!searchText?.trim() && !pathname.includes("bin")) {
       const result = await fetchAvailableProducts();
-      dispatch({ type: "filteredProducts", payload: result });
+      dispatch({ type: "displayedProducts", payload: result });
     }
 
     if (searchText && searchText?.trim() && !pathname.includes("bin")) {
@@ -93,12 +93,12 @@ function ProductsContextProvider({ initialData, children }) {
         product.title.toLowerCase().includes(lowCaseSearchText),
       );
 
-      dispatch({ type: "filteredProducts", payload: filteredResults });
+      dispatch({ type: "displayedProducts", payload: filteredResults });
     }
 
     if (!searchText?.trim() && pathname.includes("bin")) {
       const result = await fetchDisabledProducts();
-      dispatch({ type: "filteredProducts", payload: result });
+      dispatch({ type: "displayedProducts", payload: result });
     }
 
     if (searchText && searchText?.trim() && pathname.includes("bin")) {
@@ -107,13 +107,13 @@ function ProductsContextProvider({ initialData, children }) {
       const filteredResults = result.filter((product) =>
         product.title.toLowerCase().includes(lowCaseSearchText),
       );
-      dispatch({ type: "filteredProducts", payload: filteredResults });
+      dispatch({ type: "displayedProducts", payload: filteredResults });
     }
   }, []);
 
   const value = useMemo(
     () => ({
-      filteredProducts: filteredProducts,
+      displayedProducts,
       searchText,
       availableProductsCount,
       disabledProductsCount,
@@ -124,7 +124,7 @@ function ProductsContextProvider({ initialData, children }) {
       getProductsRangeForPagination,
     }),
     [
-      filteredProducts,
+      displayedProducts,
       searchText,
       availableProductsCount,
       disabledProductsCount,

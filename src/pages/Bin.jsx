@@ -28,28 +28,18 @@ function Bin() {
   );
 
   const {
-    filteredProducts,
+    displayedProducts,
     searchText,
-    availableProductsCount,
     disabledProductsCount,
     dispatchProducts,
-    handleChangedSearchText,
-    getDisabledProducts,
-    getAvailableProducts,
-    handleFilteredProducts,
-    setDisabledProducts,
   } = useProductsContext();
 
   useEffect(
     function () {
       dispatchProducts({
-        type: "filteredProducts",
+        type: "displayedProducts",
         payload: disabledProductsLoaded,
       });
-      // dispatchProducts({
-      //   type: "disabledProducts",
-      //   payload: disabledProductsLoaded,
-      // });
       dispatchProducts({
         type: "disabledProductsCount",
         payload: disabledProductsLoaded.length,
@@ -64,7 +54,7 @@ function Bin() {
         perPage={perPage}
         areDisabled={true}
         productsCount={
-          searchText ? filteredProducts.length : disabledProductsCount
+          searchText ? displayedProducts.length : disabledProductsCount
         }
       />
     </ProductListBin>

@@ -28,16 +28,7 @@ function ProductPage() {
     submitNewInputFields,
   } = useFormContext();
 
-  const {
-    filteredProducts,
-    searchText,
-    dispatchProducts,
-    handleChangedSearchText,
-    getDisabledProducts,
-    getAvailableProducts,
-    handleFilteredProducts,
-    setDisabledProducts,
-  } = useProductsContext();
+  const { getAvailableProducts } = useProductsContext();
 
   const updateWholeProduct = useCallback(
     async (e, formRef) => {

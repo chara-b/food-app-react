@@ -46,13 +46,13 @@ const NewProductForm = memo(() => {
   } = useCustomModalContext();
 
   const {
-    filteredProducts,
+    displayedProducts,
     searchText,
     dispatchProducts,
     handleChangedSearchText,
     getDisabledProducts,
     getAvailableProducts,
-    handleFilteredProducts,
+    handleDisplayedProducts,
     setDisabledProducts,
   } = useProductsContext();
 
