@@ -3,7 +3,6 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { useFormContext } from "../contexts/FormContext";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
 
-import { defaultProductFormInputs } from "../constants/formFieldsNames";
 import MemoizedCustomModal from "./custom-modal";
 import Form from "./form.jsx";
 import Button from "./button.jsx";
@@ -12,27 +11,11 @@ import { editProductForm } from "../constants/formNames.js";
 
 function EditProductForm({ product, onClick, onSubmit }) {
   // for ingredient inputs with no labels
-  const [ingredientNames, setIngredientNames] = useState(product.ingredients);
+  const [ingredients, setIngredients] = useState(product.ingredients_visible);
 
   // for other inputs with labels
-  const [labeledInputsData, setLabeledInputsData] = useState(function () {
-    return defaultProductFormInputs.map(({ label, type }, i) => {
-      return {
-        label: label,
-        value: product[label],
-        type: "text",
-      };
-    });
-  });
+  const [newInputsDetails, setNewInputsDetails] = useState([]);
 
-  // for product title input
-  const titleInput = useMemo(
-    () => ({
-      title: "Food Title",
-      value: product.title,
-    }),
-    [product.title],
-  );
   const {
     showCustomModal,
     modalTriggerButtonName,
@@ -68,12 +51,12 @@ function EditProductForm({ product, onClick, onSubmit }) {
   } = useFormContext();
 
   function handleAddNewIngredient() {
-    setIngredientNames((ingredientNames) => [...ingredientNames, ""]);
+    setIngredients((ingredients) => [...ingredients, ""]);
   }
 
   function handleRemoveIngredient(indexToRemove) {
-    setIngredientNames((ingredientNames) =>
-      ingredientNames.filter((_, i) => i !== indexToRemove),
+    setIngredients((ingredients) =>
+      ingredients.filter((_, i) => i !== indexToRemove),
     );
   }
 
@@ -83,17 +66,15 @@ function EditProductForm({ product, onClick, onSubmit }) {
       const newInputDetails = submitNewInputFields(e, formRef);
       console.log("newInput:", newInputDetails);
 
-      if (newInputDetails.label && newInputDetails.value) {
-        setLabeledInputsData((prev) => [
-          ...prev,
-          {
-            label: newInputDetails.label,
-            value: newInputDetails.value,
-            type: "text",
-          },
-        ]);
-        onConfirmModal();
-      }
+      setNewInputsDetails((prev) => [
+        ...prev,
+        {
+          label: newInputDetails.label,
+          value: newInputDetails.value,
+          type: "text",
+        },
+      ]);
+      onConfirmModal();
     },
     [onConfirmModal, submitNewInputFields],
   );
@@ -118,12 +99,11 @@ function EditProductForm({ product, onClick, onSubmit }) {
     <>
       <Form
         formName={editProductForm}
-        titleInput={titleInput}
-        inputsTitle="Ingredients"
-        inputsNoLabels={ingredientNames}
+        product={product}
+        ingredients={ingredients}
+        newInputsDetails={newInputsDetails}
         onAddNewIngredient={handleAddNewIngredient}
         onRemoveIngredient={handleRemoveIngredient}
-        labeledInputs={labeledInputsData}
         onCancel={onClick}
         formState={formState}
         formErrors={formErrors}

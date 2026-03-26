@@ -4,7 +4,8 @@ import Product from "../components/product.jsx";
 import { useCallback, useMemo } from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
-import Button from "../components/button.jsx";
+import EditProductForm from "../components/edit-product-form.jsx";
+import CardSection1 from "../components/card-section1.jsx";
 
 function ProductPage() {
   const fetchedProduct = useLoaderData();
@@ -51,12 +52,14 @@ function ProductPage() {
 
   return (
     <div className="flex flex-col gap-4 w-full h-screen overflow-auto">
-      <Product
-        product={fetchedProduct}
-        onClick={handleCancel}
-        onSubmit={updateWholeProduct}
-        editable={true}
-      />
+      <Product product={fetchedProduct} editable={true}>
+        <CardSection1 imgName={fetchedProduct.imgName} />
+        <EditProductForm
+          product={fetchedProduct}
+          onClick={handleCancel}
+          onSubmit={updateWholeProduct}
+        />
+      </Product>
     </div>
   );
 }

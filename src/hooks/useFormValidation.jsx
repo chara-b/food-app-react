@@ -51,9 +51,11 @@ export function useFormValidation() {
   const validateField = useCallback(
     (fieldName, value, rules = {}) => {
       const errors = { ...fieldErrors };
+      const splittedFieldName = fieldName.split("_");
 
       if (rules?.required && !value.trim() && !fieldName.includes(`imgName`)) {
-        errors[fieldName] = `${fieldName} must be filled`;
+        errors[fieldName] =
+          `${splittedFieldName.length === 2 ? splittedFieldName[1] : splittedFieldName[0]} must be filled`;
       } else if (fieldName === "email" && !validateEmail(value)) {
         errors[fieldName] = "invalid email";
       } else if (
@@ -61,7 +63,7 @@ export function useFormValidation() {
         !validateLabel(value)
       ) {
         errors[fieldName] =
-          `${fieldName} must contain only letters and numbers`;
+          `${splittedFieldName.length === 2 ? splittedFieldName[1] : splittedFieldName[0]} must contain only letters and numbers`;
       } else if (fieldName.includes("value") && !validateValue(value)) {
         errors[fieldName] = "value must contain either letters or numbers";
       } else if (fieldName.includes("price") && !validatePrice(value)) {

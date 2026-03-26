@@ -162,15 +162,10 @@ function FormContextProvider({ children }) {
 
       const product = {
         id: editedProduct.id,
-        title: "",
-        ingredients: [],
-        price: "",
-        quantity: "",
       };
 
-      const title = formRef?.current?.querySelector(
-        `input[name="${editProductForm}_title"]`,
-      ).value;
+      // get form fields value
+      // the ingredient inputs
       const ingredients = Array.from(
         formRef?.current?.querySelectorAll(
           `[name^='${editProductForm}_ingredient']`,
@@ -179,45 +174,30 @@ function FormContextProvider({ children }) {
         .map((ingredientElem) => ingredientElem.value)
         .join(",");
 
-      const price = formRef?.current?.querySelector(
-        `input[name="${editProductForm}_price"]`,
-      ).value;
-      const quantity = formRef?.current?.querySelector(
-        `input[name="${editProductForm}_quantity"]`,
-      ).value;
+      // and the rest labeled inputs
+      const inputs = Array.from(
+        formRef?.current?.querySelectorAll(`input[id*="feature"]`),
+      ).map((input) => ({
+        name: `${input.name}`,
+        value: input.value,
+      }));
 
-      const newInputs = Array.from(
-        formRef?.current?.querySelectorAll(
-          `input[id^="${editProductForm}_feature"]:not([name="${editProductForm}_quantity"]):not([name="${editProductForm}_price"])`,
-        ),
-      ).map((newInput) => ({ name: newInput.name, value: newInput.value }));
-
+      // create the obj for validation
       const formRulesObj = {
-        [`${editProductForm}_title`]: {
-          value: title,
-          rules: { required: true },
-        },
         [`${editProductForm}_ingredients`]: {
           value: ingredients,
           rules: { required: true },
         },
-        [`${editProductForm}_price`]: {
-          value: price,
-          rules: { required: true },
-        },
-        [`${editProductForm}_quantity`]: {
-          value: quantity,
-          rules: { required: true },
-        },
       };
 
-      newInputs.forEach((newInput, i) => {
-        formRulesObj[newInput.name] = {
-          value: newInput.value,
+      inputs.forEach((input, i) => {
+        formRulesObj[input.name] = {
+          value: input.value,
           rules: { required: true },
         };
       });
 
+      // validate form
       const { formErrors, isFormValid } = validateForm(formRulesObj);
 
       if (!isFormValid) {
@@ -226,13 +206,11 @@ function FormContextProvider({ children }) {
       }
       if (isFormValid) {
         setFormErrors({});
-        product.title = title;
-        product.ingredients = ingredients.split(",");
-        product.price = price;
-        product.quantity = quantity;
+        // create the final product obj after validation that will be submitted
+        product["ingredients_visible"] = ingredients.split(",");
 
-        newInputs.forEach((newInput, i) => {
-          product[newInput.name] = newInput.value;
+        inputs.forEach((input, i) => {
+          product[`${input.name.split("_")[1]}_visible`] = input.value;
         });
       }
       try {

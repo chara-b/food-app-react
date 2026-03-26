@@ -9,94 +9,82 @@ import { useNavigate } from "react-router-dom";
 import { permanentlyRemoveProduct } from "../services/productsHTTPRequests.js";
 import EditProductForm from "./edit-product-form.jsx";
 
-const Product = React.memo(
-  ({ product, onClick, onSubmit, editable, actionBtns }) => {
-    const navigate = useNavigate();
+const Product = React.memo(({ product, editable, actionBtns, children }) => {
+  const navigate = useNavigate();
 
-    const {
-      formState,
-      setFormState,
-      formErrors,
-      setFormErrors,
-      isFormValid,
-      onChange,
-      user,
-      isAuthenticated,
-      logout,
-      submitLogin,
-      submitNewProduct,
-      updateProductDetails,
-      updateWholeProductDetails,
-      submitNewInputFields,
-    } = useFormContext();
+  const {
+    formState,
+    setFormState,
+    formErrors,
+    setFormErrors,
+    isFormValid,
+    onChange,
+    user,
+    isAuthenticated,
+    logout,
+    submitLogin,
+    submitNewProduct,
+    updateProductDetails,
+    updateWholeProductDetails,
+    submitNewInputFields,
+  } = useFormContext();
 
-    const { getDisabledProducts, getAvailableProducts } = useProductsContext();
+  const { getDisabledProducts, getAvailableProducts } = useProductsContext();
 
-    const handleEditedProduct = (editedProduct) => {
-      setFormState({});
-      setFormErrors({});
-      console.log("editedProduct: ", editedProduct);
-      navigate(`product/${editedProduct.id}`, { replace: true });
-    };
+  const handleEditedProduct = (editedProduct) => {
+    setFormState({});
+    setFormErrors({});
+    console.log("editedProduct: ", editedProduct);
+    navigate(`product/${editedProduct.id}`, { replace: true });
+  };
 
-    const handleProduct = async (actionBtn, product) => {
-      if (actionBtn === "delete") {
-        await updateProductDetails({
-          id: product.id,
-          propToUpdate: "disabled",
-          newValue: true,
-        });
-        await getAvailableProducts();
-      }
-      if (actionBtn === "restore") {
-        await updateProductDetails({
-          id: product.id,
-          propToUpdate: "disabled",
-          newValue: false,
-        });
-        await getDisabledProducts();
-      }
-      if (actionBtn === "edit") {
-        handleEditedProduct(product);
-      }
-      if (actionBtn === "remove") {
-        console.log("permanently removed product:", product);
-        await permanentlyRemoveProduct(product);
-        await getDisabledProducts();
-      }
-    };
+  const handleProduct = async (actionBtn, product) => {
+    if (actionBtn === "delete") {
+      await updateProductDetails({
+        id: product.id,
+        propToUpdate: "disabled",
+        newValue: true,
+      });
+      await getAvailableProducts();
+    }
+    if (actionBtn === "restore") {
+      await updateProductDetails({
+        id: product.id,
+        propToUpdate: "disabled",
+        newValue: false,
+      });
+      await getDisabledProducts();
+    }
+    if (actionBtn === "edit") {
+      handleEditedProduct(product);
+    }
+    if (actionBtn === "remove") {
+      console.log("permanently removed product:", product);
+      await permanentlyRemoveProduct(product);
+      await getDisabledProducts();
+    }
+  };
 
-    return (
-      <li className="flex items-center gap-4 rounded-lg bg-blue-100 p-6 shadow-md outline outline-black/5">
-        <CardSection1 imgName={product.imgName} />
+  return (
+    <li className="flex items-center gap-4 rounded-lg bg-blue-100 p-6 shadow-md outline outline-black/5">
+      {children}
 
-        {editable ? (
-          <EditProductForm
-            product={product}
-            onClick={onClick}
-            onSubmit={onSubmit}
-          />
-        ) : (
-          <CardSection2 product={product} />
-        )}
-
-        {actionBtns?.length &&
-          !editable &&
-          actionBtns?.map(({ actionBtn, buttonIcon }, i) => {
-            return (
-              <Button
-                id={`${actionBtn}-${i}`}
-                styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
-                key={i}
-                onClick={() => handleProduct(actionBtn, product)}
-                type="button"
-              >
-                <i className={buttonIcon}></i>
-              </Button>
-            );
-          })}
-      </li>
-    );
-  },
-);
+      {actionBtns?.length &&
+        !editable &&
+        actionBtns?.map(({ actionBtn, buttonIcon }, i) => {
+          return (
+            <Button
+              id={`${actionBtn}-${i}`}
+              styles="px-3 py-1.5 text-sm font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+              key={i}
+              onClick={() => handleProduct(actionBtn, product)}
+              type="button"
+            >
+              <i className={buttonIcon}></i>
+            </Button>
+          );
+        })}
+    </li>
+  );
+});
 export default Product;

@@ -1,33 +1,17 @@
-// o paginator
-
 // optimization ola ta objs sto render logic pouperno san props se child components na einai optimized giati an
 // o parent kanei rerender tha ksanadimiourgithoun kai na perasoun sto child os kainouria kai tha tou kanoun kai autou rerender askopa !
 
 // typescript
 
-// better tailwind
-
-// delete buttonaki dipla se kathe ingredient sto edit product page !
-
 // se env arxeio ta constants mou na psakso na do pos ginetai !
 
-
-// homepage button
 
 // edit form and new product form must be the same
 
 // placehoder of the edit form must be removed
 
-// fetch while search with button
-
-
-// paginator current starting from 1
 
 // dynamic form fields reading from product obj so the extra new fields can be added dynamically to forms
 // and product lists view 
 
-// routing
-
 // split useHooks to seperate file from the context file so eslint can be happy
-
-// add new ingredient button next to every input 

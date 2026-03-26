@@ -2,6 +2,8 @@
 import Product from "./product.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import React, { useEffect, useRef } from "react";
+import CardSection2 from "./card-section2.jsx";
+import CardSection1 from "./card-section1.jsx";
 
 const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
   const { displayedProducts } = useProductsContext();
@@ -24,11 +26,10 @@ const ProductListBin = React.memo(({ actionBtns, colsCount, children }) => {
       >
         {displayedProducts.map((product) => {
           return (
-            <Product
-              product={product}
-              key={product.id}
-              actionBtns={actionBtns}
-            />
+            <Product product={product} key={product.id} actionBtns={actionBtns}>
+              <CardSection1 imgName={product.imgName} />
+              <CardSection2 product={product} />
+            </Product>
           );
         })}
       </ul>

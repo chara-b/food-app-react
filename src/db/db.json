@@ -2,80 +2,80 @@
   "products": [
     {
       "id": 1,
-      "title": "Pizza",
-      "ingredients": [
-        "gouda cheese",
-        "sauce",
-        "ham",
-        "mashrooms",
-        "pepperoni"
+      "title_visible": "pizzaaaa",
+      "ingredients_visible": [
+        "soooo",
+        "so",
+        "so",
+        "so"
       ],
-      "price": "5",
+      "price_visible": "2",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "pizza.png",
-      "quantity": "50",
-      "disabled": false
+      "quantity_visible": "2",
+      "disabled": false,
+      "ok_visible": "okkkkkkk"
     },
     {
       "id": 2,
-      "title": "Burger",
-      "ingredients": [
+      "title_visible": "Burger",
+      "ingredients_visible": [
         "gouda cheese",
         "sauce",
         "meat",
         "onions"
       ],
-      "price": "3",
+      "price_visible": "3",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "burger.png",
-      "quantity": "50",
+      "quantity_visible": "50",
       "disabled": true
     },
     {
       "id": 3,
-      "title": "coca cola",
-      "ingredients": [
+      "title_visible": "coca cola",
+      "ingredients_visible": [
         "zero sugar"
       ],
-      "price": "2.90",
+      "price_visible": "2.90",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "cocacola.png",
-      "quantity": "100",
+      "quantity_visible": "100",
       "disabled": true
     },
     {
       "id": 4,
-      "title": "juice",
-      "ingredients": [
+      "title_visible": "juice",
+      "ingredients_visible": [
         "with sugar"
       ],
-      "price": "2.90",
+      "price_visible": "2.90",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "juice.png",
-      "quantity": "100",
+      "quantity_visible": "100",
       "disabled": true
     },
     {
       "id": 5,
-      "title": "koulouri",
-      "ingredients": [
+      "title_visible": "koulouri",
+      "ingredients_visible": [
         "with sesame"
       ],
-      "price": "0.50",
+      "price_visible": "0.50",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "koulouri.png",
-      "quantity": "10",
+      "quantity_visible": "10",
       "disabled": true
     },
     {
       "id": 6,
-      "title": "salad",
-      "ingredients": [
+      "title_visible": "salad",
+      "ingredients_visible": [
         "tomato",
         "onions",
         "feta cheese",
@@ -83,30 +83,30 @@
         "bell peppers",
         "cucumber"
       ],
-      "price": "1.50",
+      "price_visible": "1.50",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "salad.png",
-      "quantity": "10",
+      "quantity_visible": "10",
       "disabled": false
     },
     {
       "id": 7,
-      "title": "mpougatsa",
-      "ingredients": [
+      "title_visible": "mpougatsa",
+      "ingredients_visible": [
         "with cream"
       ],
-      "price": "1.50",
+      "price_visible": "1.50",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "mpougatsa.png",
-      "quantity": "15",
+      "quantity_visible": "15",
       "disabled": false
     },
     {
       "id": 8,
-      "title": "sandwich",
-      "ingredients": [
+      "title_visible": "sandwich",
+      "ingredients_visible": [
         "gouda cheese",
         "ham",
         "tomato",
@@ -115,39 +115,39 @@
         "bell peppers",
         "cucumber"
       ],
-      "price": "3.50",
+      "price_visible": "3.50",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "sandwich.png",
-      "quantity": "5",
+      "quantity_visible": "5",
       "disabled": false
     },
     {
       "id": 9,
-      "title": "water",
-      "ingredients": [
+      "title_visible": "water",
+      "ingredients_visible": [
         "mineral water"
       ],
-      "price": "0.50",
+      "price_visible": "0.50",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "water.png",
-      "quantity": "30",
+      "quantity_visible": "30",
       "disabled": true
     },
     {
       "id": 10,
-      "title": "toast",
-      "ingredients": [
+      "title_visible": "toast",
+      "ingredients_visible": [
         "gouda cheese",
         "ham",
         "lettuce"
       ],
-      "price": "1.50",
+      "price_visible": "1.50",
       "currency": "euro",
       "currency_symbol": "€",
       "imgName": "toast.png",
-      "quantity": "25",
+      "quantity_visible": "25",
       "disabled": false
     }
   ],

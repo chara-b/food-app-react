@@ -90,7 +90,7 @@ function ProductsContextProvider({ initialData, children }) {
       const lowCaseSearchText = searchText.toLowerCase();
       const result = await fetchAvailableProducts();
       const filteredResults = result.filter((product) =>
-        product.title.toLowerCase().includes(lowCaseSearchText),
+        product.title_visible.toLowerCase().includes(lowCaseSearchText),
       );
 
       dispatch({ type: "displayedProducts", payload: filteredResults });
@@ -105,7 +105,7 @@ function ProductsContextProvider({ initialData, children }) {
       const lowCaseSearchText = searchText.toLowerCase();
       const result = await fetchDisabledProducts();
       const filteredResults = result.filter((product) =>
-        product.title.toLowerCase().includes(lowCaseSearchText),
+        product.title_visible.toLowerCase().includes(lowCaseSearchText),
       );
       dispatch({ type: "displayedProducts", payload: filteredResults });
     }
