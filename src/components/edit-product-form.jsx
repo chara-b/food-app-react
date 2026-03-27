@@ -10,12 +10,6 @@ import NewInputForm from "../components/new-input-form";
 import { editProductForm } from "../constants/formNames.js";
 
 function EditProductForm({ product, onClick, onSubmit }) {
-  // for ingredient inputs with no labels
-  const [ingredients, setIngredients] = useState(product.ingredients_visible);
-
-  // for other inputs with labels
-  const [newInputsDetails, setNewInputsDetails] = useState([]);
-
   const {
     showCustomModal,
     modalTriggerButtonName,
@@ -50,6 +44,12 @@ function EditProductForm({ product, onClick, onSubmit }) {
     submitNewInputFields,
   } = useFormContext();
 
+  // for ingredient inputs with no labels
+  const [ingredients, setIngredients] = useState(product.ingredients_visible);
+
+  // for other inputs with labels
+  const [newInputsDetails, setNewInputsDetails] = useState([]);
+
   function handleAddNewIngredient() {
     setIngredients((ingredients) => [...ingredients, ""]);
   }
@@ -58,6 +58,7 @@ function EditProductForm({ product, onClick, onSubmit }) {
     setIngredients((ingredients) =>
       ingredients.filter((_, i) => i !== indexToRemove),
     );
+    onChange(`${editProductForm}_ingredient${indexToRemove}`, "");
   }
 
   const handleCloseModal = useCallback(
