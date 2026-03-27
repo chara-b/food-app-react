@@ -68,30 +68,22 @@ const Form = React.memo(
                     {cleanKey}
                   </span>
                   <ul>
-                    {ingredients?.map((ingredient, i) => (
+                    {ingredients?.map(([key, value], i) => (
                       <li key={i}>
                         <Input
-                          id={`${formName}_ingredient${i}`}
-                          name={`${formName}_ingredient${i}`}
-                          placeholder={ingredient}
-                          value={
-                            formState?.[`${formName}_ingredient${i}`] || ""
-                          }
-                          onChange={(e) =>
-                            onChange(
-                              `${formName}_ingredient${i}`,
-                              e.target.value,
-                            )
-                          }
+                          id={key}
+                          name={key}
+                          placeholder={value}
+                          value={formState?.[key] || ""}
+                          onChange={(e) => onChange(key, e.target.value)}
                           type="text"
                         >
-                          {" "}
                           <Button
                             type="button"
                             onClick={
                               i === ingredients.length - 1
                                 ? onAddNewIngredient
-                                : () => onRemoveIngredient(i)
+                                : () => onRemoveIngredient(key)
                             }
                             styles={
                               i === ingredients.length - 1

@@ -13,10 +13,18 @@ export const useForm = () => {
     setFormErrors({});
   };
 
+  const deleteField = (field) => {
+    setFormState((prev) => {
+      const { [field]: _, ...rest } = prev;
+      return rest;
+    });
+  };
+
   return {
     formState,
     setFormState,
     onChange: updateField,
+    onDelete: deleteField,
     formErrors,
     setFormErrors,
     validateForm,

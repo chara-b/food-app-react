@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useFormContext } from "../contexts/FormContext";
 import { useCustomModalContext } from "../contexts/CustomModalContext";
 
@@ -7,7 +7,7 @@ import MemoizedCustomModal from "./custom-modal";
 import Form from "./form.jsx";
 import Button from "./button.jsx";
 import NewInputForm from "../components/new-input-form";
-import { editProductForm } from "../constants/formNames.js";
+import { editProductForm, newInputForm } from "../constants/formNames.js";
 
 function EditProductForm({ product, onClick, onSubmit }) {
   const {
@@ -34,6 +34,7 @@ function EditProductForm({ product, onClick, onSubmit }) {
     setFormErrors,
     isFormValid,
     onChange,
+    onDelete,
     user,
     isAuthenticated,
     logout,
@@ -45,20 +46,36 @@ function EditProductForm({ product, onClick, onSubmit }) {
   } = useFormContext();
 
   // for ingredient inputs with no labels
-  const [ingredients, setIngredients] = useState(product.ingredients_visible);
+
+  const ingredients = Object.entries(formState).filter(([key, value]) =>
+    key.includes("ingredient"),
+  );
+  // .map(([key, value]) => value);
+
+  const rowsCount = useRef(product.ingredients_visible.length);
+
+  // const [ingredients, setIngredients] = useState(ingr);
 
   // for other inputs with labels
   const [newInputsDetails, setNewInputsDetails] = useState([]);
 
   function handleAddNewIngredient() {
-    setIngredients((ingredients) => [...ingredients, ""]);
+    // setIngredients((ingredients) => [...ingredients, ""]);
+    // const ingredientsCount = Object.keys(formState).filter((key) =>
+    //   key.includes("ingredient"),
+    // ).length;
+    rowsCount.current += 1;
+    onChange(`${editProductForm}_ingredient${rowsCount.current}`, "");
   }
 
-  function handleRemoveIngredient(indexToRemove) {
-    setIngredients((ingredients) =>
-      ingredients.filter((_, i) => i !== indexToRemove),
-    );
-    onChange(`${editProductForm}_ingredient${indexToRemove}`, "");
+  function handleRemoveIngredient(fieldName) {
+    // setIngredients((ingredients) =>
+    //   ingredients.filter((_, i) => i !== indexToRemove),
+    // );
+    // onChange(`${editProductForm}_ingredient${indexToRemove}`, "");
+
+    // onDelete(`${editProductForm}_ingredient${indexToRemove}`);
+    onDelete(fieldName);
   }
 
   const handleCloseModal = useCallback(
@@ -66,6 +83,16 @@ function EditProductForm({ product, onClick, onSubmit }) {
       e.preventDefault();
       const newInputDetails = submitNewInputFields(e, formRef);
       console.log("newInput:", newInputDetails);
+      const found = Object.keys(formState).find((key) =>
+        key.includes(`${editProductForm}_${newInputDetails.label}`),
+      );
+
+      if (found) {
+        setFormErrors({
+          [`${newInputForm}_label`]: "field already exists!",
+        });
+        return;
+      }
 
       setNewInputsDetails((prev) => [
         ...prev,
@@ -75,9 +102,17 @@ function EditProductForm({ product, onClick, onSubmit }) {
           type: "text",
         },
       ]);
+      // after creating the new fields prepei na baloume sto state to value tous gia na mporoume na kanoume
+      // to element controlled element kai na to diaxeirizomaste me tin onChange otan tou allazoume tin timi xoris
+      // na petaei error oti to state den exei timi kai einai arxikos undefined kathe fora pou tou allazoume to value
+      // autou tou pediou tis formas !
+      onChange(
+        `${editProductForm}_${newInputDetails.label}`,
+        newInputDetails.value,
+      );
       onConfirmModal();
     },
-    [onConfirmModal, submitNewInputFields],
+    [formState, onChange, onConfirmModal, setFormErrors, submitNewInputFields],
   );
 
   const handleNewInput = useCallback(() => {
@@ -94,6 +129,21 @@ function EditProductForm({ product, onClick, onSubmit }) {
     dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
     dispatch({ type: "modalActionBtnRight", payload: "Add" });
   }, [dispatch, handleCloseModal, setFormErrors]);
+
+  useEffect(function () {
+    // set state with the defult product values oste na mporoume na ta kanoume controlled elements meta
+    // mias pou gia na ginoun kai na mporoume na allaksoume tin timi tous prepei na exoun arxiki timi sto state!
+    Object.entries(product).forEach(([key, value]) => {
+      if (key.includes("visible") && !key.includes("ingredients")) {
+        onChange(`${editProductForm}_${key.split("_")[0]}`, value);
+      }
+      if (key.includes("visible") && key.includes("ingredients")) {
+        value.forEach((ingredientName, i) => {
+          onChange(`${editProductForm}_ingredient${i}`, ingredientName);
+        });
+      }
+    });
+  }, []);
 
   const formRef = useRef();
   return (
