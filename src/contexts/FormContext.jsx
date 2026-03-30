@@ -74,13 +74,13 @@ function FormContextProvider({ children }) {
       e.preventDefault();
 
       const product = {
-        title: "",
-        ingredients: [],
-        price: "",
-        quantity: "",
+        title_visible: "",
+        ingredients_visible: [],
+        price_visible: "",
         currency: "euro",
         currency_symbol: "€",
         imgName: "",
+        quantity_visible: "",
         disabled: false,
       };
 
@@ -126,10 +126,10 @@ function FormContextProvider({ children }) {
       }
       if (isFormValid) {
         setFormErrors({});
-        product.title = title;
-        product.ingredients = ingredients.split(",");
-        product.price = price;
-        product.quantity = quantity;
+        product.title_visible = title;
+        product.ingredients_visible = ingredients.split(",");
+        product.price_visible = price;
+        product.quantity_visible = quantity;
         product.currency = "euro";
         product.currency_symbol = "€";
         product.imgName = imgName;
