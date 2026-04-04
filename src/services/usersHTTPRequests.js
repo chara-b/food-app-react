@@ -1,8 +1,8 @@
-import { USERS_URL } from "../constants/urls";
+import config from "../config.js";
 
 export async function fetchUser(email) {
   try {
-    const res = await fetch(`${USERS_URL}?email=${email}`);
+    const res = await fetch(`${config.USERS_URL}?email=${email}`);
 
     if (!res.ok) {
       throw new Error("Something went wrong while fetching user data");

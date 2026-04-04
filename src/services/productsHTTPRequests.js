@@ -1,8 +1,8 @@
-import { PRODUCTS_URL } from "../constants/urls";
+import config from "../config.js";
 
 export async function fetchProducts() {
   try {
-    const res = await fetch(PRODUCTS_URL);
+    const res = await fetch(config.PRODUCTS_URL);
     if (!res.ok) {
       throw new Error("Something went wrong while fetching products data");
     }
@@ -15,7 +15,7 @@ export async function fetchProducts() {
 
 export async function fetchProduct({ params }) {
   try {
-    const res = await fetch(`${PRODUCTS_URL}/${params.productId}`);
+    const res = await fetch(`${config.PRODUCTS_URL}/${params.productId}`);
 
     if (!res.ok) {
       throw new Error(
@@ -31,7 +31,7 @@ export async function fetchProduct({ params }) {
 
 export async function fetchDisabledProducts() {
   try {
-    const res = await fetch(`${PRODUCTS_URL}?disabled=true`);
+    const res = await fetch(`${config.PRODUCTS_URL}?disabled=true`);
     if (!res.ok) {
       throw new Error(
         "Something went wrong while fetching disabled products data",
@@ -45,7 +45,7 @@ export async function fetchDisabledProducts() {
 }
 export async function fetchAvailableProducts() {
   try {
-    const res = await fetch(`${PRODUCTS_URL}?disabled=false`);
+    const res = await fetch(`${config.PRODUCTS_URL}?disabled=false`);
     if (!res.ok) {
       throw new Error(
         "Something went wrong while fetching available products data",
@@ -60,7 +60,7 @@ export async function fetchAvailableProducts() {
 
 export async function createNewProduct(product) {
   try {
-    const res = await fetch(PRODUCTS_URL, {
+    const res = await fetch(config.PRODUCTS_URL, {
       method: "POST",
       body: JSON.stringify(product),
       headers: { "Content-Type": "application/json" },
@@ -80,7 +80,7 @@ export async function createNewProduct(product) {
 
 export async function updateProduct(product) {
   try {
-    const res = await fetch(`${PRODUCTS_URL}/${product.id}`, {
+    const res = await fetch(`${config.PRODUCTS_URL}/${product.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ [product.propToUpdate]: product.newValue }),
@@ -98,7 +98,7 @@ export async function updateProduct(product) {
 
 export async function updateWholeProduct(product) {
   try {
-    const res = await fetch(`${PRODUCTS_URL}/${product.id}`, {
+    const res = await fetch(`${config.PRODUCTS_URL}/${product.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(product),
@@ -116,7 +116,7 @@ export async function updateWholeProduct(product) {
 
 export async function permanentlyRemoveProduct(product) {
   try {
-    const res = await fetch(`${PRODUCTS_URL}/${product.id}`, {
+    const res = await fetch(`${config.PRODUCTS_URL}/${product.id}`, {
       method: "DELETE",
     });
 
@@ -133,7 +133,7 @@ export async function permanentlyRemoveProduct(product) {
 export async function fetchProductsRange(start, end, disabled) {
   try {
     const res = await fetch(
-      `${PRODUCTS_URL}?disabled=${disabled}&_start=${start}&_end=${end}`,
+      `${config.PRODUCTS_URL}?disabled=${disabled}&_start=${start}&_end=${end}`,
     );
 
     if (!res.ok) {

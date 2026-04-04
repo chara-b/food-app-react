@@ -3,11 +3,6 @@
 
 // typescript
 
-// se env arxeio ta constants mou na psakso na do pos ginetai !
-
-
-// edit form and new product form must be the same
-
 // split useHooks to seperate file from the context file so eslint can be happy
 
   // to _visible
