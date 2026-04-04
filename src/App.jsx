@@ -23,6 +23,7 @@ import { FormContextProvider } from "./contexts/FormContext.jsx";
 import { AuthContextProvider } from "./contexts/FakeAuthContext.jsx";
 import { CustomModalContextProvider } from "./contexts/CustomModalContext.jsx";
 import { ProductsContextProvider } from "./contexts/ProductsContext.jsx";
+import NewProduct from "./pages/NewProduct.jsx";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
         path: "products/product/:productId",
         element: <ProductPage />,
         loader: fetchProduct,
+        errorElement: <Error />,
+      },
+      {
+        path: "products/new-product",
+        element: <NewProduct />,
         errorElement: <Error />,
       },
       {

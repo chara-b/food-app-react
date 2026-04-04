@@ -1,16 +1,18 @@
 /* eslint-disable no-unused-vars */
-import { useLoaderData, useNavigate } from "react-router-dom";
-import Product from "../components/product.jsx";
-import { useCallback, useMemo } from "react";
+import { memo, useCallback, useRef } from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
+import { Button } from "@headlessui/react";
+import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
+import { newProductForm } from "../constants/formNames.js";
+import Form from "../components/form.jsx";
+import { useNavigate } from "react-router-dom";
 import ProductForm from "../components/product-form.jsx";
+import { productData } from "../constants/productData.js";
 import CardSection1 from "../components/card-section1.jsx";
-import { editProductForm } from "../constants/formNames.js";
+import Product from "../components/product.jsx";
 
-function ProductPage() {
-  const fetchedProduct = useLoaderData();
-
+const NewProduct = memo(() => {
   const navigate = useNavigate();
 
   const {
@@ -34,17 +36,13 @@ function ProductPage() {
 
   const handleSubmit = useCallback(
     async (e, formRef) => {
-      const submitted = await updateWholeProductDetails(
-        e,
-        formRef,
-        fetchedProduct,
-      );
+      const submitted = await submitNewProduct(e, formRef);
       if (submitted) {
-        navigate(`/products`, { replace: true });
         await getAvailableProducts();
+        navigate(`/products`, { replace: true });
       }
     },
-    [fetchedProduct, getAvailableProducts, navigate, updateWholeProductDetails],
+    [getAvailableProducts, navigate, submitNewProduct],
   );
 
   const handleCancel = useCallback(() => {
@@ -53,17 +51,17 @@ function ProductPage() {
 
   return (
     <div className="flex flex-col gap-4 w-full h-screen overflow-auto">
-      <Product product={fetchedProduct} editable={true}>
-        <CardSection1 imgName={fetchedProduct.imgName} />
+      <Product editable={true}>
+        <CardSection1 imgName={""} />
         <ProductForm
-          product={fetchedProduct}
-          formName={editProductForm}
+          product={productData}
+          formName={newProductForm}
           onClick={handleCancel}
           onSubmit={handleSubmit}
         />
       </Product>
     </div>
   );
-}
+});
 
-export default ProductPage;
+export default NewProduct;

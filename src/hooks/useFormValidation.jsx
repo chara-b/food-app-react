@@ -67,7 +67,12 @@ export function useFormValidation() {
       } else if (fieldName.includes("value") && !validateValue(value)) {
         errors[fieldName] = "value must contain either letters or numbers";
       } else if (fieldName.includes("price") && !validatePrice(value)) {
-        errors[fieldName] = "price must contain only numbers";
+        if (fieldName.includes("price") && value.includes(",")) {
+          errors[fieldName] = "enter float price as 1.50";
+        } else {
+          errors[fieldName] =
+            "price must contain only integers or float numbers";
+        }
       } else if (fieldName.includes("quantity") && !validateQuantity(value)) {
         errors[fieldName] = "quantity must contain only numbers";
       } else if (

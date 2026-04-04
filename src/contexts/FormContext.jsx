@@ -12,6 +12,7 @@ import {
   editProductForm,
   newInputForm,
 } from "../constants/formNames.js";
+import { productData } from "../constants/productData.js";
 
 const FormContext = createContext(null);
 
@@ -28,6 +29,65 @@ function FormContextProvider({ children }) {
   } = useForm();
 
   const { user, isAuthenticated, login, logout } = useAuthContext();
+
+  const getAndValidateForm = useCallback(
+    function (productData, formRef, formName) {
+      const product = {
+        ...productData,
+      };
+
+      // get form fields value
+      // the ingredient inputs
+      const ingredients = Array.from(
+        formRef?.current?.querySelectorAll(`[name^='${formName}_ingredient']`),
+      )
+        .map((ingredientElem) => ingredientElem.value)
+        .join(",");
+
+      // and the rest labeled inputs
+      const inputs = Array.from(
+        formRef?.current?.querySelectorAll(`input[id*="feature"]`),
+      ).map((input) => ({
+        name: `${input.name}`,
+        value: input.value,
+      }));
+
+      // create the obj for validation
+      const formRulesObj = {
+        [`${formName}_ingredients`]: {
+          value: ingredients,
+          rules: { required: true },
+        },
+      };
+
+      inputs.forEach((input, i) => {
+        formRulesObj[input.name] = {
+          value: input.value,
+          rules: { required: true },
+        };
+      });
+
+      // validate form
+      const { formErrors, isFormValid } = validateForm(formRulesObj);
+
+      if (!isFormValid) {
+        setFormErrors(formErrors);
+        return;
+      }
+      if (isFormValid) {
+        setFormErrors({});
+        // create the final product obj after validation that will be submitted
+        product["ingredients_visible"] = ingredients.split(",");
+
+        inputs.forEach((input, i) => {
+          product[`${input.name.split("_")[1]}_visible`] = input.value;
+        });
+
+        return product;
+      }
+    },
+    [setFormErrors, validateForm],
+  );
 
   const submitLogin = useCallback(
     async (e, formRef) => {
@@ -73,78 +133,20 @@ function FormContextProvider({ children }) {
     async (e, formRef) => {
       e.preventDefault();
 
-      const product = {
-        title_visible: "",
-        ingredients_visible: [],
-        price_visible: "",
-        currency: "euro",
-        currency_symbol: "€",
-        imgName: "",
-        quantity_visible: "",
-        disabled: false,
-      };
+      const product = getAndValidateForm(productData, formRef, newProductForm);
 
-      const title = formRef.current?.querySelector(
-        `input[name="${newProductForm}_title"]`,
-      ).value;
-      const ingredients = formRef.current?.querySelector(
-        `input[name="${newProductForm}_ingredients"]`,
-      ).value;
-      const price = formRef.current?.querySelector(
-        `input[name="${newProductForm}_price"]`,
-      ).value;
-      const quantity = formRef.current?.querySelector(
-        `input[name="${newProductForm}_quantity"]`,
-      ).value;
-      const imgName = formRef.current?.querySelector(
-        `input[name="${newProductForm}_imgName"]`,
-      ).value;
-
-      const { formErrors, isFormValid } = validateForm({
-        [`${newProductForm}_title`]: {
-          value: title,
-          rules: { required: true },
-        },
-        [`${newProductForm}_ingredients`]: {
-          value: ingredients,
-          rules: { required: true },
-        },
-        [`${newProductForm}_price`]: {
-          value: price,
-          rules: { required: true },
-        },
-        [`${newProductForm}_quantity`]: {
-          value: quantity,
-          rules: { required: true },
-        },
-        [`${newProductForm}_imgName`]: { value: imgName, rules: {} },
-      });
-
-      if (!isFormValid) {
-        setFormErrors(formErrors);
-        return;
-      }
-      if (isFormValid) {
-        setFormErrors({});
-        product.title_visible = title;
-        product.ingredients_visible = ingredients.split(",");
-        product.price_visible = price;
-        product.quantity_visible = quantity;
-        product.currency = "euro";
-        product.currency_symbol = "€";
-        product.imgName = imgName;
-        product.disabled = false;
-      }
-      try {
-        await createNewProduct(product);
-        console.log("newProduct submitted");
-        return true;
-      } catch (error) {
-        console.error("Failed to submit new product:", error);
-        throw error;
+      if (product) {
+        try {
+          await createNewProduct(product);
+          console.log("newProduct submitted");
+          return true;
+        } catch (error) {
+          console.error("Failed to submit new product:", error);
+          throw error;
+        }
       }
     },
-    [setFormErrors, validateForm],
+    [getAndValidateForm],
   );
 
   const updateProductDetails = useCallback(async (productDetails) => {
@@ -161,70 +163,24 @@ function FormContextProvider({ children }) {
     async (e, formRef, editedProduct) => {
       e.preventDefault();
 
-      const product = {
-        id: editedProduct.id,
-      };
-
-      // get form fields value
-      // the ingredient inputs
-      const ingredients = Array.from(
-        formRef?.current?.querySelectorAll(
-          `[name^='${editProductForm}_ingredient']`,
-        ),
-      )
-        .map((ingredientElem) => ingredientElem.value)
-        .join(",");
-
-      // and the rest labeled inputs
-      const inputs = Array.from(
-        formRef?.current?.querySelectorAll(`input[id*="feature"]`),
-      ).map((input) => ({
-        name: `${input.name}`,
-        value: input.value,
-      }));
-
-      // create the obj for validation
-      const formRulesObj = {
-        [`${editProductForm}_ingredients`]: {
-          value: ingredients,
-          rules: { required: true },
-        },
-      };
-
-      inputs.forEach((input, i) => {
-        formRulesObj[input.name] = {
-          value: input.value,
-          rules: { required: true },
-        };
-      });
-
-      // validate form
-      const { formErrors, isFormValid } = validateForm(formRulesObj);
-
-      if (!isFormValid) {
-        setFormErrors(formErrors);
-        return;
-      }
-      if (isFormValid) {
-        setFormErrors({});
-        // create the final product obj after validation that will be submitted
-        product["ingredients_visible"] = ingredients.split(",");
-
-        inputs.forEach((input, i) => {
-          product[`${input.name.split("_")[1]}_visible`] = input.value;
-        });
-      }
-      try {
-        await updateWholeProduct(product);
-        console.log("product details updated");
-        setFormState({});
-        return true;
-      } catch (error) {
-        console.error("Failed to update product details", error);
-        throw error;
+      const product = getAndValidateForm(
+        { id: editedProduct.id },
+        formRef,
+        editProductForm,
+      );
+      if (product) {
+        try {
+          await updateWholeProduct(product);
+          console.log("product details updated");
+          setFormState({});
+          return true;
+        } catch (error) {
+          console.error("Failed to update product details", error);
+          throw error;
+        }
       }
     },
-    [setFormErrors, setFormState, validateForm],
+    [getAndValidateForm, setFormState],
   );
 
   const submitNewInputFields = useCallback(

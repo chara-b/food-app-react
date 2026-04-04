@@ -14,7 +14,8 @@ export function hasOnlyLetters(value) {
 }
 
 export function hasOnlyNumbers(value) {
-  return typeof value === "string" && /^[0-9]+$/.test(value);
+  // dexetai akeraious kai dekadikous me teleia anti gia comma !
+  return typeof value === "string" && /^\d+(\.\d+)?$/.test(value);
 }
 
 export function isValidEmail(value) {

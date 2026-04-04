@@ -8,12 +8,6 @@
 
 // edit form and new product form must be the same
 
-// placehoder of the edit form must be removed
-
-
-// dynamic form fields reading from product obj so the extra new fields can be added dynamically to forms
-// and product lists view 
-
 // split useHooks to seperate file from the context file so eslint can be happy
 
   // to _visible

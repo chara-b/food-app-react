@@ -11,6 +11,7 @@ declare global {
   const Link: typeof import('react-router-dom').Link
   const NavLink: typeof import('react-router-dom').NavLink
   const Navigate: typeof import('react-router-dom').Navigate
+  const NewProduct: typeof import('./components/NewProduct.jsx').default
   const Outlet: typeof import('react-router-dom').Outlet
   const Route: typeof import('react-router-dom').Route
   const Routes: typeof import('react-router-dom').Routes
@@ -37,9 +38,11 @@ declare global {
   const navBar: typeof import('./components/nav-bar.jsx').default
   const navItem: typeof import('./components/nav-item.jsx').default
   const newInputForm: typeof import('./components/new-input-form.jsx').default
+  const newProduct: typeof import('./components/new-product.jsx').default
   const newProductForm: typeof import('./components/new-product-form.jsx').default
   const paginator: typeof import('./components/paginator.jsx').default
   const product: typeof import('./components/product.jsx').default
+  const productForm: typeof import('./components/product-form.jsx').default
   const productList: typeof import('./components/product-list.jsx').default
   const productListBin: typeof import('./components/product-list-bin.jsx').default
   const protectedRoute: typeof import('./components/protected-route.jsx').default

@@ -1,12 +1,8 @@
 /* eslint-disable no-unused-vars */
 import Button from "./button";
-import ProductList from "./product-list";
-import CustomModal from "./custom-modal";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
-import MemoizedCustomModal from "./custom-modal.jsx";
 import { useFormContext } from "../contexts/FormContext.jsx";
-import NewProductForm from "./new-product-form.jsx";
 import { useCallback, useState } from "react";
 
 function NavBar({ children }) {
@@ -67,19 +63,10 @@ function NavBar({ children }) {
     // kata to routing back !
   };
 
-  const handleAddNewProduct = useCallback(
-    (content) => {
-      setFormErrors({});
-      dispatch({ type: "showCustomModal", payload: true });
-      dispatch({ type: "modalTriggerButtonName", payload: "addProduct" });
-      dispatch({ type: "modalTitle", payload: "Add new Product" });
-      dispatch({ type: "modalContent", payload: content });
-      dispatch({ type: "modalIcon", payload: "fa-solid fa-utensils" });
-      dispatch({ type: "modalActionBtnLeft", payload: "Cancel" });
-      dispatch({ type: "modalActionBtnRight", payload: "Add" });
-    },
-    [dispatch, setFormErrors],
-  );
+  const handleAddNewProduct = useCallback(() => {
+    setFormErrors({});
+    navigate("/products/new-product", { replace: true });
+  }, [navigate, setFormErrors]);
 
   function goToHomepage() {
     navigate("/products", { replace: true });
@@ -109,21 +96,11 @@ function NavBar({ children }) {
             }
             <Button
               styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
-              onClick={() => handleAddNewProduct(<NewProductForm />)}
+              onClick={() => handleAddNewProduct()}
             >
               <i className="fa-solid fa-circle-plus"></i>Add
             </Button>
-            {showCustomModal && modalTriggerButtonName === "addProduct" && (
-              <MemoizedCustomModal
-                isOpen={true}
-                onClose={onCloseModal}
-                onConfirm={onConfirmModal}
-                title={modalTitle}
-                icon={modalIcon}
-              >
-                {modalContent}
-              </MemoizedCustomModal>
-            )}
+
             <Button
               styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
               onClick={handleBinClick}
@@ -176,21 +153,11 @@ function NavBar({ children }) {
               </Button>
               <Button
                 styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
-                onClick={() => handleAddNewProduct(<NewProductForm />)}
+                onClick={() => handleAddNewProduct()}
               >
                 <i className="fa-solid fa-circle-plus"></i>Add
               </Button>
-              {showCustomModal && modalTriggerButtonName === "addProduct" && (
-                <MemoizedCustomModal
-                  isOpen={true}
-                  onClose={onCloseModal}
-                  onConfirm={onConfirmModal}
-                  title={modalTitle}
-                  icon={modalIcon}
-                >
-                  {modalContent}
-                </MemoizedCustomModal>
-              )}
+
               <Button
                 styles="bg-blue-600 text-white px-5 py-3 rounded-lg text-base hover:bg-blue-800"
                 onClick={handleBinClick}

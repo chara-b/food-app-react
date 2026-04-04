@@ -7,7 +7,7 @@ import CardSection2 from "./card-section2.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { permanentlyRemoveProduct } from "../services/productsHTTPRequests.js";
-import EditProductForm from "./edit-product-form.jsx";
+import ProductForm from "./product-form.jsx";
 
 const Product = React.memo(({ product, editable, actionBtns, children }) => {
   const navigate = useNavigate();
