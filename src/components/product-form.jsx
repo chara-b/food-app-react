@@ -69,31 +69,34 @@ function ProductForm({ product, formName, onClick, onSubmit }) {
       e.preventDefault();
       const newInputDetails = submitNewInputFields(e, formRef);
       console.log("newInput:", newInputDetails);
-      const found = Object.keys(formState).find((key) =>
-        key.includes(`${formName}_${newInputDetails.label}`),
-      );
 
-      if (found) {
-        setFormErrors({
-          [`${newInputForm}_label`]: "field already exists!",
-        });
-        return;
+      if (newInputDetails) {
+        const found = Object.keys(formState).find((key) =>
+          key.includes(`${formName}_${newInputDetails.label}`),
+        );
+
+        if (found) {
+          setFormErrors({
+            [`${newInputForm}_label`]: "field already exists!",
+          });
+          return;
+        }
+
+        setNewInputsDetails((prev) => [
+          ...prev,
+          {
+            label: newInputDetails.label,
+            value: newInputDetails.value,
+            type: "text",
+          },
+        ]);
+        // after creating the new fields prepei na baloume sto state to value tous gia na mporoume na kanoume
+        // to element controlled element kai na to diaxeirizomaste me tin onChange otan tou allazoume tin timi xoris
+        // na petaei error oti to state den exei timi kai einai arxikos undefined kathe fora pou tou allazoume to value
+        // autou tou pediou tis formas !
+        onChange(`${formName}_${newInputDetails.label}`, newInputDetails.value);
+        onConfirmModal();
       }
-
-      setNewInputsDetails((prev) => [
-        ...prev,
-        {
-          label: newInputDetails.label,
-          value: newInputDetails.value,
-          type: "text",
-        },
-      ]);
-      // after creating the new fields prepei na baloume sto state to value tous gia na mporoume na kanoume
-      // to element controlled element kai na to diaxeirizomaste me tin onChange otan tou allazoume tin timi xoris
-      // na petaei error oti to state den exei timi kai einai arxikos undefined kathe fora pou tou allazoume to value
-      // autou tou pediou tis formas !
-      onChange(`${formName}_${newInputDetails.label}`, newInputDetails.value);
-      onConfirmModal();
     },
     [
       formName,
