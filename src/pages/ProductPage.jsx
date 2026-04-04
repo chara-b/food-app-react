@@ -30,7 +30,8 @@ function ProductPage() {
     submitNewInputFields,
   } = useFormContext();
 
-  const { getAvailableProducts } = useProductsContext();
+  const { getAvailableProducts, imageFile, onImageFileChange } =
+    useProductsContext();
 
   const handleSubmit = useCallback(
     async (e, formRef) => {
@@ -54,7 +55,12 @@ function ProductPage() {
   return (
     <div className="flex flex-col gap-4 w-full h-screen overflow-auto">
       <Product product={fetchedProduct} editable={true}>
-        <CardSection1 imgName={fetchedProduct.imgName} />
+        <CardSection1
+          imgName={fetchedProduct.imgName}
+          imageFile={imageFile}
+          allowUploadPhoto={true}
+          onChange={onImageFileChange}
+        />
         <ProductForm
           product={fetchedProduct}
           formName={editProductForm}

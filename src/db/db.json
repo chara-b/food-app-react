@@ -73,7 +73,7 @@
       "currency_symbol": "€",
       "imgName": "koulouri.png",
       "quantity_visible": "10",
-      "disabled": true
+      "disabled": false
     },
     {
       "id": 6,

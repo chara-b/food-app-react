@@ -38,6 +38,7 @@ function ProductsContextProvider({ initialData, children }) {
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [searchText, setSearchText] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
   const { displayedProducts, availableProductsCount, disabledProductsCount } =
     state;
@@ -111,14 +112,30 @@ function ProductsContextProvider({ initialData, children }) {
     }
   }, []);
 
+  const handleChangedPhoto = useCallback((e) => {
+    const file = e.target.files[0];
+
+    setImageFile(URL.createObjectURL(file));
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      const base64String = reader.result;
+      console.log(base64String);
+    };
+  }, []);
+
   const value = useMemo(
     () => ({
       displayedProducts,
       searchText,
       availableProductsCount,
       disabledProductsCount,
+      imageFile,
       dispatchProducts: dispatch,
       handleChangedSearchText,
+      onImageFileChange: handleChangedPhoto,
       getDisabledProducts: getDisabledProducts,
       getAvailableProducts: getAvailableProducts,
       getProductsRangeForPagination,
@@ -128,7 +145,9 @@ function ProductsContextProvider({ initialData, children }) {
       searchText,
       availableProductsCount,
       disabledProductsCount,
+      imageFile,
       handleChangedSearchText,
+      handleChangedPhoto,
       getDisabledProducts,
       getAvailableProducts,
       getProductsRangeForPagination,

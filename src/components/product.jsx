@@ -2,8 +2,6 @@
 import React, { useEffect } from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
 import Button from "./button";
-import CardSection1 from "./card-section1.jsx";
-import CardSection2 from "./card-section2.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { permanentlyRemoveProduct } from "../services/productsHTTPRequests.js";
@@ -66,7 +64,9 @@ const Product = React.memo(({ product, editable, actionBtns, children }) => {
   };
 
   return (
-    <li className="flex items-center gap-4 rounded-lg bg-blue-100 p-6 shadow-md outline outline-black/5">
+    <li
+      className={`${editable ? "flex-col md:flex-row" : ""} flex items-center gap-4 rounded-lg bg-blue-100 p-6 shadow-md outline outline-black/5`}
+    >
       {children}
 
       {actionBtns?.length &&

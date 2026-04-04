@@ -1,11 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { memo, useCallback, useRef } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { useFormContext } from "../contexts/FormContext.jsx";
-import { Button } from "@headlessui/react";
-import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
 import { useProductsContext } from "../contexts/ProductsContext.jsx";
 import { newProductForm } from "../constants/formNames.js";
-import Form from "../components/form.jsx";
 import { useNavigate } from "react-router-dom";
 import ProductForm from "../components/product-form.jsx";
 import { productData } from "../constants/productData.js";
@@ -32,7 +29,8 @@ const NewProduct = memo(() => {
     submitNewInputFields,
   } = useFormContext();
 
-  const { getAvailableProducts } = useProductsContext();
+  const { getAvailableProducts, imageFile, onImageFileChange } =
+    useProductsContext();
 
   const handleSubmit = useCallback(
     async (e, formRef) => {
@@ -52,7 +50,12 @@ const NewProduct = memo(() => {
   return (
     <div className="flex flex-col gap-4 w-full h-screen overflow-auto">
       <Product editable={true}>
-        <CardSection1 imgName={""} />
+        <CardSection1
+          imgName={""}
+          imageFile={imageFile}
+          allowUploadPhoto={true}
+          onChange={onImageFileChange}
+        />
         <ProductForm
           product={productData}
           formName={newProductForm}

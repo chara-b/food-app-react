@@ -29,7 +29,10 @@ const ProductList = React.memo(({ actionBtns, colsCount, children }) => {
         {displayedProducts.map((product) => {
           return (
             <Product product={product} key={product.id} actionBtns={actionBtns}>
-              <CardSection1 imgName={product.imgName} />
+              <CardSection1
+                imgName={product.imgName}
+                allowUploadPhoto={false}
+              />
               <CardSection2 product={product} />
             </Product>
           );

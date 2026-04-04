@@ -46,7 +46,6 @@ function ProductForm({ product, formName, onClick, onSubmit }) {
   } = useFormContext();
 
   // for ingredient inputs with no labels
-
   const ingredients = Object.entries(formState).filter(([key, value]) =>
     key.includes(`${formName}_ingredient`),
   );
