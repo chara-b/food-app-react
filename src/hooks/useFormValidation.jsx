@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useState, useCallback } from "react";
 import {
   hasLettersAndNumbersOnly,
   hasOnlyLetters,
   hasOnlyNumbers,
   isCommaSeparatedWords,
+  isValidBase64Image,
   isValidEmail,
   isValidImageName,
 } from "../utils/validation";
@@ -38,6 +40,10 @@ export function useFormValidation() {
 
   const validateImgName = useCallback((value) => {
     return isValidImageName(value);
+  }, []);
+
+  const validateBase64Image = useCallback((value) => {
+    return isValidBase64Image(value);
   }, []);
 
   const validateIngredient = useCallback((label) => {
@@ -81,9 +87,8 @@ export function useFormValidation() {
       ) {
         errors[fieldName] =
           "ingredients must contain only alphanumeric words or phrases with gaps seperated by commas";
-      } else if (fieldName.includes("imgName") && !validateImgName(value)) {
-        errors[fieldName] =
-          "imgName must contain only alphanumeric words, underscore and only .png extension or empty";
+      } else if (fieldName.includes("imgName") && !validateBase64Image(value)) {
+        errors[fieldName] = "image not valid";
       } else if (
         fieldName.includes("ingredient-") &&
         !validateIngredient(value)
@@ -104,9 +109,9 @@ export function useFormValidation() {
     },
     [
       fieldErrors,
+      validateBase64Image,
       validateEmail,
       validateFeature,
-      validateImgName,
       validateIngredient,
       validateIngredients,
       validateLabel,

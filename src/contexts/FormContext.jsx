@@ -31,7 +31,11 @@ function FormContextProvider({ children }) {
   const { user, isAuthenticated, login, logout } = useAuthContext();
 
   const getAndValidateForm = useCallback(
-    function (productData, formRef, formName) {
+    function (productData, formRef, imageBase64, formName) {
+      // fill product that will be submitted with the rest props that a product needs to have if we submit a new product
+      // (those props are not visible on the form but exist in the json server so we need to provide them too !)
+      // or fill only the id of the product that is needed when we update
+      // that product in the json server
       const product = {
         ...productData,
       };
@@ -83,6 +87,10 @@ function FormContextProvider({ children }) {
           product[`${input.name.split("_")[1]}_visible`] = input.value;
         });
 
+        if (imageBase64) {
+          product["imgName"] = imageBase64;
+        }
+
         return product;
       }
     },
@@ -130,10 +138,15 @@ function FormContextProvider({ children }) {
   );
 
   const submitNewProduct = useCallback(
-    async (e, formRef) => {
+    async (e, formRef, imageBase64) => {
       e.preventDefault();
 
-      const product = getAndValidateForm(productData, formRef, newProductForm);
+      const product = getAndValidateForm(
+        productData,
+        formRef,
+        imageBase64,
+        newProductForm,
+      );
 
       if (product) {
         try {
@@ -160,12 +173,13 @@ function FormContextProvider({ children }) {
   }, []);
 
   const updateWholeProductDetails = useCallback(
-    async (e, formRef, editedProduct) => {
+    async (e, formRef, imageBase64, editedProduct) => {
       e.preventDefault();
 
       const product = getAndValidateForm(
         { id: editedProduct.id },
         formRef,
+        imageBase64,
         editProductForm,
       );
       if (product) {

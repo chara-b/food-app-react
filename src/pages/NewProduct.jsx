@@ -29,18 +29,18 @@ const NewProduct = memo(() => {
     submitNewInputFields,
   } = useFormContext();
 
-  const { getAvailableProducts, imageFile, onImageFileChange } =
+  const { getAvailableProducts, imageFile, imageBase64, onImageFileChange } =
     useProductsContext();
 
   const handleSubmit = useCallback(
     async (e, formRef) => {
-      const submitted = await submitNewProduct(e, formRef);
+      const submitted = await submitNewProduct(e, formRef, imageBase64);
       if (submitted) {
         await getAvailableProducts();
         navigate(`/products`, { replace: true });
       }
     },
-    [getAvailableProducts, navigate, submitNewProduct],
+    [getAvailableProducts, imageBase64, navigate, submitNewProduct],
   );
 
   const handleCancel = useCallback(() => {

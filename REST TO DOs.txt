@@ -6,5 +6,5 @@
 // split useHooks to seperate file from the context file so eslint can be happy
 
   // to _visible
-  // to edit form na bei mesa sto add new product form
+
   // na sbiso axrista sxolia

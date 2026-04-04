@@ -39,6 +39,7 @@ function ProductsContextProvider({ initialData, children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [searchText, setSearchText] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [imageBase64, setImageBase64] = useState("");
 
   const { displayedProducts, availableProductsCount, disabledProductsCount } =
     state;
@@ -123,6 +124,7 @@ function ProductsContextProvider({ initialData, children }) {
     reader.onloadend = () => {
       const base64String = reader.result;
       console.log(base64String);
+      setImageBase64(base64String);
     };
   }, []);
 
@@ -133,6 +135,7 @@ function ProductsContextProvider({ initialData, children }) {
       availableProductsCount,
       disabledProductsCount,
       imageFile,
+      imageBase64,
       dispatchProducts: dispatch,
       handleChangedSearchText,
       onImageFileChange: handleChangedPhoto,
@@ -146,6 +149,7 @@ function ProductsContextProvider({ initialData, children }) {
       availableProductsCount,
       disabledProductsCount,
       imageFile,
+      imageBase64,
       handleChangedSearchText,
       handleChangedPhoto,
       getDisabledProducts,

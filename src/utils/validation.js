@@ -55,3 +55,22 @@ export function isValidImageName(value) {
   // \.png$ = ακριβώς .png στο τέλος
   return /^[a-zA-Z0-9_]+\.png$/.test(value);
 }
+
+export function isValidBase64Image(str) {
+  if (typeof str !== "string") return false;
+
+  const regex = /^data:image\/(png|jpeg|jpg|gif|webp|bmp|svg\+xml);base64,/;
+  if (!regex.test(str)) return false;
+
+  const base64Data = str.split(",")[1];
+  if (!base64Data) return false;
+
+  try {
+    // elegxos gia an i base64 eikona einai egkiri!
+    atob(base64Data);
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}

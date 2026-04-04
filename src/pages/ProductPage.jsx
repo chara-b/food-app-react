@@ -30,7 +30,7 @@ function ProductPage() {
     submitNewInputFields,
   } = useFormContext();
 
-  const { getAvailableProducts, imageFile, onImageFileChange } =
+  const { getAvailableProducts, imageFile, imageBase64, onImageFileChange } =
     useProductsContext();
 
   const handleSubmit = useCallback(
@@ -38,6 +38,7 @@ function ProductPage() {
       const submitted = await updateWholeProductDetails(
         e,
         formRef,
+        imageBase64,
         fetchedProduct,
       );
       if (submitted) {
@@ -45,7 +46,13 @@ function ProductPage() {
         await getAvailableProducts();
       }
     },
-    [fetchedProduct, getAvailableProducts, navigate, updateWholeProductDetails],
+    [
+      fetchedProduct,
+      getAvailableProducts,
+      imageBase64,
+      navigate,
+      updateWholeProductDetails,
+    ],
   );
 
   const handleCancel = useCallback(() => {
