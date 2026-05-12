@@ -1,6 +1,6 @@
-import Footer from "./footer.jsx";
-import NavBar from "./nav-bar.jsx";
-import NavBarItem from "./nav-item.jsx";
+import Footer from "../../features/footer/components/footer.tsx";
+import NavBar from "../../features/nav-bar/components/nav-bar.tsx";
+import NavBarItem from "../../features/nav-bar/components/nav-item.tsx";
 
 function AppLayout() {
   return (
