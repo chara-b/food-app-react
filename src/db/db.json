@@ -1,0 +1,183 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title_visible": "pizza",
+      "ingredients_visible": [
+        "soooo",
+        "so",
+        "so",
+        "so",
+        "ij"
+      ],
+      "price_visible": "2",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "pizza.png",
+      "quantity_visible": "8",
+      "disabled": false,
+      "ok_visible": "ok",
+      "okk_visible": "okk",
+      "ko_visible": "oi"
+    },
+    {
+      "id": 2,
+      "title_visible": "Burger",
+      "ingredients_visible": [
+        "gouda cheese",
+        "sauce",
+        "meat",
+        "onions"
+      ],
+      "price_visible": "3",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "burger.png",
+      "quantity_visible": "50",
+      "disabled": false
+    },
+    {
+      "id": 3,
+      "title_visible": "coca cola",
+      "ingredients_visible": [
+        "zero sugar"
+      ],
+      "price_visible": "2.90",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "cocacola.png",
+      "quantity_visible": "100",
+      "disabled": false
+    },
+    {
+      "id": 4,
+      "title_visible": "juice",
+      "ingredients_visible": [
+        "sugar, orange, icecubes"
+      ],
+      "price_visible": "0.90",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "juice.png",
+      "quantity_visible": "50",
+      "disabled": false
+    },
+    {
+      "id": 5,
+      "title_visible": "koulouri",
+      "ingredients_visible": [
+        "with sesame"
+      ],
+      "price_visible": "0.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "koulouri.png",
+      "quantity_visible": "10",
+      "disabled": false
+    },
+    {
+      "id": 6,
+      "title_visible": "salad",
+      "ingredients_visible": [
+        "tomato",
+        "onions",
+        "feta cheese",
+        "lettuce",
+        "bell peppers",
+        "cucumber"
+      ],
+      "price_visible": "1.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "salad.png",
+      "quantity_visible": "10",
+      "disabled": false
+    },
+    {
+      "id": 7,
+      "title_visible": "mpougatsa",
+      "ingredients_visible": [
+        "with cream"
+      ],
+      "price_visible": "1.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "mpougatsa.png",
+      "quantity_visible": "15",
+      "disabled": false
+    },
+    {
+      "id": 8,
+      "title_visible": "sandwich",
+      "ingredients_visible": [
+        "gouda cheese",
+        "ham",
+        "tomato",
+        "onions",
+        "lettuce",
+        "bell peppers",
+        "cucumber"
+      ],
+      "price_visible": "3.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "sandwich.png",
+      "quantity_visible": "5",
+      "disabled": false
+    },
+    {
+      "id": 9,
+      "title_visible": "water",
+      "ingredients_visible": [
+        "mineral water"
+      ],
+      "price_visible": "0.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "water.png",
+      "quantity_visible": "30",
+      "disabled": false
+    },
+    {
+      "id": 10,
+      "title_visible": "toast",
+      "ingredients_visible": [
+        "gouda cheese",
+        "ham",
+        "lettuce"
+      ],
+      "price_visible": "1.50",
+      "currency": "euro",
+      "currency_symbol": "€",
+      "imgName": "toast.png",
+      "quantity_visible": "25",
+      "disabled": false
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "user1",
+      "password": "123",
+      "email": "user1@gmail.com",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "password": "1234",
+      "email": "user2@gmail.com",
+      "firstName": "Maria",
+      "lastName": "Smith"
+    },
+    {
+      "id": 3,
+      "username": "user3",
+      "password": "1235",
+      "email": "user3@gmail.com",
+      "firstName": "Peter",
+      "lastName": "Doe"
+    }
+  ]
+}

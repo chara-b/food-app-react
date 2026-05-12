@@ -1,0 +1,10 @@
+// optimization ola ta objs sto render logic pouperno san props se child components na einai optimized giati an
+// o parent kanei rerender tha ksanadimiourgithoun kai na perasoun sto child os kainouria kai tha tou kanoun kai autou rerender askopa !
+
+// typescript
+
+// split useHooks to seperate file from the context file so eslint can be happy
+
+  // to _visible
+
+  // na sbiso axrista sxolia
