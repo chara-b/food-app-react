@@ -1,4 +1,14 @@
-function Button({ type, name, styles, onClick, disabled, children }) {
+import { type PropsWithChildren } from "react";
+import type { ButtonProps } from "../types/types";
+
+const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
+  type,
+  name,
+  styles,
+  onClick,
+  disabled,
+  children,
+}) => {
   return (
     <button
       name={name}
@@ -10,6 +20,6 @@ function Button({ type, name, styles, onClick, disabled, children }) {
       {children}
     </button>
   );
-}
+};
 
 export default Button;

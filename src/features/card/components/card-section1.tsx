@@ -1,6 +1,13 @@
+import { type PropsWithChildren } from "react";
 import Input from "../../../shared/components/input.tsx";
+import type { CardProps } from "../types.ts";
 
-function CardSection1({ imgName, imageFile, allowUploadPhoto, onChange }) {
+const CardSection1: React.FC<PropsWithChildren<CardProps>> = ({
+  imgName,
+  imageFile,
+  allowUploadPhoto,
+  onChange,
+}) => {
   if (allowUploadPhoto) {
     return (
       <label className="cursor-pointer w-32 rounded">
@@ -25,6 +32,6 @@ function CardSection1({ imgName, imageFile, allowUploadPhoto, onChange }) {
       className="w-20 mr-2"
     />
   );
-}
+};
 
 export default CardSection1;

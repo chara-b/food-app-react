@@ -1,4 +1,7 @@
-function Input({
+import { type PropsWithChildren } from "react";
+import type { InputProps } from "../types/types";
+
+const Input: React.FC<PropsWithChildren<InputProps>> = ({
   label,
   id,
   name,
@@ -8,7 +11,7 @@ function Input({
   onClick,
   placeholder,
   children,
-}) {
+}) => {
   return (
     <div>
       <label htmlFor={id} className="block text-sm/6 font-medium text-gray-900">
@@ -31,6 +34,6 @@ function Input({
       </div>
     </div>
   );
-}
+};
 
 export default Input;

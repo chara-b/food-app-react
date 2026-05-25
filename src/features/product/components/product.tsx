@@ -6,6 +6,10 @@ import { useProductsContext } from "../../../app/providers/ProductsContext.tsx";
 import { useNavigate } from "react-router-dom";
 import { permanentlyRemoveProduct } from "../../../api/productsHTTPRequests.ts";
 import type { ProductProps } from "../types.js";
+import type {
+  ActionBtn,
+  DisplayedProduct,
+} from "../../../shared/types/types.ts";
 
 const Product: React.FC<PropsWithChildren<ProductProps>> = React.memo(
   ({ product, editable, actionBtns, children }) => {
@@ -16,14 +20,17 @@ const Product: React.FC<PropsWithChildren<ProductProps>> = React.memo(
 
     const { getDisabledProducts, getAvailableProducts } = useProductsContext();
 
-    const handleEditedProduct = (editedProduct) => {
+    const handleEditedProduct = (editedProduct: DisplayedProduct) => {
       setFormState({});
       setFormErrors({});
       console.log("editedProduct: ", editedProduct);
       navigate(`product/${editedProduct.id}`, { replace: true });
     };
 
-    const handleProduct = async (actionBtn, product) => {
+    const handleProduct = async (
+      actionBtn: string,
+      product: DisplayedProduct
+    ) => {
       if (actionBtn === "delete") {
         await updateProductDetails({
           id: product.id,

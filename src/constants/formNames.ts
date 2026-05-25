@@ -1,3 +1,3 @@
-export const newProductForm = "newProductForm";
-export const editProductForm = "editProductForm";
-export const newInputForm = "newInputForm";
+export const newProductForm: string = "newProductForm";
+export const editProductForm: string = "editProductForm";
+export const newInputForm: string = "newInputForm";
