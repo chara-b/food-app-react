@@ -4,7 +4,7 @@ import ProtectedRoute from "./protected-route.tsx";
 import AppLayout from "../layouts/app-layout.tsx";
 // pages
 import Login from "../../features/login/pages/Login.tsx";
-import Bin from "../../features/bin/pages/Bin.js";
+import Bin from "../../features/bin/pages/BinPage.js";
 import Error from "../pages/Error.tsx";
 import PageNotFound from "../pages/PageNotFound.tsx";
 import ProductPage from "../../features/product/pages/ProductPage.js";

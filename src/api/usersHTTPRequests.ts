@@ -1,4 +1,4 @@
-import config from "../config.js";
+import config from "../config.ts";
 
 export async function fetchUser(email) {
   try {

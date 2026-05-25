@@ -3,7 +3,7 @@ import { RouterProvider } from "react-router-dom";
 // css
 import "./App.css";
 // components
-import AppLayout from "./components/app-layout.js";
+import AppLayout from "./layouts/app-layout.tsx";
 // contexts
 import { FormContextProvider } from "./providers/FormContext.tsx";
 import { AuthContextProvider } from "./providers/FakeAuthContext.tsx";

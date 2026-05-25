@@ -1,4 +1,4 @@
-import config from "../config.js";
+import config from "../config.ts";
 
 export async function fetchProducts() {
   try {
@@ -19,7 +19,7 @@ export async function fetchProduct({ params }) {
 
     if (!res.ok) {
       throw new Error(
-        "Something went wrong while fetching product data ! Product may not exist anymore",
+        "Something went wrong while fetching product data ! Product may not exist anymore"
       );
     }
     const data = await res.json();
@@ -34,7 +34,7 @@ export async function fetchDisabledProducts() {
     const res = await fetch(`${config.PRODUCTS_URL}?disabled=true`);
     if (!res.ok) {
       throw new Error(
-        "Something went wrong while fetching disabled products data",
+        "Something went wrong while fetching disabled products data"
       );
     }
     const data = await res.json();
@@ -48,7 +48,7 @@ export async function fetchAvailableProducts() {
     const res = await fetch(`${config.PRODUCTS_URL}?disabled=false`);
     if (!res.ok) {
       throw new Error(
-        "Something went wrong while fetching available products data",
+        "Something went wrong while fetching available products data"
       );
     }
     const data = await res.json();
@@ -133,12 +133,12 @@ export async function permanentlyRemoveProduct(product) {
 export async function fetchProductsRange(start, end, disabled) {
   try {
     const res = await fetch(
-      `${config.PRODUCTS_URL}?disabled=${disabled}&_start=${start}&_end=${end}`,
+      `${config.PRODUCTS_URL}?disabled=${disabled}&_start=${start}&_end=${end}`
     );
 
     if (!res.ok) {
       throw new Error(
-        "Something went wrong while fetching products range for pagination",
+        "Something went wrong while fetching products range for pagination"
       );
     }
     const data = await res.json();
