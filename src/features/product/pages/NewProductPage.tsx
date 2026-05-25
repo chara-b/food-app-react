@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback } from "react";
 import { useFormContext } from "../contexts/FormContext.js";
 import { useProductsContext } from "../contexts/ProductsContext.js";
 import { newProductForm } from "../constants/formNames.js";
@@ -9,25 +9,10 @@ import { productData } from "../constants/productData.js";
 import CardSection1 from "../components/card-section1.js";
 import Product from "../components/product.js";
 
-const NewProduct = memo(() => {
+const NewProductPage = memo(() => {
   const navigate = useNavigate();
 
-  const {
-    formState,
-    setFormState,
-    formErrors,
-    setFormErrors,
-    isFormValid,
-    onChange,
-    user,
-    isAuthenticated,
-    logout,
-    submitLogin,
-    submitNewProduct,
-    updateProductDetails,
-    updateWholeProductDetails,
-    submitNewInputFields,
-  } = useFormContext();
+  const { submitNewProduct } = useFormContext();
 
   const { getAvailableProducts, imageFile, imageBase64, onImageFileChange } =
     useProductsContext();
@@ -40,7 +25,7 @@ const NewProduct = memo(() => {
         navigate(`/products`, { replace: true });
       }
     },
-    [getAvailableProducts, imageBase64, navigate, submitNewProduct],
+    [getAvailableProducts, imageBase64, navigate, submitNewProduct]
   );
 
   const handleCancel = useCallback(() => {
@@ -67,4 +52,4 @@ const NewProduct = memo(() => {
   );
 });
 
-export default NewProduct;
+export default NewProductPage;

@@ -6,6 +6,8 @@ export type ProductListBinProps = {
   colsCount: string;
 };
 
+export type ProductListProps = { actionBtns: ActionBtn[]; colsCount: string };
+
 export type ProductProps = {
   product: DisplayedProduct;
   editable?: boolean;

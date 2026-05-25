@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useFormContext } from "../contexts/FormContext.jsx";
-import { useCustomModalContext } from "../contexts/CustomModalContext.jsx";
+import { useFormContext } from "../../../app/providers/FormContext.tsx";
+import { useCustomModalContext } from "../../../app/providers/CustomModalContext.tsx";
 
 import MemoizedCustomModal from "./custom-modal.js";
 import Form from "./form.js";
 import Button from "./button.js";
 import NewInputForm from "./new-input-form.js";
-import { editProductForm, newInputForm } from "../constants/formNames.js";
+import { newInputForm } from "../constants/formNames.js";
 
 function ProductForm({ product, formName, onClick, onSubmit }) {
   const {
@@ -16,38 +16,23 @@ function ProductForm({ product, formName, onClick, onSubmit }) {
     modalTitle,
     modalContent,
     modalIcon,
-    modalActionBtnLeft,
-    modalActionBtnRight,
-    addNewInputModalResultData,
-    addNewInputDisabledBtn,
-    addNewInputFormState,
     dispatch,
-    onAddNewInputField,
     onCloseModal,
     onConfirmModal,
   } = useCustomModalContext();
 
   const {
     formState,
-    setFormState,
     formErrors,
     setFormErrors,
-    isFormValid,
     onChange,
     onDelete,
-    user,
-    isAuthenticated,
-    logout,
-    submitLogin,
-    submitNewProduct,
-    updateProductDetails,
-    updateWholeProductDetails,
     submitNewInputFields,
   } = useFormContext();
 
   // for ingredient inputs with no labels
   const ingredients = Object.entries(formState).filter(([key, value]) =>
-    key.includes(`${formName}_ingredient`),
+    key.includes(`${formName}_ingredient`)
   );
 
   const rowsCount = useRef(product?.ingredients_visible?.length);
@@ -72,7 +57,7 @@ function ProductForm({ product, formName, onClick, onSubmit }) {
 
       if (newInputDetails) {
         const found = Object.keys(formState).find((key) =>
-          key.includes(`${formName}_${newInputDetails.label}`),
+          key.includes(`${formName}_${newInputDetails.label}`)
         );
 
         if (found) {
@@ -105,7 +90,7 @@ function ProductForm({ product, formName, onClick, onSubmit }) {
       onConfirmModal,
       setFormErrors,
       submitNewInputFields,
-    ],
+    ]
   );
 
   const handleNewInput = useCallback(() => {

@@ -9,13 +9,13 @@ import Error from "../pages/Error.tsx";
 import PageNotFound from "../pages/PageNotFound.tsx";
 import ProductPage from "../../features/product/pages/ProductPage.js";
 import ProductsPage from "../../features/product/pages/ProductsPage.js";
-import NewProduct from "../../features/product/pages/NewProduct.js";
 // loaders for fetching data at routing
 import {
   fetchProduct,
   fetchDisabledProducts,
   fetchAvailableProducts,
 } from "../../api/productsHTTPRequests.ts";
+import NewProductPage from "../../features/product/pages/NewProductPage.js";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "products/new-product",
-        element: <NewProduct />,
+        element: <NewProductPage />,
         errorElement: <Error />,
       },
       {

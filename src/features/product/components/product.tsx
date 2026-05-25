@@ -6,10 +6,7 @@ import { useProductsContext } from "../../../app/providers/ProductsContext.tsx";
 import { useNavigate } from "react-router-dom";
 import { permanentlyRemoveProduct } from "../../../api/productsHTTPRequests.ts";
 import type { ProductProps } from "../types.js";
-import type {
-  ActionBtn,
-  DisplayedProduct,
-} from "../../../shared/types/types.ts";
+import type { DisplayedProduct } from "../../../shared/types/types.ts";
 
 const Product: React.FC<PropsWithChildren<ProductProps>> = React.memo(
   ({ product, editable, actionBtns, children }) => {

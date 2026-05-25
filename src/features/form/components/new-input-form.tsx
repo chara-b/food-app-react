@@ -6,39 +6,9 @@ import Form from "./form.js";
 import { newInputForm } from "../constants/formNames.js";
 
 const NewInputForm = memo(({ onSubmit }) => {
-  const {
-    formState,
-    setFormState,
-    formErrors,
-    setFormErrors,
-    isFormValid,
-    onChange,
-    user,
-    isAuthenticated,
-    logout,
-    submitLogin,
-    submitNewProduct,
-    updateProductDetails,
-    updateWholeProductDetails,
-    submitNewInputFields,
-  } = useFormContext();
+  const { formErrors, onChange } = useFormContext();
 
-  const {
-    showCustomModal,
-    modalTriggerButtonName,
-    modalTitle,
-    modalContent,
-    modalIcon,
-    modalActionBtnLeft,
-    modalActionBtnRight,
-    addNewInputModalResultData,
-    addNewInputDisabledBtn,
-    addNewInputFormState,
-    dispatch,
-    onAddNewInputField,
-    onCloseModal,
-    onConfirmModal,
-  } = useCustomModalContext();
+  const { onCloseModal } = useCustomModalContext();
 
   const formRef = useRef();
 

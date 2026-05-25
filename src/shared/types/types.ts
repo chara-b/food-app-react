@@ -16,6 +16,12 @@ export type DisplayedProduct = {
   [key: string]: unknown;
 };
 
+export type ProductDetails = {
+  id: string;
+  propToUpdate: string;
+  newValue: boolean;
+};
+
 export type InputProps = {
   label?: string;
   id?: string;

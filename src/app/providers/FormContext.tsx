@@ -4,15 +4,16 @@ import {
   createNewProduct,
   updateProduct,
   updateWholeProduct,
-} from "../services/productsHTTPRequests.js";
-import { useForm } from "../hooks/useForm.jsx";
+} from "../../api/productsHTTPRequests.ts";
+import { useForm } from "../../features/form/hooks/useForm.tsx";
 import { useAuthContext } from "./FakeAuthContext.js";
 import {
   newProductForm,
   editProductForm,
   newInputForm,
-} from "../constants/formNames.js";
-import { productData } from "../constants/productData.js";
+} from "../../constants/formNames.ts";
+import { productData } from "../../constants/productData.ts";
+import type { ProductDetails } from "../../shared/types/types.js";
 
 const FormContext = createContext(null);
 
@@ -43,14 +44,14 @@ function FormContextProvider({ children }) {
       // get form fields value
       // the ingredient inputs
       const ingredients = Array.from(
-        formRef?.current?.querySelectorAll(`[name^='${formName}_ingredient']`),
+        formRef?.current?.querySelectorAll(`[name^='${formName}_ingredient']`)
       )
         .map((ingredientElem) => ingredientElem.value)
         .join(",");
 
       // and the rest labeled inputs
       const inputs = Array.from(
-        formRef?.current?.querySelectorAll(`input[id*="feature"]`),
+        formRef?.current?.querySelectorAll(`input[id*="feature"]`)
       ).map((input) => ({
         name: `${input.name}`,
         value: input.value,
@@ -94,7 +95,7 @@ function FormContextProvider({ children }) {
         return product;
       }
     },
-    [setFormErrors, validateForm],
+    [setFormErrors, validateForm]
   );
 
   const submitLogin = useCallback(
@@ -103,7 +104,7 @@ function FormContextProvider({ children }) {
 
       const email = formRef.current?.querySelector('input[name="email"]').value;
       const password = formRef.current?.querySelector(
-        'input[name="password"]',
+        'input[name="password"]'
       ).value;
 
       const { formErrors, isFormValid } = validateForm({
@@ -134,7 +135,7 @@ function FormContextProvider({ children }) {
         return { error };
       }
     },
-    [login, setFormErrors, validateForm],
+    [login, setFormErrors, validateForm]
   );
 
   const submitNewProduct = useCallback(
@@ -145,7 +146,7 @@ function FormContextProvider({ children }) {
         productData,
         formRef,
         imageBase64,
-        newProductForm,
+        newProductForm
       );
 
       if (product) {
@@ -159,18 +160,21 @@ function FormContextProvider({ children }) {
         }
       }
     },
-    [getAndValidateForm],
+    [getAndValidateForm]
   );
 
-  const updateProductDetails = useCallback(async (productDetails) => {
-    try {
-      await updateProduct(productDetails);
-      console.log("product details updated");
-    } catch (error) {
-      console.error("Failed to update product details:", error);
-      throw error;
-    }
-  }, []);
+  const updateProductDetails = useCallback(
+    async (productDetails: ProductDetails) => {
+      try {
+        await updateProduct(productDetails);
+        console.log("product details updated");
+      } catch (error) {
+        console.error("Failed to update product details:", error);
+        throw error;
+      }
+    },
+    []
+  );
 
   const updateWholeProductDetails = useCallback(
     async (e, formRef, imageBase64, editedProduct) => {
@@ -180,7 +184,7 @@ function FormContextProvider({ children }) {
         { id: editedProduct.id },
         formRef,
         imageBase64,
-        editProductForm,
+        editProductForm
       );
       if (product) {
         try {
@@ -194,7 +198,7 @@ function FormContextProvider({ children }) {
         }
       }
     },
-    [getAndValidateForm, setFormState],
+    [getAndValidateForm, setFormState]
   );
 
   const submitNewInputFields = useCallback(
@@ -207,11 +211,11 @@ function FormContextProvider({ children }) {
       };
 
       const label = formRef.current?.querySelector(
-        `input[name="${newInputForm}_label"]`,
+        `input[name="${newInputForm}_label"]`
       ).value;
 
       const value = formRef.current?.querySelector(
-        `input[name="${newInputForm}_value"]`,
+        `input[name="${newInputForm}_value"]`
       ).value;
 
       const { formErrors, isFormValid } = validateForm({
@@ -237,7 +241,7 @@ function FormContextProvider({ children }) {
         return newInput;
       }
     },
-    [setFormErrors, validateForm],
+    [setFormErrors, validateForm]
   );
 
   const value = useMemo(
@@ -274,7 +278,7 @@ function FormContextProvider({ children }) {
       updateProductDetails,
       updateWholeProductDetails,
       user,
-    ],
+    ]
   );
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
 }

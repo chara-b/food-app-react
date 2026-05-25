@@ -6,22 +6,8 @@ import { useEffect, useRef } from "react";
 
 function Login() {
   const navigate = useNavigate();
-  const {
-    formState,
-    setFormState,
-    formErrors,
-    setFormErrors,
-    isFormValid,
-    onChange,
-    user,
-    isAuthenticated,
-    logout,
-    submitLogin,
-    submitNewProduct,
-    updateProductDetails,
-    updateWholeProductDetails,
-    submitNewInputFields,
-  } = useFormContext();
+  const { formErrors, onChange, isAuthenticated, submitLogin } =
+    useFormContext();
 
   const formRef = useRef();
 

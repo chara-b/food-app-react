@@ -13,22 +13,7 @@ function ProductPage() {
 
   const navigate = useNavigate();
 
-  const {
-    formState,
-    setFormState,
-    formErrors,
-    setFormErrors,
-    isFormValid,
-    onChange,
-    user,
-    isAuthenticated,
-    logout,
-    submitLogin,
-    submitNewProduct,
-    updateProductDetails,
-    updateWholeProductDetails,
-    submitNewInputFields,
-  } = useFormContext();
+  const { updateWholeProductDetails } = useFormContext();
 
   const { getAvailableProducts, imageFile, imageBase64, onImageFileChange } =
     useProductsContext();
@@ -39,7 +24,7 @@ function ProductPage() {
         e,
         formRef,
         imageBase64,
-        fetchedProduct,
+        fetchedProduct
       );
       if (submitted) {
         navigate(`/products`, { replace: true });
@@ -52,7 +37,7 @@ function ProductPage() {
       imageBase64,
       navigate,
       updateWholeProductDetails,
-    ],
+    ]
   );
 
   const handleCancel = useCallback(() => {
