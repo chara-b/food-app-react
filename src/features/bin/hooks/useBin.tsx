@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useProductsContext } from "../../../app/providers/ProductsContext.js";
 import { useLoaderData, useLocation, useNavigation } from "react-router-dom";
-import type { ActionBtn, BinProps, DisplayedProduct } from "../types.ts";
+import type { BinProps } from "../types.ts";
+import type {
+  ActionBtn,
+  DisplayedProduct,
+} from "../../../shared/types/types.ts";
 
 export const useBin = (): BinProps => {
   const disabledProductsLoaded = useLoaderData<DisplayedProduct[]>();

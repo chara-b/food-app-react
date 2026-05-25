@@ -1,4 +1,4 @@
-import Input from "./input";
+import Input from "../../../shared/components/input.tsx";
 
 function CardSection1({ imgName, imageFile, allowUploadPhoto, onChange }) {
   if (allowUploadPhoto) {
