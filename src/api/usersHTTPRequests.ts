@@ -1,6 +1,7 @@
 import config from "../config.ts";
+import type { User } from "../shared/types/types.ts";
 
-export async function fetchUser(email) {
+export async function fetchUser(email: string): Promise<User> {
   try {
     const res = await fetch(`${config.USERS_URL}?email=${email}`);
 

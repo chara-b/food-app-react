@@ -1,15 +1,27 @@
 /* eslint-disable no-unused-vars */
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type PropsWithChildren,
+} from "react";
 import { useFormContext } from "../../../app/providers/FormContext.tsx";
 import { useCustomModalContext } from "../../../app/providers/CustomModalContext.tsx";
 
-import MemoizedCustomModal from "./custom-modal.js";
-import Form from "./form.js";
-import Button from "./button.js";
-import NewInputForm from "./new-input-form.js";
-import { newInputForm } from "../constants/formNames.js";
+import MemoizedCustomModal from "../../custom-modal/components/custom-modal.tsx";
+import Form from "../../form/components/form.tsx";
+import Button from "../../../shared/components/button.tsx";
+import NewInputForm from "../../form/components/new-input-form.tsx";
+import { newInputForm } from "../../../constants/formNames.ts";
+import type { NewInputDetails, ProductFormProps } from "../types.ts";
 
-function ProductForm({ product, formName, onClick, onSubmit }) {
+const ProductForm: React.FC<PropsWithChildren<ProductFormProps>> = ({
+  product,
+  formName,
+  onClick,
+  onSubmit,
+}) => {
   const {
     showCustomModal,
     modalTriggerButtonName,
@@ -31,32 +43,34 @@ function ProductForm({ product, formName, onClick, onSubmit }) {
   } = useFormContext();
 
   // for ingredient inputs with no labels
-  const ingredients = Object.entries(formState).filter(([key, value]) =>
+  const ingredients = Object.entries(formState).filter(([key]) =>
     key.includes(`${formName}_ingredient`)
   );
 
-  const rowsCount = useRef(product?.ingredients_visible?.length);
+  const rowsCount = useRef<number>(product?.ingredients_visible?.length);
 
   // for other inputs with labels
-  const [newInputsDetails, setNewInputsDetails] = useState([]);
+  const [newInputsDetails, setNewInputsDetails] = useState<NewInputDetails[]>(
+    []
+  );
 
   function handleAddNewIngredient() {
     rowsCount.current += 1;
     onChange(`${formName}_ingredient${rowsCount.current}`, "");
   }
 
-  function handleRemoveIngredient(fieldName) {
+  function handleRemoveIngredient(fieldName: string) {
     onDelete(fieldName);
   }
 
   const handleCloseModal = useCallback(
-    (e, formRef) => {
+    (e: React.SubmitEvent, formRef: HTMLFormElement) => {
       e.preventDefault();
       const newInputDetails = submitNewInputFields(e, formRef);
       console.log("newInput:", newInputDetails);
 
       if (newInputDetails) {
-        const found = Object.keys(formState).find((key) =>
+        const found = !!Object.keys(formState).find((key) =>
           key.includes(`${formName}_${newInputDetails.label}`)
         );
 
@@ -123,7 +137,7 @@ function ProductForm({ product, formName, onClick, onSubmit }) {
     });
   }, []);
 
-  const formRef = useRef();
+  const formRef = useRef<HTMLFormElement>(null);
   return (
     <>
       <Form
@@ -164,6 +178,6 @@ function ProductForm({ product, formName, onClick, onSubmit }) {
       )}
     </>
   );
-}
+};
 
 export default ProductForm;

@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { createContext, useCallback, useContext, useMemo } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  type PropsWithChildren,
+} from "react";
 import {
   createNewProduct,
   updateProduct,
@@ -13,11 +19,16 @@ import {
   newInputForm,
 } from "../../constants/formNames.ts";
 import { productData } from "../../constants/productData.ts";
-import type { ProductDetails } from "../../shared/types/types.js";
+import type { DisplayedProduct } from "../../shared/types/types.js";
+import type {
+  FormContextType,
+  NewInputField,
+  ProductDetails,
+} from "./types/FormContextTypes.ts";
 
-const FormContext = createContext(null);
+const FormContext = createContext<FormContextType>(null);
 
-function FormContextProvider({ children }) {
+const FormContextProvider: React.FC<PropsWithChildren> = (props) => {
   const {
     formState,
     setFormState,
@@ -32,7 +43,12 @@ function FormContextProvider({ children }) {
   const { user, isAuthenticated, login, logout } = useAuthContext();
 
   const getAndValidateForm = useCallback(
-    function (productData, formRef, imageBase64, formName) {
+    function (
+      productData: DisplayedProduct,
+      formRef: React.RefObject<HTMLFormElement>,
+      imageBase64: string,
+      formName: string
+    ): DisplayedProduct | void {
       // fill product that will be submitted with the rest props that a product needs to have if we submit a new product
       // (those props are not visible on the form but exist in the json server so we need to provide them too !)
       // or fill only the id of the product that is needed when we update
@@ -44,14 +60,18 @@ function FormContextProvider({ children }) {
       // get form fields value
       // the ingredient inputs
       const ingredients = Array.from(
-        formRef?.current?.querySelectorAll(`[name^='${formName}_ingredient']`)
+        formRef?.current?.querySelectorAll<HTMLInputElement>(
+          `[name^='${formName}_ingredient']`
+        )
       )
         .map((ingredientElem) => ingredientElem.value)
         .join(",");
 
       // and the rest labeled inputs
       const inputs = Array.from(
-        formRef?.current?.querySelectorAll(`input[id*="feature"]`)
+        formRef?.current?.querySelectorAll<HTMLInputElement>(
+          `input[id*="feature"]`
+        )
       ).map((input) => ({
         name: `${input.name}`,
         value: input.value,
@@ -99,11 +119,16 @@ function FormContextProvider({ children }) {
   );
 
   const submitLogin = useCallback(
-    async (e, formRef) => {
+    async (
+      e: React.SubmitEvent,
+      formRef: React.RefObject<HTMLFormElement>
+    ): Promise<object | void> => {
       e.preventDefault();
 
-      const email = formRef.current?.querySelector('input[name="email"]').value;
-      const password = formRef.current?.querySelector(
+      const email = formRef.current?.querySelector<HTMLInputElement>(
+        'input[name="email"]'
+      ).value;
+      const password = formRef.current?.querySelector<HTMLInputElement>(
         'input[name="password"]'
       ).value;
 
@@ -139,7 +164,11 @@ function FormContextProvider({ children }) {
   );
 
   const submitNewProduct = useCallback(
-    async (e, formRef, imageBase64) => {
+    async (
+      e: React.SubmitEvent,
+      formRef: React.RefObject<HTMLFormElement>,
+      imageBase64: string
+    ): Promise<boolean> => {
       e.preventDefault();
 
       const product = getAndValidateForm(
@@ -164,7 +193,7 @@ function FormContextProvider({ children }) {
   );
 
   const updateProductDetails = useCallback(
-    async (productDetails: ProductDetails) => {
+    async (productDetails: ProductDetails): Promise<void> => {
       try {
         await updateProduct(productDetails);
         console.log("product details updated");
@@ -177,7 +206,12 @@ function FormContextProvider({ children }) {
   );
 
   const updateWholeProductDetails = useCallback(
-    async (e, formRef, imageBase64, editedProduct) => {
+    async (
+      e: React.SubmitEvent,
+      formRef: React.RefObject<HTMLFormElement>,
+      imageBase64: string,
+      editedProduct: DisplayedProduct
+    ): Promise<boolean> => {
       e.preventDefault();
 
       const product = getAndValidateForm(
@@ -202,7 +236,10 @@ function FormContextProvider({ children }) {
   );
 
   const submitNewInputFields = useCallback(
-    (e, formRef) => {
+    (
+      e: React.SubmitEvent,
+      formRef: React.RefObject<HTMLFormElement>
+    ): NewInputField | void => {
       e.preventDefault();
 
       const newInput = {
@@ -210,11 +247,11 @@ function FormContextProvider({ children }) {
         value: "",
       };
 
-      const label = formRef.current?.querySelector(
+      const label = formRef.current?.querySelector<HTMLInputElement>(
         `input[name="${newInputForm}_label"]`
       ).value;
 
-      const value = formRef.current?.querySelector(
+      const value = formRef.current?.querySelector<HTMLInputElement>(
         `input[name="${newInputForm}_value"]`
       ).value;
 
@@ -244,7 +281,7 @@ function FormContextProvider({ children }) {
     [setFormErrors, validateForm]
   );
 
-  const value = useMemo(
+  const value = useMemo<FormContextType>(
     () => ({
       formState,
       setFormState,
@@ -280,8 +317,10 @@ function FormContextProvider({ children }) {
       user,
     ]
   );
-  return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
-}
+  return (
+    <FormContext.Provider value={value}>{props.children}</FormContext.Provider>
+  );
+};
 
 /* eslint-disable react-refresh/only-export-components */
 function useFormContext() {

@@ -5,7 +5,7 @@ import {
   useMemo,
   useReducer,
 } from "react";
-import { fetchUser } from "../services/usersHTTPRequests";
+import { fetchUser } from "../../api/usersHTTPRequests.ts";
 
 const AuthContext = createContext();
 
@@ -26,7 +26,7 @@ function AuthContextProvider({ children }) {
       user: cachedUser,
       isAuthenticated: cachedUser ? true : false,
     }),
-    [cachedUser],
+    [cachedUser]
   );
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -48,7 +48,7 @@ function AuthContextProvider({ children }) {
     }
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback((): void => {
     dispatch({ type: "logout" });
     localStorage.removeItem("user");
   }, []);
@@ -60,7 +60,7 @@ function AuthContextProvider({ children }) {
       login,
       logout,
     }),
-    [user, isAuthenticated, login, logout],
+    [user, isAuthenticated, login, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

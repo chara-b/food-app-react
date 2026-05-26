@@ -5,21 +5,15 @@ export type ActionBtn = {
 };
 export type DisplayedProduct = {
   id?: string;
-  title_visible: string;
-  ingredients_visible: string[];
-  price_visible: string;
-  currency: string;
-  currency_symbol: string;
-  imgName: string;
-  quantity_visible: string;
-  disabled: boolean;
+  title_visible?: string;
+  ingredients_visible?: string[];
+  price_visible?: string;
+  currency?: string;
+  currency_symbol?: string;
+  imgName?: string;
+  quantity_visible?: string;
+  disabled?: boolean;
   [key: string]: unknown;
-};
-
-export type ProductDetails = {
-  id: string;
-  propToUpdate: string;
-  newValue: boolean;
 };
 
 export type InputProps = {
@@ -41,4 +35,13 @@ export type ButtonProps = {
   styles?: string;
   onClick: () => void;
   disabled?: boolean;
+};
+
+export type User = {
+  id: string | number;
+  username: string;
+  password: string;
+  email: string;
+  firstName: string;
+  lastName: string;
 };
